@@ -77,6 +77,11 @@ rails ridgepole:apply
 ```
 で変更を反映できる。
 
+## modelを作る際には
+```
+rails g model Foo --skip-migration
+```
+
 # bootstrap4導入
 
 https://qiita.com/NaokiIshimura/items/c8db09daefff5c11dadf
