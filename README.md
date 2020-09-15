@@ -86,4 +86,5 @@ rails g model Foo --skip-migration
 
 https://qiita.com/NaokiIshimura/items/c8db09daefff5c11dadf
 
-* ...
+## チートシート
+https://hackerthemes.com/bootstrap-cheatsheet/#!
