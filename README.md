@@ -68,6 +68,18 @@ end
 ```
 ## 使用方法
 db/にhoge.schemaを作成
+
+例 articles.schema
+``` 
+create_table "articles", force: :cascade do |t|
+  t.string   "title"
+  t.text     "text"
+  
+  t.datetime "created_at"
+  t.datetime "updated_at"
+end
+```
+
 ```
 rails ridgepole:dry-run 
 ```
