@@ -6,7 +6,7 @@ create_table :users do |t|
       t.string :first_name, null: false
       t.string :kana_last_name
       t.string :kana_first_name
-      t.strung :telephone_number
+      t.string :telephone_number
       t.integer :sex
       t.string :login_name
       t.string :profile_image_id
