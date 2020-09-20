@@ -54,6 +54,11 @@
 </div>
 
   <body>
+    <!-- フラッシュメッセージの表示 -->
+    <% if flash[:notice] %>
+      <%= flash[:notice] %>
+    <% end %>
+
     <%= yield %>
   </body>
 
