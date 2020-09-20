@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get "home" => "homes#home", as: "home"
   root "homes#top"
 
+  resources :stores
 
 end
