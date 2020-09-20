@@ -11,34 +11,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#">Hidden brand</a>
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+
+        <div id="dismiss">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        
+        <div class="sidebar-header">
+            <h3>SKY SCHEDULER</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#">店舗１</a>
+            </li>
+            <li>
+                <a href="#">店舗２</a>
+            </li>
+            <li>
+                <a href="#">店舗３</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="overlay"></div>
+    <!-- Page Content -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    
+                </button>
+            </div>
+        </nav>
+    </div>
+    <!-- Dark Overlay element -->
+    
+</div>
+
   <body>
     <%= yield %>
   </body>
 
-  
+<ul class="nav fixed-bottom nav-pills nav-justified">
+  <li class="nav-item">
+    <a class="nav-link active" href="#!"><i class="fas fa-calendar"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!"><i class="fas fa-envelope"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!"><i class="fas fa-file"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!"><i class="fas fa-cogs"></i></a>
+  </li>
+</ul>
 
   
 
