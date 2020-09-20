@@ -4,10 +4,54 @@
     <title>SkyShift</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <% if user_signed_in? %>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+
+        <div id="dismiss">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        
+        <div class="sidebar-header">
+            <h3>SKY SCHEDULER</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#">店舗１</a>
+            </li>
+            <li>
+                <a href="#">店舗２</a>
+            </li>
+            <li>
+                <a href="#">店舗３</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="overlay"></div>
+    <!-- Page Content -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    
+                </button>
+            </div>
+        </nav>
+    </div>
+    <!-- Dark Overlay element -->
+    
+</div>
 
   <body>
     <!-- フラッシュメッセージの表示 -->
@@ -17,4 +61,27 @@
 
     <%= yield %>
   </body>
+
+<ul class="nav fixed-bottom nav-pills nav-justified">
+  <li class="nav-item">
+    <a class="nav-link active" href="#!"><i class="fas fa-calendar"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!"><i class="fas fa-envelope"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!"><i class="fas fa-file"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!"><i class="fas fa-cogs"></i></a>
+  </li>
+</ul>
+<%else%>
+  <body>
+    <%= yield %>
+  </body>
+<%end%>
+
+  
+
 </html>
