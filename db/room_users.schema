@@ -1,0 +1,6 @@
+create_table "room_users", force: :cascade do |t|
+  t.integer  "room_id", null: false
+  t.integer  "user_id", null: false
+  
+  t.timestamps null: false
+end

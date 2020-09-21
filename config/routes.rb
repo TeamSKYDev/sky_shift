@@ -13,4 +13,8 @@ Rails.application.routes.draw do
   patch "users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
   resources :users, only: [:show, :update]
 
+  resources :rooms do
+    resources :messages
+  end
+
 end

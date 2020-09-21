@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   enum sex: {men: 1, women: 2, other: 3}
 
+  has_many :rooms, through: :room_users
+  has_many :room_users, dependent: :destroy
+
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :telephone_number, presence: true
