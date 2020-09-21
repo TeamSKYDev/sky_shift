@@ -8,4 +8,9 @@ Rails.application.routes.draw do
   resources :stores
 
 
+
+  patch "users/selecte_store" => "users#select_store", as: "select_store"
+  patch "users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
+  resources :users, only: [:show, :update]
+
 end
