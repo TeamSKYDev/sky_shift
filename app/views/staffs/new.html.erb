@@ -1,0 +1,27 @@
+<h3>新規スタッフ登録ページ</h3>
+
+<%# form_tag(new_staffs_path, :method => "get") do %>
+	<%# text_field_tag :search, "", class: "serch-form", placeholder: "店舗コードを入力" %>
+	<%# button_tag :type => "submit", class: "btn", :name => nil do %>
+		<!-- <span class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
+	<%# end %>
+<%# end %>
+
+<!-- def self.search(search)
+		if search
+			Store.where(['uuid LIKE ?', "#{search}"])
+		end
+	end -->
+
+<!-- @store = Store.search(params[:search]) -->
+
+
+<% if @store.present? %>
+	<label>店舗名：　</label><%= @store.name %>
+	<%= form_for(@staff) do |f| %>
+		<%= f.hidden_field :store_id %>
+		<%= f.submit "申請を送る" %>
+	<% end %>
+<% else %>
+	<p>コードを入力しなおしてください</p>
+<% end %>
