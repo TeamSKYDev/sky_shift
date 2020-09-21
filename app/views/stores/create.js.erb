@@ -1,0 +1,7 @@
+<% if @status == 'success' %>
+$("#stores").append("<%= j(render("li", store: @store)) %>");
+console.log("success")
+<%  elsif @status == 'fail' %>
+alert('error!');
+<% end %>
+$("#store-modal").modal("hide");

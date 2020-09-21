@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get "home" => "homes#home", as: "home"
   root "homes#top"
+  resources :stores
+
 
 
   patch "users/selecte_store" => "users#select_store", as: "select_store"
