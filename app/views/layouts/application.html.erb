@@ -23,7 +23,7 @@
             <h3>SKY SCHEDULER</h3>
         </div>
 
-        <ul class="list-unstyled components">
+        <ul class="list-unstyled components" id="stores">
             <li>
                 <a href="#">店舗１</a>
             </li>
@@ -33,9 +33,13 @@
             <li>
                 <a href="#">店舗３</a>
             </li>
-
+            
         </ul>
-        <%= link_to "新規店舗登録", new_store_path, remote: true %>
+        <%= link_to new_store_path, remote: true do %>
+          <div class="new_store" style="text-align:center">
+            <i class="fas fa-plus"></i>
+          </div>
+        <% end %>
         <div id="store-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     </nav>
     <div class="overlay"></div>
