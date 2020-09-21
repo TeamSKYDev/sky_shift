@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
+  has_many :staffs
+  has_many :stores, through: :staffs
+
   enum sex: {men: 1, women: 2, other: 3}
 
   validates :last_name, presence: true
@@ -13,4 +17,5 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && (self.is_unsubscribe == false)
   end
+
 end

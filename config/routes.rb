@@ -13,4 +13,8 @@ Rails.application.routes.draw do
   patch "users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
   resources :users, only: [:show, :update]
 
+  patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
+  patch "staffs/unsubscribe" => "staffs/unsubscribe", as: "staff_unsubscribe"
+  patch "staffs/permit" => "staffs/permit", as: "staff_permit"
+  resources :staffs, only: [:new, :index, :create, :show, :update]
 end

@@ -20,25 +20,21 @@
           </div>
           
           <div class="sidebar-header">
-              <h3>SKY SCHEDULER</h3>
+              <h3><%= link_to "SKY SCHEDULER", home_path %></h3>
           </div>
 
           <ul class="list-unstyled components">
             <li><%= link_to "登録情報", user_path(current_user.id) %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "新規店舗登録", new_staff_path %></li>
           </ul>
 
         <ul class="list-unstyled components" id="stores">
-            <li>
-                <a href="#">店舗１</a>
-            </li>
-            <li>
-                <a href="#">店舗２</a>
-            </li>
-            <li>
-                <a href="#">店舗３</a>
-            </li>
-            
+            <% @stores.each do |store| %>
+              <li>
+                  <%= link_to store.name, store_path(store.id) %>
+              </li>
+            <% end %>
         </ul>
         <%= link_to new_store_path, remote: true do %>
           <div class="new_store" style="text-align:center">

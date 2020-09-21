@@ -1,0 +1,31 @@
+<h3>スタッフ一覧ページ</h3>
+
+<table class = "table">
+	<tr>
+		<th>名前</th>
+		<th>電話番号</th>
+		<th>連携状態</th>
+		<th>管理者権限</th>
+	</tr>
+	<% @staffs.each do |staff| %>
+		<tr>
+			<td><%= staff.user.last_name + staff.user.first_name %></td>
+			<td><%= staff.user.telephone_number %></td>
+			<td>
+				<% if staff.is_permitted_status == true %>
+					連携済み
+				<% else %>
+					未連携
+				<% end %>
+			</td>
+			<td>
+				<% if staff.is_admin == true %>
+					管理者
+				<% else %>
+					なし
+				<% end %>
+			</td>
+		</tr>
+	
+	<% end %>
+</table>
