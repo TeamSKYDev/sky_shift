@@ -14,11 +14,12 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require rails-ujs
+//= require jquery.turbolinks
 //= require activestorage
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function () {
+document.addEventListener("turbolinks:load", function () {
     // $("#sidebar").mCustomScrollbar({
     //     theme: "minimal"
     // });
