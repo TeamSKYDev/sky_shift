@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
 
   has_many :staffs
+  has_many :stores, through: :staffs
 
   enum sex: {men: 1, women: 2, other: 3}
 

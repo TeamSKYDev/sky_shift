@@ -4,14 +4,15 @@ class ApplicationController < ActionController::Base
 	before_action :get_stores
 
 	def get_stores
-		# if current_user.present?
-		# 	@rooms = current_users.stores
-		# end
+		if current_user.present?
+		 	@stores = current_user.stores
+		end
 	end
 
 	def after_sign_in_path_for(resouce)
 		home_path
 	end
+
 
 	private
 	def configure_permitted_parameters

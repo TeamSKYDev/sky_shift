@@ -1,5 +1,6 @@
 create_table :staffs do |t|
 	t.integer :user_id, null: false
+	t.integer :store_id, null: false
 	t.boolean :is_admin, null: false, default: false
 	t.integer :hourly_pay
 	t.integer :transportation_expenses
