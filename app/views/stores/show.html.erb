@@ -1,1 +1,19 @@
 店舗<%= @store.name %>の画面
+
+<p>連携承認 　<%= @unrelated_staffs.count %>件</p>
+<p>承認コード：　<%= @store.uuid %></p>
+
+<table class = "table">
+	<tr>
+		<th>名前</th>
+		<th></th>
+	<tr>
+	<% @unrelated_staffs.each do |unrelated_staff| %>
+		<tr>
+			<td><%= unrelated_staff.user.last_name  + unrelated_staff.user.first_name %></td>
+			<td><%= link_to "承認する", staff_permit_path(params: {id: unrelated_staff.id}), method: :patch, class: "btn btn-info" %></td>
+		</tr>
+	<% end %>
+</tr>
+
+<p><%= link_to "スタッフ一覧", staffs_path %></p>
