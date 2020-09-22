@@ -1,0 +1,7 @@
+<% @rooms.each do |room| %>
+    <% if room.name.present? %>
+        <p><%= room.name %></p>
+    <% else %>
+        <p><%= room.default_name %></p>
+    <% end %>
+<% end %>

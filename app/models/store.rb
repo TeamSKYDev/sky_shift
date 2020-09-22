@@ -5,7 +5,6 @@ class Store < ApplicationRecord
 	has_many :staffs
 	has_many :users, through: :staffs
 
-
     validates :name, presence: true
 
 
