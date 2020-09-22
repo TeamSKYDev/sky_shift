@@ -1,41 +1,71 @@
 class StaffsController < ApplicationController
+	before_action :check_selected_store, except: [:new, :create]
+
+	def check_selected_store
+		if current_user.selected_store.blank?
+			redirect_to home_path
+		end
+	end
+
 	def new
 		@staff = Staff.new
 		@store = Store.search(params[:search])
 	end
 
 	def index
+		staff = Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store)
+		if staff.is_admin == false
+			redirect_to home_path
+		end
 		@staffs = Staff.where(store_id: current_user.selected_store, is_unsubscribe: false)
 	end
 
 	def create
 		store = Store.find_by(uuid: params[:store][:uuid])
-		staff = Staff.new
-		staff.user_id = current_user.id
-		staff.store_id = store.id
-		if staff.save
-			flash[:notice] = "send staff authentication"
-			redirect_to home_path
-		else
-			flash[:notice] = "false"
+		related_staff = Staff.find_by(store_id: store.id, user_id: current_user.id)
+
+		if related_staff.present?
+			if related_staff.is_permitted_status == true
+				flash[:notice] = "already permit"
+			else
+				flash[:notice] = "already send. wait for staff authentication."
+			end
 			redirect_to new_staff_path
+		else
+			staff = Staff.new
+			staff.user_id = current_user.id
+			staff.store_id = store.id
+			if staff.save
+				flash[:notice] = "send staff authentication"
+				redirect_to home_path
+			else
+				flash[:notice] = "false"
+				redirect_to new_staff_path
+			end
 		end
 	end
 
 	def show
 		@staff = Staff.find(params[:id])
+		if Staff.find_by(user_id: current_user.id, store_id: @staff.store_id).is_permitted_status != true
+			redirect_to home_path
+		end
 	end
 
 	def update
 		staff = Staff.find(params[:id])
-		staff.update(staff_params)
-		redirect_to home_path
+		if staff.update(staff_params)
+			flash[:notice] = "update successhully"
+		else
+			flash[:notice] = "connot update"
+		end
+		redirect_to staff_path(staff.id)
 	end
 
 	def permit
 		staff = Staff.find(params[:id])
 		staff.update(is_permitted_status: true)
-		redirect_to store_path(current_user.selected_store)
+		redirect_to staff_path(staff)
 	end
 
 	def authentication_admin
@@ -47,12 +77,12 @@ class StaffsController < ApplicationController
 	def unsubscribe
 		staff = Staff.find(params[:id])
 		staff.update(is_unsubscribe: true)
-		redirect_to home_path
+		redirect_to staffs_path
 	end
 
 	private
 	def staff_params
-		params.require(:staff).permit(:store_id, :hourly_pay, :transportation_expenses)
+		params.require(:staff).permit(:store_id, :hourly_pay, :transportation_expenses, :is_admin)
 	end
 
 

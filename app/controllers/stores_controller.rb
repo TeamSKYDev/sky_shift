@@ -1,4 +1,12 @@
 class StoresController < ApplicationController
+    before_action :check_selected_store, except: [:new, :create, :show]
+
+    def check_selected_store
+        if current_user.selected_store.blank?
+            redirect_to home_path
+        end
+    end
+
     def new
         @store = Store.new
     end
@@ -37,9 +45,14 @@ class StoresController < ApplicationController
     end
 
     def show
-        @store = Store.find(params[:id])
-        @unrelated_staffs = Staff.where(is_permitted_status: false)
         current_user.update(selected_store: params[:id])
+        @store = Store.find(params[:id])
+        @staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
+        if @staff.blank? || @staff.is_permitted_status == false
+            redirect_to home_path
+        end
+        @unrelated_staffs = Staff.where(is_permitted_status: false, store_id: @store.id)
+        
     end
 
     private

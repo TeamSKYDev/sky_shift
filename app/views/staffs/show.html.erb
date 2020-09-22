@@ -1,0 +1,27 @@
+<h3>スタッフ詳細ページ</h3>
+<%= form_for(@staff) do |f| %>
+	<label>店舗名</label><%= @staff.store.name %><br>
+	<label>名前</label><%= @staff.user.last_name + @staff.user.first_name %><br>
+	<lavel>電話番号</lavel><%= @staff.user.telephone_number %><br>
+
+	<% if @staff.user.id == @staff.store.creator_id %>
+		<p>店舗作成者</p>
+
+	<% elsif @staff.is_permitted_status != true %>
+		<label>連携承認</label>
+		<%= link_to "承認する", staff_permit_path(params: {id: @staff.id}), method: :patch, class: "btn btn-info" %>
+		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, class: "btn btn-danger" %>
+
+	<% else %>
+		<label>時給</label><%= f.text_field :hourly_pay %>円<br>
+		<label>交通費</label><%= f.text_field :transportation_expenses %>円<br>
+		<label>管理者権限</label>
+		<%= f.radio_button :is_admin, true %><lavel>あり</lavel>
+		<%= f.radio_button :is_admin, false %><label>なし</label><br><br>
+
+		<%= f.submit "保存する", class: "btn btn-info" %>
+		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, class: "btn btn-danger" %>
+	<% end %>
+	<br><br>
+	<%= link_to "戻る", staffs_path %>
+<% end %>
