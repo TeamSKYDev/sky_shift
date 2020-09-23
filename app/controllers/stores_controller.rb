@@ -55,6 +55,34 @@ class StoresController < ApplicationController
         
     end
 
+    def edit
+        @store = Store.find(params[:id])
+        @creator = User.find_by(id: @store.creator_id)
+
+        @staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
+        if @staff.blank? || @staff.is_permitted_status == false || @staff.is_admin == false
+            redirect_to home_path
+        end
+    end
+
+    def update
+        @store = Store.find(params[:id])
+        if @store.update(store_params)
+            flash[:notice] = "store update successfully"
+        else
+            flash[:notice] = "cannot update"
+        end
+        redirect_to store_path(@store)
+    end
+
+    def destroy
+        @store = Store.find(params[:id])
+        store_name = @store.name
+        @store.destroy
+        flash[:notice] = "dastroy #{store_name}"
+        redirect_to home_path
+    end
+
     private
     def store_params
         params.require(:store).permit(:name)

@@ -1,10 +1,9 @@
-店舗<%= @store.name %>の画面
+<h3>店舗<%= @store.name %>の画面</h3>
 
 
 <% if @staff.is_admin == true %>
-	<p>連携承認 　<%= @unrelated_staffs.count %>件</p>
 	<p>承認コード：　<%= @store.uuid %></p>
-
+	<p>連携承認 　<%= @unrelated_staffs.count %>件</p>
 	<% if @unrelated_staffs.present? %>
 		<table class = "table">
 			<tr>
@@ -21,7 +20,10 @@
 		</table>
 	<% end %>
 
+
 	<p><%= link_to "スタッフ一覧", staffs_path %></p>
+
+	<p><%= link_to "店舗情報の変更", edit_store_path(@store) %></p>
 <% else %>
 	<p>ただのスタッフ</p>
 <% end %>
