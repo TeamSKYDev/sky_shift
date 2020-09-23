@@ -1,0 +1,15 @@
+<div id="message">
+  <div class="card">
+    <div class="card-body">
+      
+      <p class="card-text">
+        <span class="content"><%= message.content %></span>
+      </p>
+      
+    </div>
+  </div>
+  <div class="text-muted">
+    <font size="1">Posted <%= time_ago_in_words(message.created_at) %> ago.</font>
+  </div>
+</div>
+

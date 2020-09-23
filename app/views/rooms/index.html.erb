@@ -1,7 +1,7 @@
 <% @rooms.each do |room| %>
     <% if room.name.present? %>
-        <p><%= room.name %></p>
+        <%= link_to room.name, room_messages_path(room) %>
     <% else %>
-        <p><%= room.default_name %></p>
+        <%= link_to room.default_name, room_messages_path(room) %>
     <% end %>
 <% end %>
