@@ -9,7 +9,11 @@
 	</tr>
 	<% @staffs.each do |staff| %>
 		<tr>
-			<td><%= staff.user.last_name + staff.user.first_name %></td>
+			<td>
+				<%= link_to staff_path(staff.id) do %>
+					<%= staff.user.last_name + staff.user.first_name %>
+				<% end %>
+			</td>
 			<td><%= staff.user.telephone_number %></td>
 			<td>
 				<% if staff.is_permitted_status == true %>
@@ -29,3 +33,6 @@
 	
 	<% end %>
 </table>
+
+<br><br>
+<%= link_to "戻る", store_path(current_user.selected_store) %>
