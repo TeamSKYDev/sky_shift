@@ -1,9 +1,9 @@
-<h3>新規スタッフ登録ページ</h3>
+<h3>新規スタッフ申請ページ</h3>
 
 <%= form_tag(new_staff_path, :method => "get") do %>
 	<%= text_field_tag :search, "", class: "serch-form", placeholder: "店舗コードを入力" %>
 	<%= button_tag :type => "submit", class: "btn", :name => nil do %>
-		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		<i class="fas fa-search"></i>
 	<% end %>
 <% end %>
 
