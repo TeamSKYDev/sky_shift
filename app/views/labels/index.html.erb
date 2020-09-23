@@ -1,0 +1,27 @@
+<h3>ラベル一覧ページ</h3>
+<label>店舗名：　</label><%= @store.name %>
+
+<%= form_for(@label) do |f| %>
+	<%= f.text_field :name, placeholder: "新規ラベル名" %>
+	<%= f.select :work_type, Label.work_types.keys.to_a, {} %>
+	<%= f.submit "保存" %>
+<% end %>
+
+<h4>ラベル一覧</h4>
+<table class = "table">
+	<tr>
+		<th>ラベル名</th>
+		<th>タイプ</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @labels.each do |label| %>
+		<tr>
+			<td><%= label.name %></td>
+			<td><%= label.work_type %></td>
+			<td><%= link_to "編集", "#", class: "btn btn-success" %></td>
+			<td><%= link_to "削除", "#", class: "btn btn-danger" %></td>
+		</tr>
+	<% end %>
+</table>
+

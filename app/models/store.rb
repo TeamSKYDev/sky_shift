@@ -2,6 +2,7 @@ class Store < ApplicationRecord
 
 	has_many :staffs
 	has_many :users, through: :staffs
+	has_many :labels
 
 
     validates :name, presence: true
