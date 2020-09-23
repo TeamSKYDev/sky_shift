@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
-		if @user.if != current_user.id
+		if @user.id != current_user.id
 			redirect_to home_path
 		end
 	end
