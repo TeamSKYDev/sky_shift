@@ -10,17 +10,35 @@
 	<% elsif @staff.is_permitted_status != true %>
 		<label>連携承認</label>
 		<%= link_to "承認する", staff_permit_path(params: {id: @staff.id}), method: :patch, class: "btn btn-info" %>
-		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, class: "btn btn-danger" %>
+		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
 
 	<% else %>
 		<label>時給</label><%= f.text_field :hourly_pay %>円<br>
 		<label>交通費</label><%= f.text_field :transportation_expenses %>円<br>
 		<label>管理者権限</label>
 		<%= f.radio_button :is_admin, true %><lavel>あり</lavel>
-		<%= f.radio_button :is_admin, false %><label>なし</label><br><br>
+		<%= f.radio_button :is_admin, false %><label>なし</label><br>
+
+		<label>ラベル</label>
+		<button class = "select_labels_buttun assigned_labels" type="button">編集</button>
+		<div class = "assigned_labels">
+			<% @staff.labels.each do |label| %>
+				<span style = "color: white; background-color: green;">
+					<%= label.name %>
+				</span>
+		    <% end %>
+		</div>
+	    <div class = "select_labels" style = "display: none;">
+	    	<% @labels.each do |label| %>
+	    		<%= f.collection_check_boxes(:select_label_ids, Label.where(store_id: @staff.id), :id, :name do |b| %>
+	    		<%= b.label { b.check_box + b.text } %>
+	    	<% end %>
+	    </div>
+	    <br>
+
 
 		<%= f.submit "保存する", class: "btn btn-info" %>
-		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, class: "btn btn-danger" %>
+		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
 	<% end %>
 	<br><br>
 	<%= link_to "戻る", staffs_path %>

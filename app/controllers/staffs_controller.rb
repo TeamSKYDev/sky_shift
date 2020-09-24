@@ -1,12 +1,6 @@
 class StaffsController < ApplicationController
 	before_action :check_selected_store, except: [:new, :create]
 
-	def check_selected_store
-		if current_user.selected_store.blank?
-			redirect_to home_path
-		end
-	end
-
 	def new
 		@staff = Staff.new
 		@store = Store.search(params[:search])
@@ -50,10 +44,18 @@ class StaffsController < ApplicationController
 		if Staff.find_by(user_id: current_user.id, store_id: @staff.store_id).is_permitted_status != true
 			redirect_to home_path
 		end
+		@labels = Label.where(store_id: @staff.store_id)
 	end
 
 	def update
 		staff = Staff.find(params[:id])
+		staff_label = StaffLabel.new
+		params[:select_label_ids].each do |select_label_id|
+			staff_label.label_id = select_label_id
+			staff_label.staff_id = staff.id
+			staff.save!
+		end
+
 		if staff.update(staff_params)
 			flash[:notice] = "update successhully"
 		else
@@ -82,7 +84,7 @@ class StaffsController < ApplicationController
 
 	private
 	def staff_params
-		params.require(:staff).permit(:store_id, :hourly_pay, :transportation_expenses, :is_admin)
+		params.require(:staff).permit(:store_id, :hourly_pay, :transportation_expenses, :is_admin, select_label_ids: [])
 	end
 
 
