@@ -1,0 +1,25 @@
+
+
+    <p>To <%= @room.default_name(current_user) %></p>
+
+    <div id="message-box">
+        <div class="card messages" >
+            <div class="card-body">
+                
+                    <div class="row">
+                        <%= render @messages %>
+                    </div>
+                
+            </div>
+        </div>
+        <%= form_for(@message, url: room_messages_path(@room)) do |f| %>
+            <div class="input-group">
+                <%= f.text_field :content, class: "content form-control" %>
+                <div class="input-group-append">
+                <%= f.submit "Send", class: "btn btn-primary input-group-text" %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
+    

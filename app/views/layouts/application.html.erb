@@ -46,7 +46,7 @@
     <div class="overlay"></div>
     <!-- Page Content -->
     <div id="content">
-          <nav class="navbar navbar-expand-lg">
+          <nav class="navbar fixed-top navbar-expand-lg">
               <div class="container-fluid">
 
                   <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -59,12 +59,14 @@
     </div>
 
     <body>
+      
+      <div class="container">
       <!-- フラッシュメッセージの表示 -->
-      <% if flash[:notice] %>
-        <%= flash[:notice] %>
-      <% end %>
-
-      <%= yield %>
+        <% if flash[:notice] %>
+          <%= flash[:notice] %>
+        <% end %>
+        <%= yield %>
+      </div>
     </body>
 
     <ul class="nav fixed-bottom nav-pills nav-justified">
@@ -72,7 +74,13 @@
         <a class="nav-link active" href=""><i class="fas fa-calendar"></i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href=""><i class="fas fa-envelope"></i></a>
+        <% if current_user.selected_store.present? %>
+          <%= link_to(rooms_path, class: "nav-link") do %>
+            <i class="fas fa-envelope"></i>
+          <% end %>
+        <% else %>
+          <a class="nav-link" href=""><i class="fas fa-envelope"></i></a>
+        <% end %>
       </li>
       <li class="nav-item">
         <a class="nav-link" href=""><i class="fas fa-file"></i></a>
@@ -86,10 +94,12 @@
 
     <body>
       <!-- フラッシュメッセージの表示 -->
-      <% if flash[:notice] %>
-        <%= flash[:notice] %>
-      <% end %>
-      <%= yield %>
+      <div class="container">
+        <% if flash[:notice] %>
+          <%= flash[:notice] %>
+        <% end %>
+        <%= yield %>
+      </div>
     </body>
 
 

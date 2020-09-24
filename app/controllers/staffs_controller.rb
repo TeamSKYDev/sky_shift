@@ -64,7 +64,20 @@ class StaffsController < ApplicationController
 
 	def permit
 		staff = Staff.find(params[:id])
+		# 連携状態にしてる
 		staff.update(is_permitted_status: true)
+		# 連携状態になったら管理者とのトークルームを作る。
+		staffs = Staff.where(store_id: staff.store_id, is_admin: true)
+		
+		staffs.each do |s|
+			room = staff.user.rooms.build(store_id: staff.store_id, user_ids: ["",s.user.id,staff.user.id])
+			room.save
+			# binding.irb
+		end
+		# メインルームにも忘れずに追加。
+		room_user = RoomUser.new(room_id: Store.find(current_user.selected_store).main_room_id, user_id: staff.user.id)
+		room_user.save
+		# binding.irb
 		redirect_to staff_path(staff)
 	end
 

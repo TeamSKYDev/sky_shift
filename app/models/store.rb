@@ -1,8 +1,9 @@
 class Store < ApplicationRecord
+    has_many :rooms, dependent: :destroy
+    # has_one :main_room, class_name: "Room"
 
 	has_many :staffs
 	has_many :users, through: :staffs
-
 
     validates :name, presence: true
 

@@ -33,6 +33,12 @@ class StoresController < ApplicationController
                 staff.is_admin = true
                 staff.is_permitted_status = true
                 staff.save!
+                # メインルームの作成
+                room = current_user.rooms.build(name: "All", store_id: @store.id)
+                current_user.save
+                
+                # 店舗にメインルームIDを設定
+                @store.update(main_room_id: room.id)
                 # format.html { redirect_to staffs_path, notice: 'User was successfully created.' }
                 # format.json { render :edit, status: :created, location: @staff }
                 format.js { @status = "success" }
