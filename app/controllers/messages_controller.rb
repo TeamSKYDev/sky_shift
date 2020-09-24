@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
     def create
-        if Message.create(message_params)
+        message = Message.new(message_params)
+        if message.save
             flash[:notice] = "send succesfully"
             redirect_to room_messages_path(params[:room_id])
         else
@@ -10,9 +11,10 @@ class MessagesController < ApplicationController
     end
 
     def index
-        @room = Room.find(params[:room_id])
+        @room = current_user.rooms.find(params[:room_id])
         @messages = @room.messages
         @message = Message.new
+        # @rooms = current_user.rooms.where(store_id: current_user.selected_store)
     end
 
     private

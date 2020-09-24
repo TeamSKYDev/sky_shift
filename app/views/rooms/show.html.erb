@@ -1,2 +1,2 @@
 <h1>this is room <%= @room.name %></h1>
-<p>by <%= @room.default_name %></p>
+<p>by <%= @room.default_name(current_user) %></p>

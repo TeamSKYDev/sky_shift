@@ -1,7 +1,7 @@
 create_table "messages", force: :cascade do |t|
   t.integer   "room_id"
   t.integer   "creator_id", null: false
-  t.text  "content"
+  t.text  "content", null: false
   t.string   "image_id"
   
   t.timestamps null: false
