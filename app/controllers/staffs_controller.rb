@@ -44,16 +44,29 @@ class StaffsController < ApplicationController
 		if Staff.find_by(user_id: current_user.id, store_id: @staff.store_id).is_permitted_status != true
 			redirect_to home_path
 		end
-		@labels = Label.where(store_id: @staff.store_id)
+		label_position_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
+		label_ability_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
+		label_rank_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
+		label_other_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
+
+		@label_position = Label.where(id: [label_position_ids], work_type: "position")
+		@label_ability = Label.where(id: [label_ability_ids], work_type: "ability")
+		@label_rank = Label.where(id: [label_rank_ids], work_type: "rank")
+		@label_other = Label.where(id: [label_other_ids], work_type: "other")
 	end
 
 	def update
 		staff = Staff.find(params[:id])
-		staff_label = StaffLabel.new
-		params[:select_label_ids].each do |select_label_id|
-			staff_label.label_id = select_label_id
-			staff_label.staff_id = staff.id
-			staff.save!
+
+		if params[:staff][:select_label_ids].present?
+			assigned_labels_id = staff.labels.where(store_id: staff.store_id).pluck(:id)
+			StaffLabel.where(label_id: [assigned_labels_id], staff_id: staff.id).destroy_all
+			params[:staff][:select_label_ids].each do |select_label_id|
+				staff_label = StaffLabel.new
+				staff_label.label_id = select_label_id
+				staff_label.staff_id = staff.id
+				staff_label.save!
+			end
 		end
 
 		if staff.update(staff_params)
@@ -84,7 +97,7 @@ class StaffsController < ApplicationController
 
 	private
 	def staff_params
-		params.require(:staff).permit(:store_id, :hourly_pay, :transportation_expenses, :is_admin, select_label_ids: [])
+		params.require(:staff).permit(:store_id, :hourly_pay, :transportation_expenses, :is_admin, {select_label_ids: []})
 	end
 
 

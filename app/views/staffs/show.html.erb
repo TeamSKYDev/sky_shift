@@ -22,17 +22,34 @@
 		<label>ラベル</label>
 		<button class = "select_labels_buttun assigned_labels" type="button">編集</button>
 		<div class = "assigned_labels">
-			<% @staff.labels.each do |label| %>
-				<span style = "color: white; background-color: green;">
+			<% @label_position.each do |label| %>
+				<span style = "color: white; background-color: green; margin: 10px;">
+					<%= label.name %>
+				</span>
+		    <% end %><br>
+
+		    <% @label_ability.each do |label| %>
+				<span style = "color: white; background-color: red; margin: 10px;">
+					<%= label.name %>
+				</span>
+		    <% end %><br>
+
+		    <% @label_rank.each do |label| %>
+				<span style = "color: white; background-color: skyblue; margin: 10px;">
+					<%= label.name %>
+				</span>
+		    <% end %><br>
+
+		    <% @label_other.each do |label| %>
+				<span style = "color: white; background-color: gray; margin: 10px;">
 					<%= label.name %>
 				</span>
 		    <% end %>
 		</div>
 	    <div class = "select_labels" style = "display: none;">
-	    	<% @labels.each do |label| %>
-	    		<%= f.collection_check_boxes(:select_label_ids, Label.where(store_id: @staff.id), :id, :name do |b| %>
-	    		<%= b.label { b.check_box + b.text } %>
-	    	<% end %>
+    		<%= f.collection_check_boxes :select_label_ids, Label.where(store_id: @staff.store_id), :id, :name, {include_hidden: false} do |b| %>
+    			<%= b.label { b.check_box + b.text } %>
+    		<% end %>
 	    </div>
 	    <br>
 
