@@ -1,7 +1,16 @@
 class LabelsController < ApplicationController
+	before_action :check_selected_store
+
 	def index
+		@staff = Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store)
+		if @staff.is_admin != true
+			redirect_to home_path
+		end
 		@label = Label.new
-		@labels = Label.where(store_id: current_user.selected_store)
+		@all_labels_position = Label.where(store_id: @staff.store_id, work_type: "position")
+		@all_labels_ability = Label.where(store_id: @staff.store_id, work_type: "ability")
+		@all_labels_rank = Label.where(store_id: @staff.store_id, work_type: "rank")
+		@all_labels_other = Label.where(store_id: @staff.store_id, work_type: "other")
 		@store = Store.find_by(id: current_user.selected_store)
 	end
 
@@ -21,6 +30,10 @@ class LabelsController < ApplicationController
 
 	def edit
 		@label = Label.find(params[:id])
+		@staff = Staff.find_by(user_id: current_user.id)
+		if @staff.is_admin != true
+			redirect_to home_path
+		end
 	end
 
 	def update

@@ -15,7 +15,31 @@
 		<th></th>
 		<th></th>
 	</tr>
-	<% @labels.each do |label| %>
+	<% @all_labels_position.each do |label| %>
+		<tr>
+			<td><%= label.name %></td>
+			<td><%= label.work_type %></td>
+			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
+			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
+		</tr>
+	<% end %>
+	<% @all_labels_ability.each do |label| %>
+		<tr>
+			<td><%= label.name %></td>
+			<td><%= label.work_type %></td>
+			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
+			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
+		</tr>
+	<% end %>
+	<% @all_labels_rank.each do |label| %>
+		<tr>
+			<td><%= label.name %></td>
+			<td><%= label.work_type %></td>
+			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
+			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
+		</tr>
+	<% end %>
+	<% @all_labels_other.each do |label| %>
 		<tr>
 			<td><%= label.name %></td>
 			<td><%= label.work_type %></td>

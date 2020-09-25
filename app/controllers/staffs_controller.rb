@@ -49,10 +49,15 @@ class StaffsController < ApplicationController
 		label_rank_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
 		label_other_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
 
-		@label_position = Label.where(id: [label_position_ids], work_type: "position")
-		@label_ability = Label.where(id: [label_ability_ids], work_type: "ability")
-		@label_rank = Label.where(id: [label_rank_ids], work_type: "rank")
-		@label_other = Label.where(id: [label_other_ids], work_type: "other")
+		@label_position = Label.where(id: [label_position_ids], store_id: @staff.store_id, work_type: "position")
+		@label_ability = Label.where(id: [label_ability_ids], store_id: @staff.store_id, work_type: "ability")
+		@label_rank = Label.where(id: [label_rank_ids], store_id: @staff.store_id, work_type: "rank")
+		@label_other = Label.where(id: [label_other_ids], store_id: @staff.store_id, work_type: "other")
+
+		@all_labels_position = Label.where(store_id: @staff.store_id, work_type: "position")
+		@all_labels_ability = Label.where(store_id: @staff.store_id, work_type: "ability")
+		@all_labels_rank = Label.where(store_id: @staff.store_id, work_type: "rank")
+		@all_labels_other = Label.where(store_id: @staff.store_id, work_type: "other")
 	end
 
 	def update

@@ -47,9 +47,41 @@
 		    <% end %>
 		</div>
 	    <div class = "select_labels" style = "display: none;">
-    		<%= f.collection_check_boxes :select_label_ids, Label.where(store_id: @staff.store_id), :id, :name, {include_hidden: false} do |b| %>
-    			<%= b.label { b.check_box + b.text } %>
-    		<% end %>
+	    	<label style = "color: green;">position</label><br>
+    		<%= f.collection_check_boxes :select_label_ids, @all_labels_position, :id, :name, {include_hidden: false} do |b| %>
+    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+    				<%= b.label { b.check_box(checked: true) + b.text } %>
+    			<% else %>
+    				<%= b.label { b.check_box + b.text } %>
+    			<% end %>
+    		<% end %><br>
+
+    		<label style = "color: red;">ability</label><br>
+    		<%= f.collection_check_boxes :select_label_ids, @all_labels_ability, :id, :name, {include_hidden: false} do |b| %>
+    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+    				<%= b.label { b.check_box(checked: true) + b.text } %>
+    			<% else %>
+    				<%= b.label { b.check_box + b.text } %>
+    			<% end %>
+    		<% end %><br>
+
+    		<label style = "color: skyblue;">rank</label><br>
+    		<%= f.collection_check_boxes :select_label_ids, @all_labels_rank, :id, :name, {include_hidden: false} do |b| %>
+    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+    				<%= b.label { b.check_box(checked: true) + b.text } %>
+    			<% else %>
+    				<%= b.label { b.check_box + b.text } %>
+    			<% end %>
+    		<% end %><br>
+
+    		 <label style = "color: gray;">other</label><br>
+    		<%= f.collection_check_boxes :select_label_ids, @all_labels_other, :id, :name, {include_hidden: false} do |b| %>
+    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+    				<%= b.label { b.check_box(checked: true) + b.text } %>
+    			<% else %>
+    				<%= b.label { b.check_box + b.text } %>
+    			<% end %>
+    		<% end %><br>
 	    </div>
 	    <br>
 
