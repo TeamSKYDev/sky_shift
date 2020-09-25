@@ -1,12 +1,17 @@
 class MessagesController < ApplicationController
     def create
-        message = Message.new(message_params)
-        if message.save
-            flash[:notice] = "send succesfully"
-            redirect_to room_messages_path(params[:room_id])
-        else
-            flash[:notice] = "can't send"
-            redirect_to room_messages_path(params[:room_id])
+        @message = Message.new(message_params)
+
+        respond_to do |format|
+            if @message.save
+                # format.html { redirect_to staffs_path, notice: 'User was successfully created.' }
+                # format.json { render :edit, status: :created, location: @staff }
+                format.js { @status = "success" }
+            else
+                # format.html { render :new }
+                # format.json { render json: @staff.errors, status: :unprocessable_entity }
+                format.js { @status = "fail" }
+            end
         end
     end
 

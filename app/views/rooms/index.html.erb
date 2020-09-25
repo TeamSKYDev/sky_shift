@@ -1,4 +1,17 @@
-<p>トークルーム</p>
+<div class="row">
+    <div class="col-2">
+        トークルーム
+    </div>
+    <div class="col-8">
+    </div>
+    <div class="col-2 text-right">
+        <%= link_to new_room_path, class: "btn btn-outline-primary", remote: true do %>
+            <i class="fas fa-plus"></i>
+        <% end %>
+    </div>
+</div>
+
+ 
 <ul class="list-group">
   <% @rooms.each do |room| %>
     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -7,6 +20,8 @@
     <% else %>
         <%= link_to room.default_name(current_user), room_messages_path(room) %>
     <% end %>
+        <span class="badge badge-primary badge-pill"><%= link_to room.store.name, store_path(room.store), :style=>"color:white;" %></span>
     </li>
 <% end %>
 </ul>
+<div id="new-room-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
