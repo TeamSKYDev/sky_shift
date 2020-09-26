@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   before_action :reject_user, only: [:create]
   after_action :reset_selected_store, only[:create]
 
-  def reset_selected_branch
+  def reset_selected_store
     staff = Staff.find(current_admin.id)
     staff.update(selected_store: nil)
   end
