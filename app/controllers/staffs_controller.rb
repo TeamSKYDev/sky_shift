@@ -41,7 +41,8 @@ class StaffsController < ApplicationController
 
 	def show
 		@staff = Staff.find(params[:id])
-		if Staff.find_by(user_id: current_user.id, store_id: @staff.store_id).is_permitted_status != true
+		@access_staff = Staff.find_by(user_id: current_user.id, store_id: @staff.store_id)
+		if @access_staff.is_permitted_status != true
 			redirect_to home_path
 		end
 		label_position_ids = StaffLabel.where(staff_id: @staff.id).pluck(:label_id)
@@ -63,9 +64,10 @@ class StaffsController < ApplicationController
 	def update
 		staff = Staff.find(params[:id])
 
+		assigned_labels_id = staff.labels.where(store_id: staff.store_id).pluck(:id)
+		StaffLabel.where(label_id: [assigned_labels_id], staff_id: staff.id).destroy_all
+
 		if params[:staff][:select_label_ids].present?
-			assigned_labels_id = staff.labels.where(store_id: staff.store_id).pluck(:id)
-			StaffLabel.where(label_id: [assigned_labels_id], staff_id: staff.id).destroy_all
 			params[:staff][:select_label_ids].each do |select_label_id|
 				staff_label = StaffLabel.new
 				staff_label.label_id = select_label_id
@@ -75,7 +77,7 @@ class StaffsController < ApplicationController
 		end
 
 		if staff.update(staff_params)
-			flash[:notice] = "update successhully"
+			flash[:notice] = "update successfully"
 		else
 			flash[:notice] = "connot update"
 		end
