@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   patch "staffs/unsubscribe" => "staffs/unsubscribe", as: "staff_unsubscribe"
   patch "staffs/permit" => "staffs/permit", as: "staff_permit"
   resources :staffs, only: [:new, :index, :create, :show, :update]
+
+  resources :labels, except: [:new, :show]
 end

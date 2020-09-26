@@ -1,0 +1,10 @@
+<h3>ラベル編集ページ</h3>
+<%= form_for(@label) do |f| %>
+	<%= f.text_field :name %>
+	<%= f.select :work_type, Label.work_types.keys.to_a, {} %><br><br>
+
+	<%= f.submit "保存する", class: "btn btn-success" %>
+	<%= link_to "削除", label_path(@label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+<% end %>
+<br><br>
+<%= link_to "戻る", labels_path %>

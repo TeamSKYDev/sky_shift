@@ -15,6 +15,12 @@ class ApplicationController < ActionController::Base
 		home_path
 	end
 
+	def check_selected_store
+		if current_user.selected_store.blank?
+			redirect_to home_path
+		end
+	end
+
 
 	private
 	def configure_permitted_parameters
