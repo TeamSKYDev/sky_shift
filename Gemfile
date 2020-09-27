@@ -72,3 +72,7 @@ gem "devise"
 
 gem 'jquery-turbolinks'
 
+gem 'simple_calendar'
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'pry-doc'

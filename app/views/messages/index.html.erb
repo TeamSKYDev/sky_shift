@@ -1,25 +1,28 @@
+<div class="row">
+    <div class="col-8">
+        To <%= @room.default_name(current_user) %>
+    </div>
+    <div class="col-4 text-right">
+        <%= link_to "脱退", room_path(@room), class: "btn btn-danger", method: :delete%>
+    </div>
+</div>
 
-
-    <p>To <%= @room.default_name(current_user) %></p>
-
-    <div id="message-box">
-        <div class="card messages" >
-            <div class="card-body">
-                
-                    <div class="row">
-                        <%= render @messages %>
-                    </div>
-                
+<div id="message-box">
+    <div class="card messages" >
+        <div class="card-body">
+            <div class="row ">
+                <%= render @messages %>
             </div>
         </div>
-        <%= form_for(@message, url: room_messages_path(@room)) do |f| %>
-            <div class="input-group">
-                <%= f.text_field :content, class: "content form-control" %>
-                <div class="input-group-append">
-                <%= f.submit "Send", class: "btn btn-primary input-group-text" %>
-                </div>
-            </div>
-        <% end %>
     </div>
+    <%= form_for(@message, url: room_messages_path(@room), remote: true) do |f| %>
+        <div class="input-group">
+            <%= f.text_field :content, class: "content form-control" %>
+            <div class="input-group-append">
+            <%= f.submit "Send", class: "btn btn-primary input-group-text" %>
+            </div>
+        </div>
+    <% end %>
+</div>
 
     

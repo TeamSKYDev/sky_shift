@@ -1,0 +1,9 @@
+<% if @status == 'success' %>
+$("#message-box .row").append("<%= j(render("message", message: @message)) %>");
+$('.messages').animate({
+    scrollTop: $('.messages')[0].scrollHeight
+  });
+<%  elsif @status == 'fail' %>
+alert('error!');
+<% end %>
+$("#message_content.content.form-control").val("");

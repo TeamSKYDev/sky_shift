@@ -1,0 +1,7 @@
+<% if @status == 'success' %>
+$(".list-group").append("<%= j(render("li", room: @room)) %>");
+<%  elsif @status == 'fail' %>
+alert('error!');
+<% end %>
+$("#new-room-modal").modal("hide");
+
