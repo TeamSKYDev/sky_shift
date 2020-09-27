@@ -1,27 +1,109 @@
 <h3>スタッフ詳細ページ</h3>
-<%= form_for(@staff) do |f| %>
+<% if @access_staff.is_admin == true %>
+	<%= form_for(@staff) do |f| %>
+		<label>店舗名</label><%= @staff.store.name %><br>
+		<label>名前</label><%= @staff.user.last_name + @staff.user.first_name %><br>
+		<lavel>電話番号</lavel><%= @staff.user.telephone_number %><br>
+		<label>時給</label><%= f.text_field :hourly_pay %>円<br>
+		<label>交通費</label><%= f.text_field :transportation_expenses %>円<br>
+
+
+		<% if @staff.is_permitted_status != true %>
+			<label>連携承認</label>
+			<%= link_to "承認する", staff_permit_path(params: {id: @staff.id}), method: :patch, class: "btn btn-info" %>
+			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
+
+		<% else %>
+			<% if @staff.user.id == @staff.store.creator_id %>
+				<p>店舗作成者</p>
+			<% else %>
+				<label>管理者権限</label>
+				<%= f.radio_button :is_admin, true %><lavel>あり</lavel>
+				<%= f.radio_button :is_admin, false %><label>なし</label><br>
+			<% end %>
+
+			<label>ラベル</label>
+			<button class = "select_labels_buttun assigned_labels" type="button">編集</button>
+			<div class = "assigned_labels">
+				<% @label_position.each do |label| %>
+					<span style = "color: white; background-color: green; margin: 10px;">
+						<%= label.name %>
+					</span>
+			    <% end %><br>
+
+			    <% @label_ability.each do |label| %>
+					<span style = "color: white; background-color: red; margin: 10px;">
+						<%= label.name %>
+					</span>
+			    <% end %><br>
+
+			    <% @label_rank.each do |label| %>
+					<span style = "color: white; background-color: skyblue; margin: 10px;">
+						<%= label.name %>
+					</span>
+			    <% end %><br>
+
+			    <% @label_other.each do |label| %>
+					<span style = "color: white; background-color: gray; margin: 10px;">
+						<%= label.name %>
+					</span>
+			    <% end %>
+			</div>
+		    <div class = "select_labels" style = "display: none;">
+		    	<label style = "color: green;">position</label><br>
+	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_position, :id, :name, {include_hidden: false} do |b| %>
+	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    			<% else %>
+	    				<%= b.label { b.check_box + b.text } %>
+	    			<% end %>
+	    		<% end %><br>
+
+	    		<label style = "color: red;">ability</label><br>
+	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_ability, :id, :name, {include_hidden: false} do |b| %>
+	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    			<% else %>
+	    				<%= b.label { b.check_box + b.text } %>
+	    			<% end %>
+	    		<% end %><br>
+
+	    		<label style = "color: skyblue;">rank</label><br>
+	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_rank, :id, :name, {include_hidden: false} do |b| %>
+	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    			<% else %>
+	    				<%= b.label { b.check_box + b.text } %>
+	    			<% end %>
+	    		<% end %><br>
+
+	    		 <label style = "color: gray;">other</label><br>
+	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_other, :id, :name, {include_hidden: false} do |b| %>
+	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
+	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    			<% else %>
+	    				<%= b.label { b.check_box + b.text } %>
+	    			<% end %>
+	    		<% end %><br>
+		    </div>
+		    <br>
+
+
+			<%= f.submit "保存する", class: "btn btn-info" %>
+			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
+		<% end %>
+		<br><br>
+		<%= link_to "戻る", staffs_path %>
+	<% end %>
+<% else %>
+	<p>あなたはただのスタッフ</p>
 	<label>店舗名</label><%= @staff.store.name %><br>
 	<label>名前</label><%= @staff.user.last_name + @staff.user.first_name %><br>
 	<lavel>電話番号</lavel><%= @staff.user.telephone_number %><br>
-
-	<% if @staff.user.id == @staff.store.creator_id %>
-		<p>店舗作成者</p>
-
-	<% elsif @staff.is_permitted_status != true %>
-		<label>連携承認</label>
-		<%= link_to "承認する", staff_permit_path(params: {id: @staff.id}), method: :patch, class: "btn btn-info" %>
-		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, class: "btn btn-danger" %>
-
-	<% else %>
-		<label>時給</label><%= f.text_field :hourly_pay %>円<br>
-		<label>交通費</label><%= f.text_field :transportation_expenses %>円<br>
-		<label>管理者権限</label>
-		<%= f.radio_button :is_admin, true %><lavel>あり</lavel>
-		<%= f.radio_button :is_admin, false %><label>なし</label><br><br>
-
-		<%= f.submit "保存する", class: "btn btn-info" %>
-		<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, class: "btn btn-danger" %>
+	<% if @staff.hourly_pay.present? %>
+		<label>時給</label><%= @staff.hourly_pay %>円<br>
 	<% end %>
-	<br><br>
-	<%= link_to "戻る", staffs_path %>
+	<% if @staff.transportation_expenses.present? %>
+		<label>交通費</label><%= @staff.transportation_expenses %>円<br>
+	<% end %>
 <% end %>

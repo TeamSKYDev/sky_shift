@@ -7,5 +7,7 @@ create_table :staffs do |t|
 	t.boolean :is_unsubscribe, null: false, default: false
 	t.boolean :is_permitted_status, null: false, default: false
 
+
+
 end
 

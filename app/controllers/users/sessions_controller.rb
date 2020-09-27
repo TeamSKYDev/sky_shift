@@ -3,6 +3,11 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   before_action :reject_user, only: [:create]
+  before_action :reset_selected_store, only: [:destroy]
+
+  def reset_selected_store
+    current_user.update(selected_store: nil)
+  end
 
   # GET /resource/sign_in
   # def new
