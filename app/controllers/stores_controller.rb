@@ -1,11 +1,6 @@
 class StoresController < ApplicationController
     before_action :check_selected_store, except: [:new, :create, :show]
 
-    def check_selected_store
-        if current_user.selected_store.blank?
-            redirect_to home_path
-        end
-    end
 
     def new
         @store = Store.new

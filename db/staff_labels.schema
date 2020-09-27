@@ -1,0 +1,7 @@
+create_table :staff_labels do |t|
+
+	t.integer :label_id, null: false
+	t.integer :staff_id, null: false
+
+	t.timestamps null: false
+end
