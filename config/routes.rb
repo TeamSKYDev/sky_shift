@@ -13,8 +13,11 @@ Rails.application.routes.draw do
   patch "users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
   resources :users, only: [:show, :update]
 
-  resources :rooms do
+  resources :rooms, only: [:new, :index, :create, :show, :destroy] do
     resources :messages
+    collection do
+      get 'get_users'
+    end
   end
 
   patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
