@@ -1,0 +1,3 @@
+<%= collection_check_boxes :room, :user_ids, Store.find(store_id).users.where.not(id: current_user).all, :id, :full_name do |user| %>
+    <%= user.label { user.check_box + user.text }%>
+<%end%>

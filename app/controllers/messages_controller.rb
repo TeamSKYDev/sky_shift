@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
 
     def index
         @room = current_user.rooms.find(params[:room_id])
-        @messages = @room.messages
+        @messages = @room.messages.includes(:user)
         @message = Message.new
         # @rooms = current_user.rooms.where(store_id: current_user.selected_store)
     end

@@ -9,6 +9,8 @@ class RoomsController < ApplicationController
     
     def new
         @room = Room.new
+        @stores = current_user.stores
+        @store = Store.find(current_user.selected_store)
         @users = Store.find(current_user.selected_store).users.where.not(id: current_user)
     end
 
@@ -18,7 +20,7 @@ class RoomsController < ApplicationController
 
     def create
         @room = current_user.rooms.build(room_params)
-        @room.store_id = Store.find(current_user.selected_store).id
+        # @room.store_id = Store.find(current_user.selected_store).id
         
         respond_to do |format|
             if current_user.save
@@ -52,8 +54,12 @@ class RoomsController < ApplicationController
         redirect_to rooms_path
     end
 
+    def get_users
+        render partial: 'users', locals: {store_id: params[:store_id]}
+    end
+
     private
     def room_params
-		params.require(:room).permit(:name, :memo, user_ids: [])
+		params.require(:room).permit(:name, :memo, :store_id, user_ids: [])
 	end
 end
