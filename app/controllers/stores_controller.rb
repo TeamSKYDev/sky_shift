@@ -1,5 +1,6 @@
 class StoresController < ApplicationController
     before_action :check_selected_store, except: [:new, :create, :show]
+    before_action :change_selected_store, only: [:show]
 
 
     def new
@@ -46,7 +47,6 @@ class StoresController < ApplicationController
     end
 
     def show
-        current_user.update(selected_store: params[:id])
         @store = Store.find(params[:id])
         @staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
         if @staff.blank? || @staff.is_permitted_status == false
