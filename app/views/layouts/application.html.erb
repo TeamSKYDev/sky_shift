@@ -32,7 +32,7 @@
         <ul class="list-unstyled components" id="stores">
             <% @stores.each do |store| %>
               <li>
-                  <%= link_to store.name, change_selected_store_path(store.id) %>
+                  <%= link_to store.name, change_selected_store_path(store.id), method: :patch %>
               </li>
             <% end %>
         </ul>
