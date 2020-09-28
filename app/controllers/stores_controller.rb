@@ -1,6 +1,5 @@
 class StoresController < ApplicationController
     before_action :check_selected_store, except: [:new, :create, :show]
-    before_action :change_selected_store, only: [:show]
 
 
     def new

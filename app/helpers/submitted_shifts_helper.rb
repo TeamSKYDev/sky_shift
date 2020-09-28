@@ -1,0 +1,2 @@
+module SubmittedShiftsHelper
+end

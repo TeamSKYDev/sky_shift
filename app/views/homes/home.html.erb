@@ -1,5 +1,16 @@
 <h2><%= @schedule_title %>スケジュール</h2>
 
-<%= month_calendar do |date| %>
-	<%= link_to date.day, "#" %>
+<%= month_calendar(events: @submitted_shifts) do |date, submitted_shifts| %>
+	<%= link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
+	<div id = "submitted_shift_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+
+	<% submitted_shifts.each do |submitted_shift| %>
+		<div>
+			<%= submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M") %>
+			<%# link_to submitted_shift.start_time, "#", remote: true %>
+			<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+		</div>
+  	<% end %>
+
 <% end %>

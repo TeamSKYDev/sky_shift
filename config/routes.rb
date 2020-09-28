@@ -30,4 +30,6 @@ Rails.application.routes.draw do
   resources :staffs, only: [:new, :index, :create, :show, :update]
 
   resources :labels, except: [:new, :show]
+
+  resources :submitted_shifts, only: [:new, :create, :edit, :update, :destroy]
 end

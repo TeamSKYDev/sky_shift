@@ -1,0 +1,10 @@
+create_table :submitted_shifts do |t|
+  t.integer :user_id, null: false
+  t.integer :store_id, null: false
+  t.datetime :start_time, null: false
+  t.datetime :end_time, null:false
+
+  t.boolean :status, null: false, default: false
+
+  t.timestamps
+end

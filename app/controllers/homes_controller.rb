@@ -9,6 +9,7 @@ class HomesController < ApplicationController
 		else
 			@store = Store.find(current_user.selected_store)
 			@schedule_title = @store.name
+			@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id)
 		end
 	end
 
