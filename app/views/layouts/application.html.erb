@@ -26,18 +26,18 @@
           <ul class="list-unstyled components">
             <li><%= link_to "登録情報", user_path(current_user.id) %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-            <li><%= link_to "新規店舗登録", new_staff_path %></li>
+            <li><%= link_to "新規店舗連携申請", new_staff_path %></li>
           </ul>
 
         <ul class="list-unstyled components" id="stores">
             <% @stores.each do |store| %>
               <li>
-                  <%= link_to store.name, store_path(store.id) %>
+                  <%= link_to store.name, change_selected_store_path(store.id) %>
               </li>
             <% end %>
         </ul>
         <%= link_to new_store_path, remote: true do %>
-          <div class="new_store" style="text-align:center">
+          <div class="new_store" style="text-align:center;">
             <i class="fas fa-plus"></i>
           </div>
         <% end %>
