@@ -1,6 +1,7 @@
 <% if @status == 'success' %>
-$("#draft-shift").append("<%= j(render("draft", store: @store)) %>");
+$("#draft-shift-<%= @submitted_shift.start_time.strftime("%Y-%m-%d") %>").append("<%= j(render("draft", submitted_shift: @submitted_shift)) %>");
 console.log("success")
+console.log($("#draft-shift-2020-10-14").val())
 <% elsif @status == 'fail' %>
 alert('error!');
 <% end %>
