@@ -1,0 +1,38 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_for(private_schedule, remote: true) do |f| %>
+        <% if private_schedule.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(private_schedule.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+                <% private_schedule.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+        <% end %>
+        <div class="modal-header">
+            <h5 class="modal-title">新規プライベートスケジュール登録</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group field">
+                <h4>タイトル</h4>  
+                <%= f.text_field :title %>
+                <h4>内容</h4> 
+                <%= f.text_area :content %>
+                <h4>開始時間</h4>
+                <%= f.datetime_select :start_time %>
+                <h4>終了時間</h4>
+                <%= f.datetime_select :end_time %>
+            </div>
+        </div>
+        <div class="modal-footer actions">
+            <%= f.submit "登録", class: "btn btn-primary"%>
+        </div>
+    <% end %>
+
+  </div>
+</div>
