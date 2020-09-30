@@ -31,5 +31,7 @@ Rails.application.routes.draw do
 
   resources :labels, except: [:new, :show]
 
+  get "submitted_shifts/confirm" => "shifts/confirm", as: "confirm_submit_shift"
+  patch "submitted_shifts/submit" => "shifts/submit", as: "submit_shift"
   resources :submitted_shifts, only: [:new, :create, :edit, :update, :destroy]
 end

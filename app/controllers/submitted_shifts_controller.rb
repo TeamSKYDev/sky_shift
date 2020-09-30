@@ -4,6 +4,7 @@ class SubmittedShiftsController < ApplicationController
 		@submitted_shift.start_time = params[:start_date]
 		@submitted_shift.end_time = params[:start_date]
 		@store = Store.find(current_user.selected_store)
+		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_day).order(:start_time)
 	end
 
 	def create
@@ -27,15 +28,39 @@ class SubmittedShiftsController < ApplicationController
 	end
 
 	def edit
+		@submitted_shift = SubmittedShift.find(params[:id])
+		@store = Store.find(current_user.selected_store)
 	end
 
 	def update
-	end
-
-	def submit
+		@submitted_shift = SubmittedShift.find(params[:id])
+		@submitted_shift.user_id = current_user.id
+		@submitted_shift.update(submitted_shift_params)
+		redirect_to home_path
 	end
 
 	def destroy
+		submitted_shift = SubmittedShift.find(params[:id])
+		submitted_shift.destroy
+		redirect_to request.referer
+	end
+
+	def confirm
+		@store = Store.find(current_user.selected_store)
+		@period = params[:start_date].in_time_zone.all_month
+		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, start_time: @period).order(:start_time)
+		if @submitted_shifts.blank?
+			redirect_to home_path
+		end
+	end
+
+	def submit
+		@period = params[:start_date].in_time_zone.all_month
+		@submit_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, start_time: @period)
+		@submit_shifts.each do |shift|
+			shift.update(status: true)
+		end
+		redirect_to request.referer
 	end
 
     private

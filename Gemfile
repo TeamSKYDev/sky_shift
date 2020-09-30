@@ -76,3 +76,5 @@ gem 'simple_calendar'
 gem 'pry-rails'
 gem 'pry-byebug'
 gem 'pry-doc'
+
+gem 'rails-i18n', '~> 5.1'

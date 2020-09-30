@@ -4,19 +4,16 @@
 	<%= link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
 	<div id = "submitted_shift_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
-
-	<% submitted_shifts.each do |submitted_shift| %>
-		<div>
-			<% if submitted_shift.status == true %>
-				<%= submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M") %>
-			<% else %>
-				<span style = "border: groove;">下</span>
-				<%= submitted_shift.start_time.strftime("%H:%M") + "~" %>
-			<% end %>
-			<div id = "draft-shift-<%= date.strftime("%Y-%m-%d") %>"></div>
-			<%# link_to submitted_shift.start_time, "#", remote: true %>
-			<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-		</div>
-  	<% end %>
-
+	<div id="draft-shift-<%= date %>">
+		<% submitted_shifts.each do |submitted_shift| %>
+				<% if submitted_shift.status == true %>
+					<%= submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M") %><br>
+				<% else %>
+					<span style = "border: groove; border-radius: 50%; background-color: aliceblue;">未</span>
+					<%= submitted_shift.start_time.strftime("%H:%M") + "~" %><br>
+				<% end %>
+				<%# link_to submitted_shift.start_time, "#", remote: true %>
+				<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+  		<% end %>
+  	</div>
 <% end %>
