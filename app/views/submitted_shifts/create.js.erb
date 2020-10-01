@@ -1,0 +1,6 @@
+<% if @status == 'success' %>
+$("#draft-shift-<%= @submitted_shift.start_time.to_date %>").append("<%= j(render("draft", submitted_shift: @submitted_shift)) %>");
+<% elsif @status == 'fail' %>
+alert('error!');
+<% end %>
+$("#submitted_shift_modal").modal("hide");

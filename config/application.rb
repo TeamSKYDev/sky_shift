@@ -15,5 +15,13 @@ module SkyShift
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # タイムゾーンを日本時間に設定
+    config.time_zone = 'Asia/Tokyo'
+
+    # 日本語表記
+    config.i18n.default_locale = :ja
+    # パスを通す
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
   end
 end

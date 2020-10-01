@@ -1,0 +1,4 @@
+$("#submitted_shift_modal").modal("hide");
+$("#confirm_submitted_shift_modal").modal("hide");
+$("#shift-edit-modal").html("<%= escape_javascript(render("form", shift: @submitted_shift, store: @store, submitted_shifts: @submitted_shifts)) %>")
+$("#shift-edit-modal").modal("show")

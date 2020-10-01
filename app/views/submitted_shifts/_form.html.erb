@@ -1,0 +1,110 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <% if shift.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(shift.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+                <% shift.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <% if shift.id.blank? %>
+        <%= form_for(shift, remote: true) do |f| %>
+            <% if shift.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(shift.errors.count, "error") %> prohibited this user from being saved:</h2>
+                <ul>
+                    <% shift.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+            <% end %>
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    新規シフト登録
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group field">
+                    <h5>店舗名:  <%= store.name %></h5>
+                    <p>日付：　<%= shift.start_time.strftime("%m月%d日") %></p>
+
+                    <label>勤務時間</label><br>
+                    <%= f.datetime_select :start_time %><br>
+                    ~ 
+                    <%= f.datetime_select :end_time %>
+                    <%= f.hidden_field :store_id, :value => store.id %>
+
+
+                </div>
+            </div>
+            <div class="modal-footer actions">
+                <%= f.submit "下書きとして登録", class: "btn btn-primary"%>
+            </div>
+        <% end %>
+    <% else %>
+        <%= form_for(shift) do |f| %>
+            <% if shift.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(shift.errors.count, "error") %> prohibited this user from being saved:</h2>
+                <ul>
+                    <% shift.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+            <% end %>
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    シフト編集
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group field">
+                    <h5>店舗名:  <%= store.name %></h5>
+                    <p>日付：　<%= shift.start_time.strftime("%m月%d日") %></p>
+
+                    <label>勤務時間</label><br>
+                    <%= f.datetime_select :start_time %><br>
+                    ~ 
+                    <%= f.datetime_select :end_time %>
+                    <%= f.hidden_field :store_id, :value => store.id %>
+
+
+                </div>
+            </div>
+            <div class="modal-footer actions">
+                <%= f.submit "変更を保存", class: "btn btn-primary"%>
+                <%= link_to "削除", submitted_shift_path(shift.id),method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-danger" %>
+            </div>
+        <% end %>
+    <% end %>
+
+    <div class = "schedule">
+        <% if submitted_shifts.present? %>
+            <p><%= shift.start_time.strftime("%m月%d日") %>登録シフト</p>
+            <% submitted_shifts.each do |shift| %>
+                <% if shift.status == true %>
+                    <%= shift.start_time.strftime("%H:%M") + "~" + shift.end_time.strftime("%H:%M") %>
+                    <label>　提出済み</label><br>
+                <% else %>
+                    <%= link_to edit_submitted_shift_path(shift), remote: true do %>
+                        <%= shift.start_time.strftime("%H:%M") + "~" + shift.end_time.strftime("%H:%M") %><label>　未提出</label><br>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+
+  </div>
+</div>

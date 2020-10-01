@@ -2,9 +2,10 @@ class Store < ApplicationRecord
     has_many :rooms, dependent: :destroy
     # has_one :main_room, class_name: "Room"
 
-	has_many :staffs
+	has_many :staffs, dependent: :destroy
 	has_many :users, through: :staffs
-	has_many :labels
+	has_many :labels, dependent: :destroy
+	has_many :submitted_shifts, dependent: :destroy
 
     validates :name, presence: true
 

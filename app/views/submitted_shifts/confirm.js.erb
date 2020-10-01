@@ -1,0 +1,2 @@
+$("#confirm_submitted_shift_modal").html("<%= escape_javascript(render("index", shifts: @submitted_shifts, store: @store)) %>")
+$("#confirm_submitted_shift_modal").modal("show")
