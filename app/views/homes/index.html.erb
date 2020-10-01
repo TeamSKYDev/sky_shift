@@ -7,7 +7,7 @@
 	<%# attribute: :dateで勝手にやってくれる %>
     <div id="private-schedule-<%= date %>">
         <% private_schedules.each do |private_schedule| %>
-            <%= render 'private_schedules/Cprivate_schedule', private_schedule: private_schedule %>
+            <%= render 'private_schedules/private_schedule', private_schedule: private_schedule %>
         <% end %>
     </div>
 <% end %>
