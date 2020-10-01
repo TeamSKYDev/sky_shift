@@ -34,4 +34,6 @@ Rails.application.routes.draw do
   get "submitted_shifts/confirm" => "shifts/confirm", as: "confirm_submit_shift"
   patch "submitted_shifts/submit" => "shifts/submit", as: "submit_shift"
   resources :submitted_shifts, only: [:new, :create, :edit, :update, :destroy]
+
+  resources :draft_shifts, only: [:new, :create, :index, :update, :destroy]
 end

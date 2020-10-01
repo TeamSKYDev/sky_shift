@@ -1,0 +1,2 @@
+class DraftShift < ApplicationRecord
+end
