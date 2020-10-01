@@ -91,9 +91,9 @@
     <% end %>
 
     <div class = "schedule">
-        <% if @submitted_shifts %>
-            <p>この店舗への下書き</p>
-            <% @submitted_shifts.each do |shift| %>
+        <% if submitted_shifts.present? %>
+            <p><%= shift.start_time.strftime("%m月%d日") %>登録シフト</p>
+            <% submitted_shifts.each do |shift| %>
                 <% if shift.status == true %>
                     <%= shift.start_time.strftime("%H:%M") + "~" + shift.end_time.strftime("%H:%M") %>
                     <label>　提出済み</label><br>
