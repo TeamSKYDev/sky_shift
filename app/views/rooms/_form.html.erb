@@ -21,7 +21,7 @@
             <div class="form-group field">
                 <div class="store-select">
                     <h4>店舗</h4>
-                    <%= f.collection_select :store_id, @stores.all, :id, :name, {selected: @store.id} %>
+                    <%= f.collection_select :store_id, stores.all, :id, :name, {selected: store.id} %>
                 </div>
                 <h4>ルーム名</h4>
                 <%= f.text_field :name %>
@@ -29,7 +29,7 @@
                 <%= f.text_area :memo %>
                 <h4>メンバー</h4>
                 <div class="users-checkbox">
-                    <%= render partial: 'users', locals: {store_id: @store.id} %>
+                    <%= render partial: 'users', locals: {store_id: store.id} %>
                 </div>
                 
                 

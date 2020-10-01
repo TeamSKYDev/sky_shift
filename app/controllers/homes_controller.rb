@@ -3,6 +3,10 @@ class HomesController < ApplicationController
 	def top
 	end
 
+	def index
+		@private_schedules = PrivateSchedule.all
+	end
+
 	def home
 		if current_user.selected_store == nil
 			@schedule_title = "プライベート"

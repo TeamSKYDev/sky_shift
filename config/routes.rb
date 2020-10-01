@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # deviseのルートの上に他ルートを書かないこと。競合発生する可能性あり
 
   get "home" => "homes#home", as: "home"
+  get "index" => "homes#index", as: "index"
   root "homes#top"
   patch "home/change/:id" => "homes#change_selected_store", as: "change_selected_store"
   resources :stores, except: [:index]
@@ -18,11 +19,13 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update]
 
   resources :rooms, only: [:new, :index, :create, :show, :destroy] do
-    resources :messages
+    resources :messages, only: [:create, :index]
     collection do
       get 'get_users'
     end
   end
+
+  resources :private_schedules
 
   patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
   patch "staffs/unsubscribe" => "staffs/unsubscribe", as: "staff_unsubscribe"
