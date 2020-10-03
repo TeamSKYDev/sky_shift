@@ -78,3 +78,7 @@ gem 'pry-byebug'
 gem 'pry-doc'
 
 gem 'rails-i18n', '~> 5.1'
+
+gem 'webpacker'
+
+gem 'foreman'

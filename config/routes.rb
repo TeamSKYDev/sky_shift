@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "home" => "homes#home", as: "home"
   get "index" => "homes#index", as: "index"
+  get "vuetest" => "homes#vuetest", as: "vuetest"
   root "homes#top"
   patch "home/change/:id" => "homes#change_selected_store", as: "change_selected_store"
   resources :stores, except: [:index]
@@ -37,4 +38,12 @@ Rails.application.routes.draw do
   get "submitted_shifts/confirm" => "shifts/confirm", as: "confirm_submit_shift"
   patch "submitted_shifts/submit" => "shifts/submit", as: "submit_shift"
   resources :submitted_shifts, only: [:new, :create, :edit, :update, :destroy]
+
+
+  namespace :api, {format: 'json'} do
+    namespace :v1 do
+      resources :stores, only: [:index, :show]
+    end
+  end
+
 end
