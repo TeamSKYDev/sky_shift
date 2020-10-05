@@ -14,9 +14,9 @@
   <% @rooms.each do |room| %>
     <li class="list-group-item d-flex justify-content-between align-items-center">
     <% if room.name.present? %>
-        <%= link_to room.name, room_messages_path(room) %>
+        <%= link_to room.name, room_path(room) %>
     <% else %>
-        <%= link_to room.default_name(current_user), room_messages_path(room) %>
+        <%= link_to room.default_name(current_user), room_path(room) %>
     <% end %>
         <span class="badge badge-primary badge-pill"><%= link_to room.store.name, store_path(room.store), :style=>"color:white;" %></span>
     </li>

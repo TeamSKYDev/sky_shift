@@ -1,52 +1,29 @@
 
 <% if current_user == User.find(message.creator_id)%>
-<div class="col-5">
-</div>
-<div class="col-2">
-</div>
-<div class="col-5">
-    <div id="message">
-    　  <div class="text-muted">
-            <font size="1"><%= User.find(message.creator_id).full_name %></font>
-        </div>
-        <div class="card">
-            <div class="card-body">
-        
-                <p class="card-text">
-                    <span class="content"><%= message.content %></span>
-                </p>
-        
-            </div>
-        </div>
-        <div class="text-muted">
-            <font size="1">Posted <%= time_ago_in_words(message.created_at) %> ago.</font>
-        </div>
+<div class="mycomment">
+    <p>
+        <%= message.content %>
+    </p>
+    <div class="text-muted">
+        <font size="1">Posted <%= time_ago_in_words(message.created_at) %> ago.</font>
     </div>
 </div>
 <% else %>
-<div class="col-5">
-    <div id="message">
-    　  <div class="text-muted">
-            <font size="1"><%= User.find(message.creator_id).full_name %></font>
-        </div>
-        <div class="card">
-            <div class="card-body">
-        
-                <p class="card-text">
-                    <span class="content"><%= message.content %></span>
-                </p>
-            </div>
-        </div>
-    
-        <div class="text-muted">
-            <font size="1">Posted <%= time_ago_in_words(message.created_at) %> ago.</font>
-        </div>
+<div class="balloon6">
+    <div class="text-muted">
+        <font size="1"><%= User.find(message.creator_id).full_name %></font>
     </div>
-</div>
-<div class="col-2">
-</div>
-<div class="col-5">
-    
+    <div class="faceicon">
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="chatting">
+      <div class="says">
+        <p><%= message.content %></p>
+      </div>
+    </div>
+    <div class="text-muted">
+        <font size="1">Posted <%= time_ago_in_words(message.created_at) %> ago.</font>
+    </div>
 </div>
 <% end %>
 
