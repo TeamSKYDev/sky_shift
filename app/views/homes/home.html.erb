@@ -1,4 +1,4 @@
-<h2><%= @schedule_title %>スケジュール</h2>
+<h2><%= link_to @schedule_title, store_path(@store.id) %>スケジュール</h2>
 
 <%= month_calendar(attribute: :start_time, events: @submitted_shifts) do |date, submitted_shifts| %>
 	<%= link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
