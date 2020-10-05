@@ -15,4 +15,21 @@ class Room < ApplicationRecord
         end
         return name
     end
+
+    def last_message
+        return self.messages.order(created_at: :desc).take
+    end
+
+    def last_datetime
+        if last_message
+            return Time.at(last_message.created_at.to_i).to_datetime
+        else
+            return Time.at(updated_at.to_i).to_datetime
+        end
+    end
+
+    def last_date
+        last_datetime.to_date
+    end
+    
 end

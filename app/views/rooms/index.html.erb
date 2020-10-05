@@ -12,14 +12,33 @@
  
 <ul class="list-group">
   <% @rooms.each do |room| %>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-    <% if room.name.present? %>
-        <%= link_to room.name, room_path(room) %>
-    <% else %>
-        <%= link_to room.default_name(current_user), room_path(room) %>
+    <%= link_to room_path(room), class: "list-group-item d-flex justify-content-between align-items-center" do %>
+        <div>
+            <div class="room-name">
+                <% if room.name.present? %>
+                    <%= room.name %>
+                <% else %>
+                    <%= room.default_name(current_user) %>
+                <% end %>
+            </div>
+            
+            <div class="text-muted">
+                <% if room.last_message.present? %>
+                    <font size="1"><%= room.last_message.content %></font>
+                    <% if room.last_message.created_at_is_today %>
+                        <font size="1"><%= room.last_message.created_time %></font>
+                    <% else %>
+                        <font size="1"><%= room.last_message.created_date %></font>
+                    <%end%>
+                <%else%>
+                    <font size="1"><%= room.last_date %></font>
+                <% end %>
+            </div>
+            
+        </div>
+        <span class="badge badge-primary badge-pill"><%= room.store.name %></span>
     <% end %>
-        <span class="badge badge-primary badge-pill"><%= link_to room.store.name, store_path(room.store), :style=>"color:white;" %></span>
-    </li>
+    
 <% end %>
 </ul>
 <div id="new-room-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
