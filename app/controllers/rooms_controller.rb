@@ -38,7 +38,7 @@ class RoomsController < ApplicationController
     end
 
     def index
-        @rooms = current_user.rooms.order(last_datetime: :desc)
+        @rooms = current_user.rooms
         # binding.irb
     end
 
