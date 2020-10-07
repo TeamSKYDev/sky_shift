@@ -11,8 +11,10 @@ class HomesController < ApplicationController
 			@schedule_title = @store.name
 			@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id)
 			if params[:start_date]
+				@date = params[:start_date]
 				@month_submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_month)
 			else
+				@date = Date.current.beginning_of_month
 				@month_submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: Date.today.in_time_zone.all_month)
 			end
 		end

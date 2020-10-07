@@ -1,8 +1,13 @@
-<h3>シフト作成ページ</h3>
+<h3>提出シフト一覧　兼　シフト作成ページ</h3>
 
-<%= form_tag(draft_shifts_path, method: :GET) do %>
-	<%= date_select :start_date, @date %>
+<%= month_calendar(events: @draft_shifts) do |date, draft_shifts| %>
+
+	<%= link_to date.day, daily_draft_shifts_path(start_date: date) %>
+
+	<% if draft_shifts.present? %>
+		<p>未確定あり</p>
+	<% end %>
+
 <% end %>
 
-<table class = "table">
-</table>
+<%= link_to "戻る", home_path(start_date: params[:start_date]) %>

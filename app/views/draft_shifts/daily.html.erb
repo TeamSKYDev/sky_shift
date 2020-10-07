@@ -1,0 +1,17 @@
+<h3><%= @date %>のシフト</h3>
+<%= link_to "前日", daily_draft_shifts_path(start_date: @date.to_date.yesterday) %>
+<%= link_to "翌日", daily_draft_shifts_path(start_date: @date.to_date.tomorrow) %>
+<br>
+<%= link_to "戻る", draft_shifts_path(start_date: params[:start_date]) %>
+<br>
+<% @submitted_shifts.each do |submitted_shift| %>
+	<%= submitted_shift.user.last_name %>
+	<%= submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M") %><br>
+<% end %>
+
+
+<p>下書き</p>
+<% @draft_shifts.each do |draft_shift| %>
+	<%= draft_shift.user.last_name %>
+	<%= draft_shift.start_time.strftime("%H:%M") + "~" + draft_shift.end_time.strftime("%H:%M") %><br>
+<% end %>

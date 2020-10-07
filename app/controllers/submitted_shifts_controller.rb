@@ -67,6 +67,7 @@ class SubmittedShiftsController < ApplicationController
 				draft_shift.store_id = shift.store_id
 				draft_shift.start_time = shift.start_time
 				draft_shift.end_time = shift.end_time
+				draft_shift.save!
 			end
 
 		end
