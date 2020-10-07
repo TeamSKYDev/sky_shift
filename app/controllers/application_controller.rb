@@ -2,12 +2,19 @@ class ApplicationController < ActionController::Base
 	before_action :configure_permitted_parameters, if: :devise_controller?
 	before_action :authenticate_user!, except: [:top]
 	before_action :get_stores
+	before_action :set_user_id_to_cookie
 
 	def get_stores
 		if current_user.present?
 		 	store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true).pluck(:store_id)
 		 	@stores = Store.where(id: [store_ids])
 
+		end
+	end
+
+	def set_user_id_to_cookie
+		if current_user
+			cookies.signed["user.id"] = current_user.id
 		end
 	end
 

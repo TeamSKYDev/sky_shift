@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div id="message-box">
+<div class="message-box" id="<%= current_user.id %>">
     <div class="card messages" id="messages" data-room_id="<%= @room.id %>">
         <div class="card-body">
             <%= render @messages %>

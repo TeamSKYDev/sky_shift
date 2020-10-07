@@ -9,7 +9,7 @@ document.addEventListener 'turbolinks:load', ->
       # Called when the subscription has been terminated by the server
 
     received: (data) ->
-      $('#message-box .card-body').append data['message']
+      $('.message-box .card-body').append data['message']
       $('.messages').animate scrollTop: $('.messages')[0].scrollHeight
       # Called when there's incoming data on the websocket for this channel
 
