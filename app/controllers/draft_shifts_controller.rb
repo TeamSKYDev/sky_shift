@@ -31,7 +31,9 @@ class DraftShiftsController < ApplicationController
 		end
 		@submitted_shifts = SubmittedShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_day, status: true)
 		@draft_shifts = DraftShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_day)
-
+		@draft_shift = DraftShift.new
+		user_ids = Staff.where(store_id: @store.id, is_permitted: true).pluck(:user_id)
+		@users = User.where(id: [user_ids])
 	end
 
 	def create

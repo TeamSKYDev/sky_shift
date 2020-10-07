@@ -15,3 +15,8 @@
 	<%= draft_shift.user.last_name %>
 	<%= draft_shift.start_time.strftime("%H:%M") + "~" + draft_shift.end_time.strftime("%H:%M") %><br>
 <% end %>
+
+<%= form_for(@draft_shift) do |f| %>
+	<%= f.collection_select :user_id, @users, :id, :name %>
+	<%= f.submit "下書きを作成する" %>
+<% end %>
