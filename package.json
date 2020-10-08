@@ -6,7 +6,8 @@
     "axios": "^0.20.0",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "vuetify": "^2.3.13"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.11.0"

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :stores, only: [:index, :show]
+      resources :private_schedules, only: [:index, :show]
     end
   end
 

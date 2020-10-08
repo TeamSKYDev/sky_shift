@@ -1,4 +1,4 @@
-create_table "private_schedules", force: :cascade do |t|
+  create_table "private_schedules", force: :cascade do |t|
   t.integer   "user_id"    , null: false
   t.string    "title"      , null: false
   t.text      "content"    
