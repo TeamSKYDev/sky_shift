@@ -2,35 +2,90 @@
 <%= link_to "前日", daily_draft_shifts_path(start_date: @date.to_date.yesterday) %>
 <%= link_to "翌日", daily_draft_shifts_path(start_date: @date.to_date.tomorrow) %>
 <br>
-<%= link_to "戻る", draft_shifts_path(start_date: params[:start_date]) %>
-<br>
-<p>提出済みシフト</p>
-<% @submitted_shifts.each do |submitted_shift| %>
-	<%= submitted_shift.user.last_name %>
-	<%= submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M") %><br>
-<% end %>
+<%= link_to "カレンダーへ", draft_shifts_path(start_date: params[:start_date]) %>
+<br><br>
 
 
-<p>下書きシフト</p>
-<% @draft_shifts.each do |draft_shift| %>
-	<%= form_for(draft_shift) do |f| %>
-		<%= draft_shift.user.last_name %>
-		<%= f.time_select :start_time %><br>
-		~
-		<%= f.time_select :end_time %><br>
-		<%= f.submit "更新" %>
+<button class = "change_display_buttun first_display" type="button">提出済みシフト</button><br>
+
+<div class = "second_display" style = "display: none;">
+	<lavel>提出済みシフト</lavel>
+	<button class = "return_display_buttun" type="button">閉じる</button>
+	<table class = "table">
+		<thead class = "thead-light">
+			<tr>
+				<th>氏名</th>
+				<th>開始時間</th>
+				<th>~</th>
+				<th>終了時間</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if @submitted_shifts.blank? %>
+				<tr>
+					<td>提出なし</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			<% else %>
+				<% @submitted_shifts.each do |submitted_shift| %>
+					<tr>
+						<td>
+							<%= link_to submitted_shift.user.last_name, staff_path(Staff.find_by(user_id: submitted_shift.user_id, store_id: submitted_shift.store_id)) %>
+						</td>
+						<td><%= submitted_shift.start_time.strftime("%H:%M") %></td>
+						<td>~</td>
+						<td><%= submitted_shift.end_time.strftime("%H:%M") %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+
+<h5>シフト下書き</h5>
+<div class = "draft_index">
+	<div class = "row">
+			<div class = "col-2">氏名</div>
+			<div class = "col">開始時間</div>
+			<div class = "col">終了時間</div>
+			<div class = "col-2"></div>
+			<div class = "col-2"></div>
+	</div>
+	<% @draft_shifts.each do |draft_shift| %>
+		<%= form_for(draft_shift, url: draft_shift_path(draft_shift.id)) do |f| %>
+			<div class = "row">
+				<div class="col-2">
+					<% if draft_shift.user_id == 0 %>
+						<%= f.collection_select :user_id, @users, :id, :last_name %>
+					<% else %>
+						<%= link_to draft_shift.user.last_name, staff_path(Staff.find_by(user_id: draft_shift.user_id, store_id: draft_shift.store_id)) %>
+					<% end %>
+				</div>
+				<div class="col"><%= f.time_select :start_time %></div>
+				<div class="col"><%= f.time_select :end_time %></div>
+				<div class="col-2"><%= f.submit "更新", class: "btn btn-info" %></div>
+				<div class="col-2"><%= link_to "削除", draft_shift_path(draft_shift), method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger"%></div>
+			</div>
+		<% end %>
+		<br>
 	<% end %>
-	<%= link_to "削除", draft_shift_path(draft_shift), method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn"%>
-<% end %>
 
+	<%= form_for(@draft_shift) do |f| %>
+		<%= f.hidden_field :store_id, :value => @store.id %>
+		<div class = "row">
+			<label>下書きの追加</label>
+		</div>
+		
+		<div class = "row">
+			<div class = "col-2"><%= f.collection_select :user_id, @users, :id, :last_name %></div>
+			<div class = "col"><%= f.time_select :start_time %></div>
+			<div class = "col"><%= f.time_select :end_time %></div>
+			<div class = "col-2"><%= f.submit "追加", class: "btn btn-success" %></div>
+			<div class = "col-2"></div>
+		</div>
+	<% end %>
+</div>
 
-<p>下書きの追加</p>
-<%= form_for(@draft_shift) do |f| %>
-	<label>氏名</label><%= f.collection_select :user_id, @users, :id, :last_name %><br>
-    <%= f.time_select :start_time %><br>
-    ~
-	<%= f.time_select :end_time %>
-
-	<%= f.hidden_field :store_id, :value => @store.id %>
-	<%= f.submit "追加" %>
-<% end %>

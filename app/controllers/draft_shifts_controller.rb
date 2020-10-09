@@ -36,6 +36,7 @@ class DraftShiftsController < ApplicationController
 		@draft_shift.end_time = @date
 		user_ids = Staff.where(store_id: @store.id, is_permitted_status: true, is_unsubscribe: false).pluck(:user_id)
 		# @usersにヘルプを追加
+		user_ids.unshift(0)
 		@users = User.where(id: [user_ids])
 	end
 
@@ -63,7 +64,7 @@ class DraftShiftsController < ApplicationController
 		@draft_shift = DraftShift.find(params[:id])
 		@draft_shift.destroy
 		flash[:notice] = "destroy draft"
-		redirect_to daily_draft_shifts_path
+		redirect_to request.referer
 	end
 
 	private

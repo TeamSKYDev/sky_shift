@@ -7,9 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create!(
+	id: 0,
 	email: "help@help",
-	password: "helphelp"
-	telephone_number: "help"
-	is_unsubscribe: true
-	last_name: "ヘルプ"
+	password: "helphelp",
+	telephone_number: "help",
+	is_unsubscribe: true,
+	last_name: "ヘルプ",
+	first_name: "help",
 )
