@@ -1,0 +1,16 @@
+<div class="balloon6">
+    <div class="text-muted">
+        <font size="1"><%= User.find(message.creator_id).full_name %></font>
+    </div>
+    <div class="faceicon">
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="chatting">
+      <div class="says">
+        <p><%= message.content %></p>
+      </div>
+    </div>
+    <div class="text-muted">
+        <font size="1"><%= message.created_time %></font>
+    </div>
+</div>
