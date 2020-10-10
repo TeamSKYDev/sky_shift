@@ -23,8 +23,8 @@
 			<% end %>
 
 			<label>ラベル</label>
-			<button class = "select_labels_buttun assigned_labels" type="button">編集</button>
-			<div class = "assigned_labels">
+			<button class = "change_display_buttun first_display" type="button">編集</button>
+			<div class = "first_display">
 				<% @label_position.each do |label| %>
 					<span style = "color: white; background-color: green; margin: 10px;">
 						<%= label.name %>
@@ -49,7 +49,7 @@
 					</span>
 			    <% end %>
 			</div>
-		    <div class = "select_labels" style = "display: none;">
+		    <div class = "second_display" style = "display: none;">
 		    	<label style = "color: green;">position</label><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_position, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
@@ -93,7 +93,7 @@
 			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
 		<% end %>
 		<br><br>
-		<%= link_to "戻る", staffs_path %>
+		<%= link_to "戻る", :back %>
 	<% end %>
 <% else %>
 	<p>あなたはただのスタッフ</p>

@@ -43,10 +43,19 @@ document.addEventListener("turbolinks:load", function () {
 
 $(document).on('turbolinks:load', function() {
     $(function () {
-        $(".select_labels_buttun").on('click', function () {
-            console.log('hoge');
-            $('.select_labels').css('display', 'block');
-            $('.assigned_labels').css('display', 'none');
+        $(".change_display_buttun").on('click', function () {
+            $('.second_display').css('display', 'block');
+            $('.first_display').css('display', 'none');
         });
     });
 });
+
+$(document).on('turbolinks:load', function() {
+    $(function () {
+        $(".return_display_buttun").on('click', function () {
+            $('.second_display').css('display', 'none');
+            $('.first_display').css('display', 'block');
+        });
+    });
+});
+

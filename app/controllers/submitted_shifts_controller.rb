@@ -50,7 +50,7 @@ class SubmittedShiftsController < ApplicationController
 	def confirm
 		@store = Store.find(current_user.selected_store)
 		@period = params[:start_date].in_time_zone.all_month
-		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, start_time: @period).order(:start_time)
+		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, status: false, start_time: @period).order(:start_time)
 		if @submitted_shifts.blank?
 			redirect_to home_path
 		end
@@ -58,9 +58,18 @@ class SubmittedShiftsController < ApplicationController
 
 	def submit
 		@period = params[:start_date].in_time_zone.all_month
-		@submit_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, start_time: @period)
+		@submit_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, status: false, start_time: @period,)
 		@submit_shifts.each do |shift|
-			shift.update(status: true)
+			if shift.update(status: true)
+				# 提出と同時に下書きシフトを作成
+				draft_shift = DraftShift.new
+				draft_shift.user_id = shift.user_id
+				draft_shift.store_id = shift.store_id
+				draft_shift.start_time = shift.start_time
+				draft_shift.end_time = shift.end_time
+				draft_shift.save!
+			end
+
 		end
 		redirect_to request.referer
 	end

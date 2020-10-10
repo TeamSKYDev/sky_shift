@@ -1,9 +1,13 @@
-<h2><%= @schedule_title %>スケジュール</h2>
-
-
 <% if current_user.selected_store.blank? %>
-
+	<h2><%= link_to @schedule_title, home_path %>スケジュール</h2>
 <% else %>
+	<h2><%= link_to @schedule_title, store_path(@store.id) %>スケジュール</h2>
+
+	<% if Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store, is_admin: true) %>
+		<%= link_to "シフト管理", draft_shifts_path(start_date: @date), class: "btn btn-info" %>
+	<% end %>
+
+
 	<%= month_calendar(attribute: :start_time, events: @submitted_shifts) do |date, submitted_shifts| %>
 		<%= link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
 		<div id = "submitted_shift_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
@@ -16,9 +20,10 @@
 						<span style = "border: groove; border-radius: 50%; background-color: aliceblue;">未</span>
 						<%= submitted_shift.start_time.strftime("%H:%M") + "~" %><br>
 					<% end %>
-					<%# link_to submitted_shift.start_time, "#", remote: true %>
+
 					<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-			<% end %>
-		</div>
+	  		<% end %>
+	  	</div>
+
 	<% end %>
 <% end %>

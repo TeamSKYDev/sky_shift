@@ -1,0 +1,13 @@
+<h3><%= @store.name %>　シフト管理</h3>
+
+<%= month_calendar(events: @draft_shifts) do |date, draft_shifts| %>
+
+	<%= link_to date.day, daily_draft_shifts_path(start_date: date) %>
+
+	<% if draft_shifts.present? %>
+		<p>未確定あり</p>
+	<% end %>
+
+<% end %>
+
+<%= link_to "戻る", home_path(start_date: params[:start_date]) %>

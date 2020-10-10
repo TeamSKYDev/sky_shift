@@ -25,16 +25,21 @@ Rails.application.routes.draw do
     end
   end
 
+
   resources :private_schedules
 
   patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
   patch "staffs/unsubscribe" => "staffs/unsubscribe", as: "staff_unsubscribe"
   patch "staffs/permit" => "staffs/permit", as: "staff_permit"
+
   resources :staffs, only: [:new, :index, :create, :show, :update]
 
   resources :labels, except: [:new, :show]
 
-  get "submitted_shifts/confirm" => "shifts/confirm", as: "confirm_submit_shift"
-  patch "submitted_shifts/submit" => "shifts/submit", as: "submit_shift"
+  get "submitted_shifts/confirm" => "submitted_shifts#confirm", as: "confirm_submit_shift"
+  patch "submitted_shifts/submit" => "submitted_shifts#submit", as: "submit_shift"
   resources :submitted_shifts, only: [:new, :create, :edit, :update, :destroy]
+
+  get "draft_shifts/daily" => "draft_shifts#daily", as: "daily_draft_shifts"
+  resources :draft_shifts, only: [:new, :create, :index, :update, :destroy]
 end
