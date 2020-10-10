@@ -1,2 +1,15 @@
 
+<%= month_calendar(attribute: :start_date, events: @private_schedules) do |date, private_schedules| %>
+	<%= date.day %>
+	
+	<%# ajaxでシフト作成ができる %>
+	<%= link_to "+", new_private_schedule_path(date: date), remote: true %>
+	<%# attribute: :dateで勝手にやってくれる %>
+    <div id="private-schedule-<%= date %>">
+        <% private_schedules.each do |private_schedule| %>
+            <%= render 'private_schedules/private_schedule', private_schedule: private_schedule %>
+        <% end %>
+    </div>
+<% end %>
+<div id="private-schedule-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 

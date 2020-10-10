@@ -1,2 +1,2 @@
-$("#new-room-modal").html("<%= escape_javascript(render 'form', room: @room) %>")
+$("#new-room-modal").html("<%= escape_javascript(render 'form', room: @room, store: @store, stores: @stores) %>")
 $("#new-room-modal").modal("show")

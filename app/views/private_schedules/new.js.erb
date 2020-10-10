@@ -1,0 +1,2 @@
+$("#private-schedule-modal").html("<%= escape_javascript(render 'form', private_schedule: @private_schedule, date: @date) %>")
+$("#private-schedule-modal").modal("show")

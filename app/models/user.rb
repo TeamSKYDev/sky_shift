@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   has_many :submitted_shifts, dependent: :destroy
   
+  has_many :private_schedules
 
   validates :last_name, presence: true
   validates :first_name, presence: true

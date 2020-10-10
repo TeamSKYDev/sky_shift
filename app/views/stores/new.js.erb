@@ -1,2 +1,2 @@
-$("#store-modal").html("<%= escape_javascript(render 'form') %>")
+$("#store-modal").html("<%= escape_javascript(render 'form', store: @store) %>")
 $("#store-modal").modal("show")
