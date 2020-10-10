@@ -6,6 +6,7 @@ class Store < ApplicationRecord
 	has_many :users, through: :staffs
 	has_many :labels, dependent: :destroy
 	has_many :submitted_shifts, dependent: :destroy
+	has_many :decided_shifts, dependent: :destroy
 
     validates :name, presence: true
 
