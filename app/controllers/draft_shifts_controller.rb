@@ -9,7 +9,7 @@ class DraftShiftsController < ApplicationController
 
 	def index
 		@store = Store.find_by(id: current_user.selected_store)
-		if Staff.find_by(user_id: current_user.id).is_admin == false
+		if Staff.find_by(user_id: current_user.id).is_admin == 0
 			redirect_to home_path
 		end
 		if params[:start_date].present?
