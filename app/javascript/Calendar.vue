@@ -41,13 +41,14 @@
 
 import axios from 'axios';
 
+
 export default {
   data: () => ({
     events: [],
     private_schedules: [],
     value: '',
   }),
-  created () {
+  mounted () {
       axios
       .get('/api/v1/private_schedules')
       .then(response => (
@@ -56,23 +57,26 @@ export default {
                 name: p.title,
                 start: new Date(p.start_time),
                 end: new Date(p.end_time),
-                color: 'yellow',
+                color: 'red',
                 timed: true,
             })
+            
         })
       ))
-  },
-  methods: {
-    getEvents() {
-        this.events.push({
+      this.events.push({
             name: '会議',
             start: new Date('2020-10-03T01:00:00'),
             end: new Date('2020-10-03T02:00:00'),
             color: 'blue',
             timed: true,
-        })
+      })
+  },
+  methods: {
+    getEvents() {
+      
         
-    
+        
+      
     },
     getEventColor(event) {
       return event.color;

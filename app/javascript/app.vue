@@ -1,18 +1,33 @@
 <template>
-  <v-app>
-    <v-main>
-      <Calendar />
-    </v-main>
-  </v-app>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Calendar from './Calendar';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import CalendarIndex from 'CalendarIndex.vue'
+import CalendarNew from 'CalendarNew.vue'
+
+const router = new VueRouter({
+  routes: [
+    { path: '/',
+      component: CalendarIndex  },
+    { path: '/private_schedules/new',
+      name: 'CalendarNew',
+      component: CalendarNew },
+  ]
+})
+
+
+Vue.use(VueRouter)
 
 export default {
-  name: 'App',
-  components: {
-    Calendar,
-  },
-};
+  router
+}
 </script>
+
+<style scoped>
+</style>
