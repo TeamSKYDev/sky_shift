@@ -1,0 +1,2 @@
+$("#shift-edit-modal").html("<%= escape_javascript(render("form", shift: @decided_shift, users: @users)) %>")
+$("#shift-edit-modal").modal("show")

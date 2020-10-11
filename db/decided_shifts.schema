@@ -1,0 +1,8 @@
+create_table :decided_shifts do |t|
+  t.integer :user_id, null: false
+  t.integer :store_id, null: false
+  t.datetime :start_time, null: false
+  t.datetime :end_time, null:false
+
+  t.timestamps
+end

@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :messages
 
   has_many :submitted_shifts, dependent: :destroy
+  has_many :decided_shifts, dependent: :destroy
   
   has_many :private_schedules
 
