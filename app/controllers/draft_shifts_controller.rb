@@ -1,7 +1,10 @@
 class DraftShiftsController < ApplicationController
 	before_action :check_selected_store
 
-	def new
+	def submitted
+		@date = params[:start_date]
+		@store = Store.find_by(id: current_user.selected_store)
+		@submitted_shifts = SubmittedShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_day, status: true).order(:start_time)
 	end
 
 	def index
@@ -38,6 +41,8 @@ class DraftShiftsController < ApplicationController
 		# @usersにヘルプを追加
 		user_ids.unshift(0)
 		@users = User.where(id: [user_ids])
+
+		@decided_shifts = DecidedShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_day).order(:start_time)
 	end
 
 	def create

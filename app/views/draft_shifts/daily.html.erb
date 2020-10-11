@@ -5,47 +5,20 @@
 <%= link_to "カレンダーへ", draft_shifts_path(start_date: params[:start_date]) %>
 <br><br>
 
+<%= link_to "提出済みシフト", show_submitted_shifts_path(start_date: @date.to_date), remote: true %>
+<div id="show-submitted-shift-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
-<button class = "change_display_buttun first_display" type="button">提出済みシフト<br></button>
+<br>
 
-<div class = "second_display" style = "display: none;">
-	<lavel>提出済みシフト</lavel>
-	<button class = "return_display_buttun" type="button">閉じる</button>
-	<table class = "table">
-		<thead class = "thead-light">
-			<tr>
-				<th>氏名</th>
-				<th>開始時間</th>
-				<th>~</th>
-				<th>終了時間</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% if @submitted_shifts.blank? %>
-				<tr>
-					<td>提出なし</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			<% else %>
-				<% @submitted_shifts.each do |submitted_shift| %>
-					<tr>
-						<td>
-							<%= link_to submitted_shift.user.last_name, staff_path(Staff.find_by(user_id: submitted_shift.user_id, store_id: submitted_shift.store_id)) %>
-						</td>
-						<td><%= submitted_shift.start_time.strftime("%H:%M") %></td>
-						<td>~</td>
-						<td><%= submitted_shift.end_time.strftime("%H:%M") %></td>
-					</tr>
-				<% end %>
-			<% end %>
-		</tbody>
-	</table>
+<div class = "row" style = "margin-top: 50px;">
+	<div class = "col">
+		<h5>シフト下書き</h5>
+	</div>
+	<div class = "col">
+		<%= link_to "シフトの確定", decided_shifts_path(start_date: @date), method: :post, data: { confirm: 'シフトを確定しますか？' }, class: "btn btn-primary" %>
+	</div>
 </div>
-
-
-<h5>シフト下書き</h5>
+<br>
 <div class = "draft_index">
 	<div class = "row">
 			<div class = "col-2">氏名</div>
@@ -75,9 +48,6 @@
 
 	<%= form_for(@draft_shift) do |f| %>
 		<%= f.hidden_field :store_id, :value => @store.id %>
-		<div class = "row">
-			<label>下書きの追加</label>
-		</div>
 		
 		<div class = "row">
 			<div class = "col-2"><%= f.collection_select :user_id, @users, :id, :last_name %></div>
@@ -88,4 +58,40 @@
 		</div>
 	<% end %>
 </div>
+
+<% if @decided_shifts.present? %>
+	<h5 style = "margin-top: 50px;">確定済みシフト</h5>
+	<div class = "row">
+		<table class = "table">
+			<thead class = "thead-light">
+				<tr>
+					<th>氏名</th>
+					<th>開始時間</th>
+					<th>~</th>
+					<th>終了時間</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<% @decided_shifts.each do |decided_shift| %>
+					<tr>
+						<td>
+							<% if decided_shift.user_id == 0 %>
+								<%= decided_shift.user.last_name %>
+							<% else %>
+								<%= link_to decided_shift.user.last_name, staff_path(Staff.find_by(user_id: decided_shift.user_id, store_id: decided_shift.store_id)) %>
+							<% end %>
+						</td>
+						<td><%= decided_shift.start_time.strftime("%H:%M") %></td>
+						<td>~</td>
+						<td><%= decided_shift.end_time.strftime("%H:%M") %></td>
+						<td><%= link_to "編集", edit_decided_shift_path(decided_shift), remote: true %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% end %>
+<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 

@@ -1,0 +1,49 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+
+        <div class="modal-header">
+            <h5 class="modal-title">
+               提出済みシフト
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group field">
+				<table class = "table">
+					<thead class = "thead-light">
+						<tr>
+							<th>氏名</th>
+							<th>開始時間</th>
+							<th>~</th>
+							<th>終了時間</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% if submitted_shifts.blank? %>
+							<tr>
+								<td>提出なし</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						<% else %>
+							<% submitted_shifts.each do |submitted_shift| %>
+								<tr>
+									<td>
+										<%= link_to submitted_shift.user.last_name, staff_path(Staff.find_by(user_id: submitted_shift.user_id, store_id: submitted_shift.store_id)) %>
+									</td>
+									<td><%= submitted_shift.start_time.strftime("%H:%M") %></td>
+									<td>~</td>
+									<td><%= submitted_shift.end_time.strftime("%H:%M") %></td>
+								</tr>
+							<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
