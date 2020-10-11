@@ -9,7 +9,8 @@ class DraftShiftsController < ApplicationController
 
 	def index
 		@store = Store.find_by(id: current_user.selected_store)
-		if Staff.find_by(user_id: current_user.id).is_admin == 0
+		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
+		if @staff.is_admin == false
 			redirect_to home_path
 		end
 		if params[:start_date].present?
@@ -23,7 +24,9 @@ class DraftShiftsController < ApplicationController
 
 	def daily
 		@store = Store.find_by(id: current_user.selected_store)
-		if Staff.find_by(user_id: current_user.id).is_admin == false
+		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
+
+		if @staff.is_admin == false
 			redirect_to home_path
 		end
 
