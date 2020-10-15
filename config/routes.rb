@@ -46,5 +46,5 @@ Rails.application.routes.draw do
   post "shifts/create_all" => "decided_shifts#create_all", as: "create_all_decided_shifts"
   resources :decided_shifts, only: [:index, :create, :edit, :update, :destroy]
 
-  resources :tasks, except: [:show]
+  resources :tasks
 end

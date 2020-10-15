@@ -7,6 +7,11 @@ class TasksController < ApplicationController
 
 	def index
 		@store = Store.find(current_user.selected_store)
+		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
+		if @staff.is_admin == false
+			redirect_to home_path
+		end
+
 		@tasks = Task.where(store_id: @store.id)
 	end
 
@@ -35,14 +40,25 @@ class TasksController < ApplicationController
 		end
 	end
 
-	def edit
+	def show
 		@task = Task.find(params[:id])
 	end
 
+	def edit
+		@task = Task.find(params[:id])
+		@store = Store.find(current_user.selected_store)
+	end
+
 	def update
+		@task = Task.find(params[:id])
+		@task.update(task_params)
+		redirect_to request.referer
 	end
 
 	def destroy
+		@task = Task.find(params[:id])
+		@task.destroy
+		redirect_to request.referer
 	end
 
 	private

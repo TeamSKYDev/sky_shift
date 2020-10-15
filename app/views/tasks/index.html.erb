@@ -14,17 +14,18 @@
 
 	<% @tasks.each do |task| %>
 		<tr>
-			<td><%= task.title %></td>
+			<td><%= link_to task.title, task_path(task), remote: true %></td>
 			<td><%= task.content %></td>
 			<td>
 				<% user = User.find(task.creatore_id) %>
 				<%= user.last_name %>
 			</td>
 			<td><%= task.updated_at.strftime("%m/%d %H:%M") %></td>
-			<td><%= link_to "編集", edit_task_path(task) %></td>
+			<td><%= link_to "編集", edit_task_path(task), remote: true %></td>
 		</tr>
 	<% end %>
 	
 </table>
 
 <div id = "task_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id = "task_show_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

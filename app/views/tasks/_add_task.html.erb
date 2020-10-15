@@ -1,10 +1,10 @@
 <tr>
-	<td><%= task.title %></td>
+	<td><%= link_to task.title, task_path(task), remote: true %></td>
 	<td><%= task.content %></td>
 	<td>
 		<% user = User.find(task.creatore_id) %>
 		<%= user.last_name %>
 	</td>
 	<td><%= task.updated_at.strftime("%m/%d %H:%M") %></td>
-	<td><%= link_to "編集", edit_task_path(task) %></td>
+	<td><%= link_to "編集", edit_task_path(task), remote: true %></td>
 </tr>
