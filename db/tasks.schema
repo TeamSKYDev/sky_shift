@@ -1,0 +1,11 @@
+create_table :tasks do |t|
+
+	t.integer :store_id, null: false
+	t.integer :creatore_id, null: false
+	t.string :title
+	t.text :content
+	t.boolean :is_announced, default: false
+	t.boolean :is_official, default: true
+
+	t.timestamps null: false
+end

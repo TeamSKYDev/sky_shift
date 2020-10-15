@@ -1,0 +1,6 @@
+<% if @status == 'success' %>
+$("#add_task").append("<%= j(render("add_task", task: @task, user: current_user)) %>");
+<% elsif @status == 'fail' %>
+alert('error!');
+<% end %>
+$("#task_modal").modal("hide");
