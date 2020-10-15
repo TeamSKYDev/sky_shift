@@ -20,6 +20,8 @@ class User < ApplicationRecord
   
   has_many :private_schedules
 
+  has_many :user_tasks, dependent: :destroy
+
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :telephone_number, presence: true

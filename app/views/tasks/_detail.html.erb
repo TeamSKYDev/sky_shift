@@ -20,7 +20,7 @@
         <% end %>
         <br>
         <label>作成者：</label>
-        <% user = User.find(task.creatore_id) %>
+        <% user = User.find(task.creator_id) %>
         <%= user.last_name %><br>
         <label>最終更新日：</label><%= task.updated_at.strftime("%y/%m/%d %H:%M") %>
     </div>

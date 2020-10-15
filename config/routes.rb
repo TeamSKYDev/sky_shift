@@ -47,4 +47,6 @@ Rails.application.routes.draw do
   resources :decided_shifts, only: [:index, :create, :edit, :update, :destroy]
 
   resources :tasks
+
+  resources :user_tasks, only: [:new, :index, :create, :update, :destroy]
 end

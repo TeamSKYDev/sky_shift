@@ -20,7 +20,7 @@ class TasksController < ApplicationController
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
 
 		@task = Task.new(task_params)
-		@task.creatore_id = current_user.id
+		@task.creator_id = current_user.id
 		if @staff.is_admin == true
 			@task.is_official == true
 		end
