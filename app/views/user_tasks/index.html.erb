@@ -11,7 +11,7 @@
 	</tr>
 	<% @user_tasks.each do |user_task| %>
 		<tr>
-			<td><%= user_task.created_at.strftime("%y/%m/%d %H:%M") %></td>
+			<td><%= user_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
 			<td><%= user_task.task.title %></td>
 			<td><%= user_task.task.content %></td>
 			<td>
@@ -19,7 +19,7 @@
 				<%= user.last_name %>
 			</td>
 			<td>
-				<% store = Store.find(user_task.task.store) %>
+				<% store = Store.find(user_task.task.store.id) %>
 				<%= store.name %>
 			</td>
 		</tr>

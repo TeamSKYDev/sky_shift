@@ -15,9 +15,12 @@ class UserTasksController < ApplicationController
 	end
 
 	def create
-		@user_task = UserTask.new(user_task_params)
-		params(assign_task_ids).each do |assign_task_id|
+		params[:user_task][:assign_task_ids].each do |assign_task_id|
+			@user_task = UserTask.new(user_task_params)
+			@user_task.user_id = assign_task_id
+			@user_task.save
 		end
+		redirect_to tasks_path
 	end
 
 	def update

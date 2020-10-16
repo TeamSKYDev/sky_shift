@@ -30,6 +30,8 @@
                 <%= b.label { b.check_box + b.text } %>
             <% end %>
 
+            <%= f.hidden_field :task_id, :value => task.id %>
+
         </div>
         <div class="modal-footer actions">
             <%= f.submit "タスクを割り当てる" %>
