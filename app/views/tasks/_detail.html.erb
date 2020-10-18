@@ -25,6 +25,10 @@
         <label>最終更新日：</label><%= task.updated_at.strftime("%y/%m/%d %H:%M") %>
     </div>
     <div class="modal-footer actions">
+        <% user_task = task.user_tasks.find_by(user_id: current_user.id, is_completed: :false) %>
+        <% if user_task.present? %>
+            <%= link_to "済", user_task_path(user_task.id), method: :patch, class: "btn btn-success" %>
+        <% end %>
     </div>
   </div>
 </div>

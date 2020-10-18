@@ -14,6 +14,20 @@ class UserTasksController < ApplicationController
 		@public_tasks = Task.where(store_id: [store_ids], is_announced: true)
 	end
 
+	def past_index
+		#@user_tasks = current_user.user_tasks.where(is_completed: true)
+		@user_tasks = UserTask.where(is_completed: true, user_id: current_user.id)
+	end
+
+	def past_assign
+		@store = Store.find(current_user.selected_store)
+		task_ids = @store.tasks.where(is_official: true).pluck(:id)
+		staff_user_ids = Staff.where(store_id: current_user.selected_store, is_permitted_status: true).pluck(:user_id)
+
+		@user_tasks = UserTask.where(user_id: [staff_user_ids], task_id: [task_ids])
+
+	end
+
 	def create
 		params[:user_task][:assign_task_ids].each do |assign_task_id|
 			@user_task = UserTask.new(user_task_params)
@@ -24,9 +38,15 @@ class UserTasksController < ApplicationController
 	end
 
 	def update
+		@user_task = UserTask.find(params[:id])
+		@user_task.update(is_completed: true)
+		redirect_to user_tasks_path
 	end
 
 	def destroy
+		@user_task = UserTask.find(params[:id])
+		@user_task.destroy
+		redirect_to user_tasks_path
 	end
 
 	private

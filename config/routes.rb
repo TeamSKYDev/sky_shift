@@ -48,5 +48,7 @@ Rails.application.routes.draw do
 
   resources :tasks
 
+  get "user_tasks/past" => "user_tasks#past_index", as: "past_user_tasks"
+  get "user_tasks/past_assign" => "user_tasks#past_assign", as: "past_assign_user_tasks"
   resources :user_tasks, only: [:new, :index, :create, :update, :destroy]
 end
