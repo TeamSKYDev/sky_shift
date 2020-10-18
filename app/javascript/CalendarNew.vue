@@ -1,5 +1,5 @@
 <template>
-<v-app>
+
   <form @submit.prevent="createPrivateSchedule">
     <div v-if="errors.length != 0">
       <ul v-for="e in errors" :key="e">
@@ -24,7 +24,7 @@
     </div>
     <button type="submit">登録</button>
   </form>
-</v-app>
+
 </template>
 
 <script>
@@ -61,5 +61,5 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 </style>

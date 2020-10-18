@@ -73,10 +73,7 @@ export default {
   },
   methods: {
     getEvents() {
-      
-        
-        
-      
+
     },
     getEventColor(event) {
       return event.color;
@@ -90,3 +87,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+
+
+/* @import "https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"; */
+
+</style>
