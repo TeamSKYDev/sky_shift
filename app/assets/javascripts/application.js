@@ -44,7 +44,7 @@ document.addEventListener("turbolinks:load", function () {
 $(document).on('turbolinks:load', function() {
     $(function () {
         $(".change_display_buttun").on('click', function () {
-            $('.second_display').css('display', 'block');
+            $('.second_display').fadeIn(700);
             $('.first_display').css('display', 'none');
         });
     });
@@ -54,7 +54,7 @@ $(document).on('turbolinks:load', function() {
     $(function () {
         $(".return_display_buttun").on('click', function () {
             $('.second_display').css('display', 'none');
-            $('.first_display').css('display', 'block');
+            $('.first_display').fadeIn(700);
         });
     });
 });

@@ -25,17 +25,37 @@ class UserTasksController < ApplicationController
 		staff_user_ids = Staff.where(store_id: current_user.selected_store, is_permitted_status: true).pluck(:user_id)
 
 		@user_tasks = UserTask.where(user_id: [staff_user_ids], task_id: [task_ids])
-
 	end
 
+	def staff_assign
+		@staff = Staff.find(params[:id])
+		@tasks = Task.where(store_id: @staff.store.id, is_announced: false)
+		@user_task = UserTask.new
+	end
+
+
 	def create
-		params[:user_task][:assign_task_ids].each do |assign_task_id|
-			@user_task = UserTask.new(user_task_params)
-			@user_task.user_id = assign_task_id
-			@user_task.save
+		if params[:user_task][:assign_task_ids].present?
+			params[:user_task][:assign_task_ids].each do |assign_task_id|
+				@user_task = UserTask.new(user_task_params)
+				if @user_task.task_id.present?
+					@user_task.user_id = assign_task_id
+				else
+					@user_task.task_id = assign_task_id
+				end
+
+				if UserTask.find_by(user_id: @user_task.user_id, task_id: @user_task.task_id, is_completed: false).present?
+					flash[:notice] = "重複がありました"
+				else
+					@user_task.save
+				end
+			end
+		else
+			flash[:notice] = "✓を入れてください"
 		end
 		redirect_to tasks_path
 	end
+
 
 	def update
 		@user_task = UserTask.find(params[:id])
