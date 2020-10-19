@@ -8,20 +8,15 @@
 	<% end %>
 
 
-	<%= month_calendar(attribute: :start_time, events: @submitted_shifts) do |date, submitted_shifts| %>
+	<%= month_calendar(attribute: :start_time, events: @events) do |date, events| %>
 		<%= link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
 		<div id = "submitted_shift_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 		<div id="draft-shift-<%= date %>">
-			<% submitted_shifts.each do |submitted_shift| %>
-					<% if submitted_shift.status == true %>
-						<%= submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M") %><br>
-					<% else %>
-						<span style = "border: groove; border-radius: 50%; background-color: aliceblue;">未</span>
-						<%= submitted_shift.start_time.strftime("%H:%M") + "~" %><br>
-					<% end %>
+			<% events.each do |event| %>
+				<%= event.title %>
 
-					<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+				<div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 	  		<% end %>
 	  	</div>
 
