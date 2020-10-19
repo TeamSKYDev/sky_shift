@@ -22,18 +22,6 @@
         @click:date="viewDay"
       ></v-calendar>
     </v-sheet>
-    <table>
-      <tbody>
-        <tr>
-          <th>ID</th>
-          <th>name</th>
-        </tr>
-        <tr v-for="s in private_schedules" :key="s.id">
-          <td>{{ s.id }}</td>
-          <td>{{ s.title }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 

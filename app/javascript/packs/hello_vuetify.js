@@ -9,7 +9,6 @@ const vuetify = new Vuetify();
 document.addEventListener(
   'DOMContentLoaded', () => {
     const app = new Vue({
-      el: '#app',
       vuetify,
       render: h => h(App)
     }).$mount()
