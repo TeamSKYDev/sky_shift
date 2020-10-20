@@ -1,0 +1,2 @@
+$("#staff_assign_modal").html("<%= escape_javascript(render("select_tasks", tasks: @tasks, staff: @staff, user_task: @user_task)) %>")
+$("#staff_assign_modal").modal("show")

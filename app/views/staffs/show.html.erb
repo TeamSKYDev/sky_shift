@@ -22,6 +22,10 @@
 				<%= f.radio_button :is_admin, false %><label>なし</label><br>
 			<% end %>
 
+			<%= link_to "タスクを割り当てる", staff_assign_task_path(id: @staff.id), remote: true %>
+			<br>
+
+			<br>
 			<label>ラベル</label>
 			<button class = "change_display_buttun first_display" type="button">編集</button>
 			<div class = "first_display">
@@ -95,6 +99,7 @@
 		<br><br>
 		<%= link_to "戻る", :back %>
 	<% end %>
+	<div id = "staff_assign_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <% else %>
 	<p>あなたはただのスタッフ</p>
 	<label>店舗名</label><%= @staff.store.name %><br>

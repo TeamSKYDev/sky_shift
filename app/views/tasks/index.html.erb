@@ -1,0 +1,42 @@
+<h3><%= link_to @store.name, store_path(@store) %> タスク一覧ページ</h3>
+
+<%= link_to "新規タスクの作成", new_task_path, remote: true %><br>
+<%= link_to "過去割り当てタスク一覧", past_assign_user_tasks_path %>
+
+<h4>タスク一覧</h4>
+<table class = "table" id = "add_task">
+	<tr>
+		<th>タイトル</th>
+		<th>内容</th>
+		<th>作成者</th>
+		<th>最終編集日時</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
+
+	<% @tasks.each do |task| %>
+		<tr>
+			<td><%= link_to task.title, task_path(task), remote: true %></td>
+			<td><%= task.content %></td>
+			<td>
+				<% user = User.find(task.creator_id) %>
+				<%= user.last_name %>
+			</td>
+			<td><%= task.updated_at.strftime("%m/%d %H:%M") %></td>
+			<td>
+				<% if task.is_announced == true %>
+					<label>公開</label>
+				<% else %>
+					<label>非公開</label>
+				<% end %>
+			</td>
+			<td><%= link_to "割り当て", new_user_task_path(id: task.id), remote: true %></td>
+			<td><%= link_to "編集", edit_task_path(task), remote: true %></td>
+		</tr>
+	<% end %>
+</table>
+
+<div id = "task_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id = "task_show_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id = "assign_task_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

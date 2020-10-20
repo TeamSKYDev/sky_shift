@@ -1,0 +1,22 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+    	<h4>タスクを選択する</h4>
+    </div>
+
+	<%= form_for(user_task) do |f| %>
+	    <div class="modal-body">
+	        <%= f.collection_check_boxes :assign_task_ids, tasks, :id, :title, {include_hidden: false} do |b| %>
+	            <%= b.label { b.check_box + b.text } %><br>
+	        <% end %>
+
+	        <%= f.hidden_field :user_id, :value => staff.user_id %>
+
+	    </div>
+	    <div class="modal-footer actions">
+	        <%= f.submit "タスクを割り当てる" %>
+	    </div>
+	<% end %>
+  </div>
+</div>

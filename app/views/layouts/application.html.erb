@@ -77,7 +77,9 @@
         <% end %>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href=""><i class="fas fa-file"></i></a>
+        <%= link_to(user_tasks_path, class: "nav-link") do %>
+          <i class="fas fa-file"></i>
+        <% end %>
       </li>
       <li class="nav-item">
         <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>

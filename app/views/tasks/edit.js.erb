@@ -1,0 +1,2 @@
+$("#task_modal").html("<%= escape_javascript(render("form", task: @task, store: @store)) %>")
+$("#task_modal").modal("show")
