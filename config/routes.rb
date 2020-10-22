@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "home" => "homes#home", as: "home"
   get "index" => "homes#index", as: "index"
   root "homes#top"
-  patch "home/change/:id" => "homes#change_selected_store", as: "change_selected_store"
+  patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
   resources :stores, except: [:index]
 
 
