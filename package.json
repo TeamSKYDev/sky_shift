@@ -4,10 +4,12 @@
   "dependencies": {
     "@rails/webpacker": "5.2.1",
     "axios": "^0.20.0",
+    "turbolinks": "^5.2.0",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.3",
     "vue-router": "^3.4.6",
     "vue-template-compiler": "^2.6.12",
+    "vue-turbolinks": "^2.1.0",
     "vuetify": "^2.3.13"
   },
   "devDependencies": {
