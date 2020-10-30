@@ -33,13 +33,13 @@ class HomesController < ApplicationController
 
 
 		if current_user.selected_store.blank?
-			@schedule_title = "プライベート"
+			@title = "プライベート"
 			@private_schedules = PrivateSchedule.all
 			@submitted_shifts = current_user.submitted_shifts.where(start_time: @date.in_time_zone.all_month)
 			@decided_shifts = current_user.decided_shifts.where(start_time: @date.in_time_zone.all_month)
 		else
 			@store = Store.find(current_user.selected_store)
-			@schedule_title = @store.name
+			@title = @store.name
 
 			@submitted_shifts = current_user.submitted_shifts.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
 			@decided_shifts = current_user.decided_shifts.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)

@@ -2,6 +2,7 @@ class LabelsController < ApplicationController
 	before_action :check_selected_store
 
 	def index
+		@title = "ラベル管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store)
 		if @staff.is_admin != true
 			redirect_to home_path
@@ -29,6 +30,7 @@ class LabelsController < ApplicationController
 	end
 
 	def edit
+		@title = "ラベル管理"
 		@label = Label.find(params[:id])
 		@staff = Staff.find_by(user_id: current_user.id)
 		if @staff.is_admin != true

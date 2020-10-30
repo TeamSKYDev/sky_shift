@@ -14,18 +14,17 @@
 
     <div class="wrapper">
       <!-- Sidebar -->
-      
-      
-    
+
+
     <!-- Page Content -->
-    
+
       <nav class="navbar fixed-top navbar-expand-lg">
           <div class="container-fluid">
 
               <button type="button" id="sidebarCollapse" class="btn btn-info">
                   <i class="fas fa-align-left"></i>
-                  
               </button>
+              <h2><%= @title %></h2>
           </div>
       </nav>
 
@@ -34,7 +33,7 @@
           <div id="dismiss">
               <i class="fas fa-arrow-left"></i>
           </div>
-          
+
           <div class="sidebar-header">
               <h3><%= link_to "SKY SCHEDULER", home_path %></h3>
           </div>
@@ -106,6 +105,5 @@
 
   <%end%>
 
-  
 
 </html>

@@ -1,4 +1,3 @@
-<h3>スタッフ詳細ページ</h3>
 <% if @access_staff.is_admin == true %>
 	<%= form_for(@staff) do |f| %>
 		<label>店舗名</label><%= @staff.store.name %><br>

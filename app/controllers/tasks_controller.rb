@@ -7,6 +7,7 @@ class TasksController < ApplicationController
 
 	def index
 		@store = Store.find(current_user.selected_store)
+		@title = @store.name + "タスク管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
 		if @staff.is_admin == false
 			redirect_to home_path

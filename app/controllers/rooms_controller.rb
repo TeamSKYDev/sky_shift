@@ -38,6 +38,7 @@ class RoomsController < ApplicationController
     end
 
     def index
+        @title = "トークルーム"
         @rooms = current_user.rooms
         # binding.irb
     end

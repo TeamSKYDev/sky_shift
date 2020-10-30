@@ -57,6 +57,7 @@ class StoresController < ApplicationController
 
     def edit
         @store = Store.find(params[:id])
+        @title = @store.name
         @creator = User.find_by(id: @store.creator_id)
 
         @staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
