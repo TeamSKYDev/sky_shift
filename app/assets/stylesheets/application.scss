@@ -10,7 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require simple_calendar
  *= require_tree .
  *= require_self
  */
@@ -87,9 +86,6 @@ body {
 }
 
 
-
-
-
 .wrapper {
     display: block;
 }
@@ -157,4 +153,50 @@ body {
     /* top right corner of the sidebar */
     top: 10px;
     right: 10px;
+}
+
+
+.title {
+    position:absolute;
+    top: 20px;
+    left: 100px;
+    z-index: 1000;
+}
+
+
+@media (max-width: 768px){
+
+    h1, h2, h3, h4, h5, h6, p{
+        font-size: 100%;
+    }
+
+
+
+    .simple-calendar {
+        width: 100%;
+        font-size: 60%;
+
+      .day {
+      }
+
+      .wday-0 {}
+      .wday-1 {}
+      .wday-2 {}
+      .wday-3 {}
+      .wday-4 {}
+      .wday-5 {}
+      .wday-6 {}
+
+      .today {}
+      .past {}
+      .future {}
+
+      .start-date {}
+
+      .prev-month {}
+      .next-month { }
+      .current-month {}
+
+      .has-events {}
+    }
 }

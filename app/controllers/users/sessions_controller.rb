@@ -34,10 +34,15 @@ class Users::SessionsController < Devise::SessionsController
   def reject_user
     my_data = User.find_by(email: params[:user][:email])
 
-    if my_data.active_for_authentication? == false
-      flash[:notice] = "already unsubsucribe"
-      redirect_to new_uer_session_path
+    if my_data.present?
+
+      if my_data.active_for_authentication? == false
+        flash[:notice] = "already unsubsucribe"
+        redirect_to new_uer_session_path
+      end
+
     end
 
   end
 end
+

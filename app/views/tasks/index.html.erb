@@ -1,4 +1,6 @@
-<h3><%= link_to @store.name, store_path(@store) %> タスク一覧ページ</h3>
+<div class = "title">
+	<h3><%= link_to @store.name, store_path(@store) %> タスク一覧ページ</h3>
+</div>
 
 <%= link_to "新規タスクの作成", new_task_path, remote: true %><br>
 <%= link_to "過去割り当てタスク一覧", past_assign_user_tasks_path %>

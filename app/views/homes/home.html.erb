@@ -1,8 +1,10 @@
-<% if current_user.selected_store.blank? %>
-	<h2><%= link_to @schedule_title, home_path %>スケジュール</h2>
-<% else %>
-	<h2><%= link_to @schedule_title, store_path(@store.id) %>スケジュール</h2>
-<% end %>
+<div class = "title">
+	<% if current_user.selected_store.blank? %>
+		<h2><%= link_to @schedule_title, home_path %>スケジュール</h2>
+	<% else %>
+		<h2><%= link_to @schedule_title, store_path(@store.id) %>スケジュール</h2>
+	<% end %>
+</div>
 
 
 <% if Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store, is_admin: true) %>

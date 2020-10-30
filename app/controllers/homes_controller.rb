@@ -61,9 +61,9 @@ class HomesController < ApplicationController
 			@submitted_shifts.each do |submitted_shift|
 				@event = Event.new
 				if submitted_shift.status == true
-					@event.title = "提"+ submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M")
+					@event.title = "提" + submitted_shift.store.name
 				else
-					@event.title = "未"+ submitted_shift.start_time.strftime("%H:%M") + "~" + submitted_shift.end_time.strftime("%H:%M")
+					@event.title = "未"+ submitted_shift.store.name
 				end
 				@event.start_time = submitted_shift.start_time
 				@event.end_time = submitted_shift.end_time
@@ -74,7 +74,7 @@ class HomesController < ApplicationController
 		if @decided_shifts.present?
 			@decided_shifts.each do |decided_shift|
 				@event = Event.new
-				@event.title = "決"+ decided_shift.start_time.strftime("%H:%M") + "~" + decided_shift.end_time.strftime("%H:%M")
+				@event.title = decided_shift.store.name
 				@event.start_time = decided_shift.start_time
 				@event.end_time = decided_shift.end_time
 				@event.save!
