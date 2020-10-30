@@ -19,13 +19,22 @@
     <!-- Page Content -->
 
       <nav class="navbar fixed-top navbar-expand-lg">
-          <div class="container-fluid">
+        <div class="container-fluid">
+          <div class = "container">
+            <div class = "row">
+              <div class = "col-2">
 
-              <button type="button" id="sidebarCollapse" class="btn btn-info">
-                  <i class="fas fa-align-left"></i>
-              </button>
-              <h2><%= @title %></h2>
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+              </div>
+              <div class = "col-8">
+                <h1 class = "title"><%= @title %></h1>
+              </div>
+              <div class = "col-2"></div>
+            </div>
           </div>
+        </div>
       </nav>
 
       <nav id="sidebar">
@@ -68,6 +77,7 @@
           <%= yield %>
         </div>
       </main>
+      
       <ul class="nav fixed-bottom nav-pills nav-justified">
         <li class="nav-item">
           <%= link_to(change_selected_store_path, method: :patch, class: "nav-link", id: "calendar-link") do %>
