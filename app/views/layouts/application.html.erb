@@ -8,9 +8,27 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+ <div class="overlay"></div>
+
   <% if user_signed_in? %>
+
     <div class="wrapper">
       <!-- Sidebar -->
+      
+      
+    
+    <!-- Page Content -->
+    
+      <nav class="navbar fixed-top navbar-expand-lg">
+          <div class="container-fluid">
+
+              <button type="button" id="sidebarCollapse" class="btn btn-info">
+                  <i class="fas fa-align-left"></i>
+                  
+              </button>
+          </div>
+      </nav>
+
       <nav id="sidebar">
 
           <div id="dismiss">
@@ -41,53 +59,37 @@
         <% end %>
         <div id="store-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
       </nav>
-      <div class="overlay"></div>
-      <!-- Page Content -->
-      <div id="content">
-            <nav class="navbar fixed-top navbar-expand-lg">
-                <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        
-                    </button>
-                </div>
-            </nav>
-        
-      </div>
+      <main>
+        <div class="container">
+        <!-- フラッシュメッセージの表示 -->
+          <% if flash[:notice] %>
+            <%= flash[:notice] %>
+          <% end %>
+          <%= yield %>
+        </div>
+      </main>
+      <ul class="nav fixed-bottom nav-pills nav-justified">
+        <li class="nav-item">
+          <%= link_to(change_selected_store_path, method: :patch, class: "nav-link", id: "calendar-link") do %>
+            <i class="fas fa-calendar"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to(rooms_path, class: "nav-link", id: "message-link") do %>
+            <i class="fas fa-envelope"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to(user_tasks_path, class: "nav-link", id: "message-link") do %>
+            <i class="fas fa-file"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>
+        </li>
+      </ul>
     </div>
-
-    <body>
-      
-      <div class="container">
-      <!-- フラッシュメッセージの表示 -->
-        <% if flash[:notice] %>
-          <%= flash[:notice] %>
-        <% end %>
-        <%= yield %>
-      </div>
-    </body>
-
-    <ul class="nav fixed-bottom nav-pills nav-justified">
-      <li class="nav-item">
-        <%= link_to(change_selected_store_path, method: :patch, class: "nav-link active") do %>
-          <i class="fas fa-calendar"></i>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link_to(rooms_path, class: "nav-link") do %>
-          <i class="fas fa-envelope"></i>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link_to(user_tasks_path, class: "nav-link") do %>
-          <i class="fas fa-file"></i>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>
-      </li>
-    </ul>
 
   <%else%>
 
