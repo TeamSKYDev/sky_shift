@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "home" => "homes#home", as: "home"
   get "index" => "homes#index", as: "index"
   root "homes#top"
-  patch "home/change/:id" => "homes#change_selected_store", as: "change_selected_store"
+  patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
   resources :stores, except: [:index]
 
 
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
+
   resources :private_schedules
 
   patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
@@ -34,7 +35,21 @@ Rails.application.routes.draw do
 
   resources :labels, except: [:new, :show]
 
-  get "submitted_shifts/confirm" => "shifts/confirm", as: "confirm_submit_shift"
-  patch "submitted_shifts/submit" => "shifts/submit", as: "submit_shift"
+  get "submitted_shifts/confirm" => "submitted_shifts#confirm", as: "confirm_submit_shift"
+  patch "submitted_shifts/submit" => "submitted_shifts#submit", as: "submit_shift"
   resources :submitted_shifts, only: [:new, :create, :edit, :update, :destroy]
+
+  get "shifts/daily" => "draft_shifts#daily", as: "daily_draft_shifts"
+  get "shifts/submitted" => "draft_shifts#submitted", as: "show_submitted_shifts"
+  resources :draft_shifts, only: [:new, :create, :index, :update, :destroy]
+
+  post "shifts/create_all" => "decided_shifts#create_all", as: "create_all_decided_shifts"
+  resources :decided_shifts, only: [:index, :create, :edit, :update, :destroy]
+
+  resources :tasks
+
+  get "user_tasks/past" => "user_tasks#past_index", as: "past_user_tasks"
+  get "user_tasks/past_assign" => "user_tasks#past_assign", as: "past_assign_user_tasks"
+  get "user_tasks/staff_assign" => "user_tasks#staff_assign", as: "staff_assign_task"
+  resources :user_tasks, only: [:new, :index, :create, :update, :destroy]
 end

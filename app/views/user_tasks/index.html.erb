@@ -1,0 +1,53 @@
+<h3>タスク一覧</h3>
+
+<h4>個人タスク</h4>
+<%= link_to "過去の完了タスク一覧", past_user_tasks_path %>
+<table class = "table">
+	<tr>
+		<th>発行日時</th>
+		<th>タイトル</th>
+		<th>内容</th>
+		<th>From</th>
+		<th>店舗名</th>
+	</tr>
+	<% @user_tasks.each do |user_task| %>
+		<tr>
+			<td><%= user_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+			<td><%= link_to user_task.task.title, task_path(user_task.task.id), remote: true %></td>
+			<td><%= user_task.task.content %></td>
+			<td>
+				<% user = User.find(user_task.task.creator_id) %>
+				<%= user.last_name %>
+			</td>
+			<td>
+				<% store = Store.find(user_task.task.store.id) %>
+				<%= store.name %>
+			</td>
+		</tr>
+	<% end %>
+</table>
+
+<h4>周知事項</h4>
+<table class = "table">
+	<tr>
+		<th>発行日時</th>
+		<th>タイトル</th>
+		<th>内容</th>
+		<th>From</th>
+		<th>店舗名</th>
+	</tr>
+	<% @public_tasks.each do |public_task| %>
+		<tr>
+			<td><%= public_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+			<td><%= link_to public_task.title, task_path(public_task.id), remote: true %></td>
+			<td><%= public_task.content %></td>
+			<td>
+				<% user = User.find(public_task.creator_id) %>
+				<%= user.last_name %>
+			</td>
+			<td><%= public_task.store.name %></td>
+		</tr>
+	<% end %>
+</table>
+
+<div id = "task_show_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

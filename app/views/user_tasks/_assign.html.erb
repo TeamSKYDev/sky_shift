@@ -1,0 +1,41 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+        <h5 class="modal-title">
+            タスクの割り当て
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <%= form_for(user_task) do |f| %>
+        <div class="modal-body">
+            <lavel>タイトル：</lavel><%= task.title %><br>
+            <lavel>内容：</lavel><%= task.content %><br>
+            <label>公開範囲：</label>
+            <% if task.is_announced == true %>
+                公開
+            <% else %>
+                非公開
+            <% end %>
+            <br>
+            <label>作成者：</label>
+            <% user = User.find(task.creator_id) %>
+            <%= user.last_name %><br>
+            <label>最終更新日：</label><%= task.updated_at.strftime("%Y/%m/%d %H:%M") %>
+
+            <p>割り当てる人を選択する</p>
+            <%= f.collection_check_boxes :assign_task_ids, users, :id, :last_name, {include_hidden: false} do |b| %>
+                <%= b.label { b.check_box + b.text } %>
+            <% end %>
+
+            <%= f.hidden_field :task_id, :value => task.id %>
+
+        </div>
+        <div class="modal-footer actions">
+            <%= f.submit "タスクを割り当てる" %>
+        </div>
+    <% end %>
+  </div>
+</div>
