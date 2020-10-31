@@ -1,0 +1,49 @@
+<div class="room-list">
+    <div class="row">
+            <div class="col-2">
+                <button id="back-arrow">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="col-8">
+                <%= store.name %>のトークルーム一覧
+            </div>
+            <div class="col-2 text-right">
+                <%= link_to new_room_path, class: "btn btn-outline-primary", remote: true do %>
+                    <i class="fas fa-plus"></i>
+                <% end %>
+            </div>
+    </div>
+
+    <ul class="list-group">
+        <% rooms.each do |room| %>
+            <%= link_to room_path(room), class: "list-group-item d-flex justify-content-between align-items-center" do %>
+                <div>
+                    <div class="room-name">
+                        <% if room.name.present? %>
+                            <%= room.name %>
+                        <% else %>
+                            <%= room.default_name(current_user) %>
+                        <% end %>
+                    </div>
+                    
+                    <div class="text-muted">
+                        <% if room.last_message.present? %>
+                            <font size="1"><%= room.last_message.content %></font>
+                            <% if room.last_message.created_at_is_today %>
+                                <font size="1"><%= room.last_message.created_time %></font>
+                            <% else %>
+                                <font size="1"><%= room.last_message.created_date %></font>
+                            <%end%>
+                        <%else%>
+                            <font size="1"><%= room.last_date %></font>
+                        <% end %>
+                    </div>
+                    
+                </div>
+                <span class="badge badge-primary badge-pill"><%= room.store.name %></span>
+            <% end %>
+            
+        <% end %>
+    </ul>
+</div>

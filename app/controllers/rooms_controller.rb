@@ -1,11 +1,4 @@
 class RoomsController < ApplicationController
-    before_action :check_room, only: %i[show]
-
-	def check_room
-		if current_user.selected_store.blank?
-			redirect_to home_path
-		end
-    end
     
     def new
         @room = Room.new
@@ -16,7 +9,7 @@ class RoomsController < ApplicationController
 
     def show
         @room = current_user.rooms.find(params[:id])
-        @messages = @room.messages.includes(:user)
+        @messages = @room.messages
         @message = Message.new
     end
 
@@ -39,6 +32,7 @@ class RoomsController < ApplicationController
 
     def index
         @rooms = current_user.rooms
+        @stores = current_user.stores
         # binding.irb
     end
 
@@ -58,6 +52,13 @@ class RoomsController < ApplicationController
 
     def get_users
         render partial: 'users', locals: {store_id: params[:store_id]}
+    end
+
+    def get_rooms
+        store = Store.find(params[:store_id])
+        store_rooms = current_user.rooms.where(store_id: params[:store_id])
+        # binding.pry
+        render partial: 'room_list', locals: {rooms: store_rooms, store: store}
     end
 
     private
