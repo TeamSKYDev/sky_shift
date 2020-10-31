@@ -1,5 +1,13 @@
 class RoomsController < ApplicationController
+    before_action :set_store_id, only: [:index]
+    before_action :check_selected_store, only: [:index]
     
+    def set_store_id
+        if params[:store_id].present?
+            current_user.update(selected_store: params[:store_id])
+        end
+    end
+
     def new
         @room = Room.new
         @stores = current_user.stores
@@ -30,10 +38,14 @@ class RoomsController < ApplicationController
         end
     end
 
-    def index
-        @rooms = current_user.rooms
+    def select_store
         @stores = current_user.stores
-        # binding.irb
+    end
+
+    def index
+        
+        @rooms = current_user.rooms.where(store_id: current_user.selected_store)
+        @store = Store.find(current_user.selected_store)
     end
 
     def destroy
@@ -52,13 +64,6 @@ class RoomsController < ApplicationController
 
     def get_users
         render partial: 'users', locals: {store_id: params[:store_id]}
-    end
-
-    def get_rooms
-        store = Store.find(params[:store_id])
-        store_rooms = current_user.rooms.where(store_id: params[:store_id])
-        # binding.pry
-        render partial: 'room_list', locals: {rooms: store_rooms, store: store}
     end
 
     private

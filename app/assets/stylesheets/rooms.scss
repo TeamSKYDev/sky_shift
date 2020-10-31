@@ -2,20 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.select-room{
-    overflow: hidden;
+#rooms-title{
+    text-align: center;
 }
-.room-list{
-    animation: SlideIn 1.6s;
+.arrow-right{
+    text-align: right;
 }
-
-@keyframes SlideIn {
-    0% {
-      opacity: 0;/*初期状態では透明に*/
-      transform: translateX(100px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }

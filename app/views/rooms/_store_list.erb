@@ -11,25 +11,13 @@
 
 <ul class="list-group">
     <% stores.each do |store| %>
-        <button id='<%= store.id %>' class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to rooms_path(store_id: store.id), class: "list-group-item d-flex justify-content-between align-items-center" do %>
             <div>
                 <%= store.name %>
             </div>
-        </button>
+            <div class="arrow-right">
+                <i class="fas fa-angle-right"></i>
+            </div>
+        <% end %>
     <% end %>
 </ul>
-
-<script>
-// $('.list-group-item').on('click', function() {
-//     $.ajax({
-//         type: 'GET',
-//         url: '/rooms/get_rooms',
-//         data: {
-//             store_id: $(this).attr('id')
-//         }
-//     }).done(function(data) {
-//         // console.log(data);
-//         $('.select-room').html(data);
-//     });
-// });
-</script>
