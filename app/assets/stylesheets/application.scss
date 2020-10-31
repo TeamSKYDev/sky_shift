@@ -163,6 +163,7 @@ main {
 .navbar {
     background-color: #fff2e5;
     border-bottom: ridge 5px #e6e6fa;
+
 }
 
 .container-fluid {
@@ -176,6 +177,7 @@ main {
 
 
 .simple-calendar {
+    margin-top: 20px;
 
     th {
         text-align: center;
@@ -221,6 +223,7 @@ main {
     }
 
 
+
     h1, h2, h3, h4, h5, h6, p{
         font-size: 100%;
     }
@@ -234,6 +237,7 @@ main {
     .simple-calendar {
         width: 100%;
         font-size: 60%;
+        margin-top: 0;
 
           .day {
           }

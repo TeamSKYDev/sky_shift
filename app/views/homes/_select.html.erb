@@ -1,0 +1,59 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+		<div class="modal-header">
+			<h4>選択してください</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+        	<% if private_schedules.present? || submitted_shifts.present? || decided_shifts.present? %>
+	        	<table class = "table">
+	        		<% private_schedules.each do |private_schedule| %>
+		        		<tr>
+		        			<%# render 'private_schedules/private_schedule', private_schedule: event %>
+				        	<td><%= private_schedule.start_time.strftime("%H:%M") %></td>
+				        	<td><%= private_schedule.end_time.strftime("%H:%M") %></td>
+				        	<td><%= render 'private_schedules/private_schedule', private_schedule: private_schedule %></td>
+				        	<td><%= private_schedule.content.truncate(10) %></td>
+				        </tr>
+			        <% end %>
+
+		        	<% submitted_shifts.each do |submitted_shift| %>
+		        		<tr>
+		        			<td><%= submitted_shift.start_time.strftime("%H:%M") %></td>
+		        			<td><%= submitted_shift.end_time.strftime("%H:%M") %></td>
+		        			<% if submitted_shift.status %>
+		        				<td><%= submitted_shift.store.name %></td>
+		        				<td>提出済み</td>
+		        			<% else %>
+		        				<td><%= link_to submitted_shift.store.name, edit_submitted_shift_path(submitted_shift.id), remote: true %></td>
+		        				<td>未提出</td>
+		        			<% end %>
+		        		</tr>
+		        	<% end %>
+
+		        	<% decided_shifts.each do |decided_shift| %>
+		        		<tr>
+		        			<td><%= decided_shift.start_time.strftime("%H:%M") %></td>
+		        			<td><%= decided_shift.end_time.strftime("%H:%M") %></td>
+		        			<td><%= decided_shift.store.name %></td>
+		        			<td>確定</td>
+		        		</tr>
+		        	<% end %>
+		        </table>
+	        <% end %>
+
+
+        	<%= link_to "プライベートスケジュールに予定を追加", new_private_schedule_path(date: date), remote: true %>
+        	<br><br>
+        	<%= link_to "シフトを作成する", new_submitted_shift_path(start_date: date), remote: true %>
+		</div>
+
+		<div class="modal-footer actions">
+		</div>
+
+    </div>
+</div>

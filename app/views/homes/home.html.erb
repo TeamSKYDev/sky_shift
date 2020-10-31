@@ -1,12 +1,3 @@
-<!-- <div class = "title">
-	<% if current_user.selected_store.blank? %>
-		<h2><%= link_to @schedule_title, home_path %>スケジュール</h2>
-	<% else %>
-		<h2><%= link_to @schedule_title, store_path(@store.id) %>スケジュール</h2>
-	<% end %>
-</div> -->
-
-
 <% if @store.present? %>
 	<%= link_to "店舗詳細へ", store_path(@store.id) %>
 <% end %>
@@ -17,16 +8,14 @@
 
 
 <%= month_calendar(attribute: :start_time, events: @events) do |date, events| %>
-	<%# link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
-	<%= date.day %>
 
-	<%# ajaxでシフト作成ができる %>
-	<%= link_to "+", new_private_schedule_path(date: date), remote: true %>
+	<%= link_to date.day, select_schedule_path(date: date, events: events), remote: true %>
+
 	<%# attribute: :dateで勝手にやってくれる %>
     <div id="private-schedule-<%= date %>">
         <% events.each do |event| %>
         	<% if event.shedule_status == true %>
-            	<%= render 'private_schedules/private_schedule', private_schedule: event %>
+                <%= event.title %><br>
             <% else %>
             	<%= event.title %><br>
             <% end %>
@@ -40,4 +29,6 @@
 <div id = "submitted_shift_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 <div id="private-schedule-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<div id="select-schedule-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 

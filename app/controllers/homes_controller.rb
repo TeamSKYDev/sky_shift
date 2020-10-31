@@ -7,6 +7,7 @@ class HomesController < ApplicationController
 		@private_schedules = PrivateSchedule.all
 	end
 
+
 	def home
 		#ActiveRecord::Base.connection.drop_table('events')
 		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
@@ -84,6 +85,13 @@ class HomesController < ApplicationController
 		@events = Event.all
 
 		# @decided_shifts = DecidedShift.where(store_id: @store.id, user_id: current_user.id)
+	end
+
+	def select_schedule
+		@date = params[:date]
+		@private_schedules = PrivateSchedule.where(user_id: current_user.id, start_time: @date.in_time_zone.all_day)
+		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, start_time: @date.in_time_zone.all_day)
+		@decided_shifts = DecidedShift.where(user_id: current_user.id, start_time: @date.in_time_zone.all_day)
 	end
 
 	def change_selected_store

@@ -30,7 +30,7 @@ class SubmittedShiftsController < ApplicationController
 	def edit
 		@submitted_shift = SubmittedShift.find(params[:id])
 		@date = @submitted_shift.start_time.to_date
-		@store = Store.find(current_user.selected_store)
+		@store = Store.find(@submitted_shift.store.id)
 		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: @date.in_time_zone.all_day).where.not(id: params[:id]).order(:start_time)
 	end
 

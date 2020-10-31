@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # deviseのルートの上に他ルートを書かないこと。競合発生する可能性あり
 
   get "home" => "homes#home", as: "home"
+  get "home/select_schedule" => "homes#select_schedule", as: "select_schedule"
   get "index" => "homes#index", as: "index"
   root "homes#top"
   patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
