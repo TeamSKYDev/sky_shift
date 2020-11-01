@@ -1,12 +1,13 @@
 class RoomsController < ApplicationController
-    before_action :check_room, only: %i[show]
-
-	def check_room
-		if current_user.selected_store.blank?
-			redirect_to home_path
-		end
-    end
+    before_action :set_store_id, only: [:index]
+    before_action :check_selected_store, only: [:index]
     
+    def set_store_id
+        if params[:store_id].present?
+            current_user.update(selected_store: params[:store_id])
+        end
+    end
+
     def new
         @room = Room.new
         @stores = current_user.stores
@@ -16,7 +17,7 @@ class RoomsController < ApplicationController
 
     def show
         @room = current_user.rooms.find(params[:id])
-        @messages = @room.messages.includes(:user)
+        @messages = @room.messages
         @message = Message.new
     end
 
@@ -37,9 +38,14 @@ class RoomsController < ApplicationController
         end
     end
 
+    def select_store
+        @stores = current_user.stores
+    end
+
     def index
-        @rooms = current_user.rooms
-        # binding.irb
+        
+        @rooms = current_user.rooms.where(store_id: current_user.selected_store)
+        @store = Store.find(current_user.selected_store)
     end
 
     def destroy

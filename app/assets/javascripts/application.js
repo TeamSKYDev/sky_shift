@@ -36,8 +36,6 @@ document.addEventListener("turbolinks:load", function () {
         $('#sidebar').addClass('active');
         // fade in the overlay
         $('.overlay').addClass('active');
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
 });
 
@@ -59,3 +57,8 @@ $(document).on('turbolinks:load', function() {
     });
 });
 
+$(document).on('turbolinks:load', function() {
+    if(location.pathname != "/") {
+        $('.nav-item a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+    } 
+});
