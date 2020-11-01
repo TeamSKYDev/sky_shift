@@ -47,6 +47,7 @@ class StoresController < ApplicationController
 
     def show
         @store = Store.find(params[:id])
+        @title = @store.name + "詳細"
         @staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
         if @staff.blank? || @staff.is_permitted_status == false
             redirect_to home_path

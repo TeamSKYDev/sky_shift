@@ -1,2 +1,2 @@
-$("#select-schedule-modal").html("<%= escape_javascript(render("select", date: @date, private_schedules: @private_schedules, submitted_shifts: @submitted_shifts, decided_shifts: @decided_shifts)) %>")
+$("#select-schedule-modal").html("<%= escape_javascript(render("select", date: @date, private_schedules: @private_schedules, submitted_shifts: @submitted_shifts, decided_shifts: @decided_shifts, stores: @stores)) %>")
 $("#select-schedule-modal").modal("show")

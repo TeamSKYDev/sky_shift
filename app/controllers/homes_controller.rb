@@ -3,11 +3,6 @@ class HomesController < ApplicationController
 	def top
 	end
 
-	def index
-		@private_schedules = PrivateSchedule.all
-	end
-
-
 	def home
 		#ActiveRecord::Base.connection.drop_table('events')
 		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
@@ -92,6 +87,8 @@ class HomesController < ApplicationController
 		@private_schedules = PrivateSchedule.where(user_id: current_user.id, start_time: @date.in_time_zone.all_day)
 		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, start_time: @date.in_time_zone.all_day)
 		@decided_shifts = DecidedShift.where(user_id: current_user.id, start_time: @date.in_time_zone.all_day)
+		store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true, is_unsubscribe: false).pluck(:store_id)
+		@stores = Store.where(id: [store_ids])
 	end
 
 	def change_selected_store
@@ -101,6 +98,12 @@ class HomesController < ApplicationController
 			current_user.update(selected_store: nil)
 		end
 		redirect_to home_path
+	end
+
+	def submittion_destination
+		store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true, is_unsubscribe: false).pluck(:store_id)
+		@stores = Store.where(id: [store_ids])
+		@start_date = params[:start_date]
 	end
 
 

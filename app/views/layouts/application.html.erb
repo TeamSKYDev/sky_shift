@@ -102,7 +102,7 @@
 
   <%else%>
 
-    <body>
+    <main>
       <!-- フラッシュメッセージの表示 -->
       <div class="container">
         <% if flash[:notice] %>
@@ -110,7 +110,7 @@
         <% end %>
         <%= yield %>
       </div>
-    </body>
+    </main>
 
 
   <%end%>

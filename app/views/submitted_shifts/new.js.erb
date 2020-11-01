@@ -1,2 +1,4 @@
 $("#submitted_shift_modal").html("<%= escape_javascript(render("form", shift: @submitted_shift, store: @store, submitted_shifts: @submitted_shifts)) %>")
 $("#submitted_shift_modal").modal("show")
+$("#select-schedule-modal").modal("hide")
+$("#submitted_destination-modal").modal("hide")

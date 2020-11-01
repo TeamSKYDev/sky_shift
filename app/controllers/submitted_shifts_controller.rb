@@ -3,7 +3,11 @@ class SubmittedShiftsController < ApplicationController
 		@submitted_shift = SubmittedShift.new
 		@submitted_shift.start_time = params[:start_date]
 		@submitted_shift.end_time = params[:start_date]
-		@store = Store.find(current_user.selected_store)
+		if params[:store][:store_id].present?
+			@store =  Store.find(params[:store][:store_id])
+		else
+			@store = Store.find(current_user.selected_store)
+		end
 		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_day).order(:start_time)
 	end
 

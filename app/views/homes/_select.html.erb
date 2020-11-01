@@ -2,7 +2,7 @@
     <div class="modal-content">
 
 		<div class="modal-header">
-			<h4>選択してください</h4>
+			<h3><%= date.to_date.strftime("%Y/%m/%d") + "の予定" %></h3>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -49,7 +49,14 @@
 
         	<%= link_to "プライベートスケジュールに予定を追加", new_private_schedule_path(date: date), remote: true %>
         	<br><br>
-        	<%= link_to "シフトを作成する", new_submitted_shift_path(start_date: date), remote: true %>
+
+        	<% if stores.count == 0 %>
+        	<% elsif stores.count == 1 %>
+        		<% store = stores.first %>
+        		<%= link_to "シフトを作成する", new_submitted_shift_path(start_date: date, store_id: store.id), remote: true %>
+        	<% else %>
+        		<%= link_to "シフトを作成する", submittion_destination_path(start_date: date), remote: true %>
+        	<% end %>
 		</div>
 
 		<div class="modal-footer actions">
