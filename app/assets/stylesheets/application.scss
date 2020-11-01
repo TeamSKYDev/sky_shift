@@ -123,14 +123,6 @@ main {
     }
 }
 
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-
 .overlay {
     display: none;
     position: fixed;

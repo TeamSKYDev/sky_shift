@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create, :index]
     collection do
       get 'get_users'
+      get 'select_store'
     end
   end
 

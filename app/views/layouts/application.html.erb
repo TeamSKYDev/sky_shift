@@ -85,12 +85,18 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to(rooms_path, class: "nav-link", id: "message-link") do %>
-            <i class="fas fa-envelope"></i>
+          <% if current_user.selected_store.present? %>
+            <%= link_to(rooms_path, class: "nav-link", id: "message-link") do %>
+              <i class="fas fa-envelope"></i>
+            <% end %>
+          <% else %>
+            <%= link_to(select_store_rooms_path, class: "nav-link", id: "message-link") do %>
+              <i class="fas fa-envelope"></i>
+            <% end %>
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to(user_tasks_path, class: "nav-link", id: "message-link") do %>
+          <%= link_to(user_tasks_path, class: "nav-link", id: "task-link") do %>
             <i class="fas fa-file"></i>
           <% end %>
         </li>

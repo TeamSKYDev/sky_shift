@@ -3,6 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-$(document).ready ->
-  $('.messages').animate scrollTop: $('.messages')[0].scrollHeight
+# $(document).on 'turbolinks:load', ->
+#   $('.messages').animate scrollTop: $('.messages')[0].scrollHeight
 
