@@ -8,35 +8,12 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
- <div class="overlay"></div>
+ 
 
   <% if user_signed_in? %>
 
     <div class="wrapper">
       <!-- Sidebar -->
-
-
-    <!-- Page Content -->
-
-      <nav class="navbar fixed-top navbar-expand-lg">
-        <div class="container-fluid">
-          <div class = "container">
-            <div class = "row">
-              <div class = "col-2">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                </button>
-              </div>
-              <div class = "col-8">
-                <h1 class = "title"><%= @title %></h1>
-              </div>
-              <div class = "col-2"></div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       <nav id="sidebar">
 
           <div id="dismiss">
@@ -67,6 +44,29 @@
         <% end %>
         <div id="store-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
       </nav>
+      <div class="overlay"></div>
+    <!-- Page Content -->
+
+      <nav class="navbar fixed-top navbar-expand-lg">
+        <div class="container-fluid">
+          <div class = "container">
+            <div class = "row">
+              <div class = "col-2">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+              </div>
+              <div class = "col-8">
+                <h1 class = "title"><%= @title %></h1>
+              </div>
+              <div class = "col-2"></div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      
+      
 
       <main>
         <div class="container">
