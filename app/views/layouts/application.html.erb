@@ -8,8 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
- <div class="overlay"></div>
-
+  <div class="overlay"></div>
   <% if user_signed_in? %>
 
     <div class="wrapper">
@@ -107,19 +106,21 @@
     </div>
 
   <%else%>
-
-    <main>
-      <!-- フラッシュメッセージの表示 -->
-      <div class="container">
-        <% if flash[:notice] %>
-          <%= flash[:notice] %>
-        <% end %>
-        <%= yield %>
-      </div>
-    </main>
+    <div class = "top">
+      <main>
+          <!-- フラッシュメッセージの表示 -->
+          <div class = "topic">
+            <div class="container">
+              <% if flash[:notice] %>
+                <%= flash[:notice] %>
+              <% end %>
+              <%= yield %>
+            </div>
+          </div>
+      </main>
+    </div>
 
 
   <%end%>
-
 
 </html>
