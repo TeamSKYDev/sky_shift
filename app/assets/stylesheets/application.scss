@@ -23,6 +23,11 @@
 @import "simple_calendar";
 
 
+.nav.fixed-bottom{
+    background-color: white;
+}
+
+
 body {
     font-family: 'Poppins', sans-serif;
     // background: #fafafa;
@@ -134,7 +139,7 @@ main {
     /* transparent black */
     background: rgba(0, 0, 0, 0.7);
     /* middle layer, i.e. appears below the sidebar */
-    z-index: 998;
+    z-index: 9998;
     opacity: 0;
     /* animate the transition */
     transition: all 0.5s ease-in-out;
