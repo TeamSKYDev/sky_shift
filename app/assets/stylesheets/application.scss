@@ -22,6 +22,9 @@
 @import "simple_calendar";
 
 
+
+
+
 main {
     font-family: 'Poppins', sans-serif;
     margin-bottom: 70px;
@@ -29,7 +32,7 @@ main {
     background: #fefefe;
 }
 
-.nav-item {
+.nav.fixed-bottom{
     background-color: white;
 }
 
