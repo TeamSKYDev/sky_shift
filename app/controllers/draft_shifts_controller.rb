@@ -9,6 +9,7 @@ class DraftShiftsController < ApplicationController
 
 	def index
 		@store = Store.find_by(id: current_user.selected_store)
+		@title = @store.name + "　シフト管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
 		if @staff.is_admin == false
 			redirect_to home_path

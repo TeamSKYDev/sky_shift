@@ -7,6 +7,7 @@ class StaffsController < ApplicationController
 	end
 
 	def index
+		@title = "スタッフ管理"
 		staff = Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store)
 		if staff.is_admin == false
 			redirect_to home_path
@@ -40,6 +41,7 @@ class StaffsController < ApplicationController
 	end
 
 	def show
+		@title = "スタッフ詳細"
 		@staff = Staff.find(params[:id])
 		@access_staff = Staff.find_by(user_id: current_user.id, store_id: @staff.store_id)
 		if @access_staff.is_permitted_status != true

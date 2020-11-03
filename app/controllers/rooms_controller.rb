@@ -43,9 +43,11 @@ class RoomsController < ApplicationController
     end
 
     def index
-        
+
+        @title = "トークルーム"
         @rooms = current_user.rooms.where(store_id: current_user.selected_store)
         @store = Store.find(current_user.selected_store)
+
     end
 
     def destroy

@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   }
   # deviseのルートの上に他ルートを書かないこと。競合発生する可能性あり
 
-  get "home" => "homes#home", as: "home"
-  get "index" => "homes#index", as: "index"
   root "homes#top"
+  get "home" => "homes#home", as: "home"
+  get "home/select_schedule" => "homes#select_schedule", as: "select_schedule"
+  get "home/submittion_destination" => "homes#submittion_destination", as: "submittion_destination"
   patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
   resources :stores, except: [:index]
 

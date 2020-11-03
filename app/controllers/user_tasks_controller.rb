@@ -7,6 +7,7 @@ class UserTasksController < ApplicationController
 	end
 
 	def index
+		@title = "タスク一覧"
 		store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true).pluck(:store_id)
 		# @stores = Store.where(id: [store_ids])
 		task_ids = Task.where(store_id: [store_ids], is_announced: false).pluck(:id)

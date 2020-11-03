@@ -10,7 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require simple_calendar
  *= require_tree .
  *= require_self
  */
@@ -23,19 +22,25 @@
 @import "simple_calendar";
 
 
+
+
+
+main {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 70px;
+    margin-top: 120px;
+    background: #fefefe;
+}
+
 .nav.fixed-bottom{
     background-color: white;
 }
 
-
-body {
-    font-family: 'Poppins', sans-serif;
-    // background: #fafafa;
-}
-
-main {
-    padding-bottom: 70px;
-    padding-top: 70px;
+#sidebarCollapse {
+    position:absolute;
+    top: 25px;
+    left: 20px;
+    z-index: 1000;
 }
 
 #sidebar p {
@@ -95,9 +100,6 @@ main {
 }
 
 
-
-
-
 .wrapper {
     display: block;
 }
@@ -122,6 +124,7 @@ main {
 // }
 
 @media (max-width: 768px) {
+
     #sidebar {
         margin-left: -250px;
     }
@@ -157,4 +160,114 @@ main {
     /* top right corner of the sidebar */
     top: 10px;
     right: 10px;
+}
+
+.navbar {
+    background-color: #fff2e5;
+    border-bottom: ridge 5px #e6e6fa;
+
+}
+
+.container-fluid {
+}
+
+.title {
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.simple-calendar {
+    margin-top: 20px;
+
+    th {
+        text-align: center;
+        background-color:#fffff0;
+    }
+
+    th:nth-last-child(2) {
+        color: blue;
+    }
+    th:last-child {
+        color: red;
+    }
+
+    td {
+        border-color: #faebd7;
+        background-color: #fffafa;
+    }
+
+    td:nth-child(6n) {
+        color: blue;
+    }
+    td:nth-child(7n) {
+        color: red;
+    }
+
+
+    .day {
+       height: 90px;
+    }
+
+    .prev-month, .next-month {
+        border-color: #f5f5f5;
+     }
+/*    .next-month, .prev-month {
+        background-color: #CCFFFF;
+    }*/
+
+}
+
+@media (max-width: 768px) {
+    main {
+        font-size: 70%;
+        margin-top: 70px;
+    }
+
+    #sidebarCollapse {
+        top: 10px;
+        left: 10px;
+    }
+
+
+
+    h1, h2, h3, h4, h5, h6, p{
+        font-size: 100%;
+    }
+
+    .btn {
+        font-size: 80%;
+    }
+
+
+
+    .simple-calendar {
+        width: 100%;
+        font-size: 60%;
+        margin-top: 0;
+
+          .day {
+          }
+
+          .wday-0 {}
+          .wday-1 {}
+          .wday-2 {}
+          .wday-3 {}
+          .wday-4 {}
+          .wday-5 {}
+          .wday-6 {}
+
+          .today {}
+          .past {}
+          .future {}
+
+          .start-date {}
+
+          .prev-month {}
+          .next-month { }
+          .current-month {}
+
+          .has-events {}
+    }
 }

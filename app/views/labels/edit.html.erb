@@ -1,4 +1,4 @@
-<h3>ラベル編集ページ</h3>
+<h3>ラベル編集</h3>
 <%= form_for(@label) do |f| %>
 	<%= f.text_field :name %>
 	<%= f.select :work_type, Label.work_types.keys.to_a, {} %><br><br>

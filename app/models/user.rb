@@ -24,7 +24,6 @@ class User < ApplicationRecord
 
   validates :last_name, presence: true
   validates :first_name, presence: true
-  validates :telephone_number, presence: true
 
   def active_for_authentication?
     super && (self.is_unsubscribe == false)

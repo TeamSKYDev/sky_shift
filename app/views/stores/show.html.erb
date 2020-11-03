@@ -1,6 +1,3 @@
-<h3>店舗<%= @store.name %>の画面</h3>
-
-
 <% if @staff.is_admin == true %>
 	<p>承認コード：　<%= @store.uuid %></p>
 	<p>連携承認 　<%= @unrelated_staffs.count %>件</p>
