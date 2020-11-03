@@ -22,26 +22,33 @@
 @import "simple_calendar";
 
 
-/*overlayer*/
-    .overlay {
-        display: none;
-        position: fixed;
-        /* full screen */
-        width: 100vw;
-        height: 100vh;
-        /* transparent black */
-        background: rgba(0, 0, 0, 0.7);
-        /* middle layer, i.e. appears below the sidebar */
-        z-index: 9998;
-        opacity: 0;
-        /* animate the transition */
-        transition: all 0.5s ease-in-out;
+/*body*/
+    body{
+        font-family: 'Poppins', sans-serif;
+        background: #fefefe;
     }
-    /* display .overlay when it has the .active class */
-    .overlay.active {
-        display: block;
-        opacity: 1;
-    }
+
+    /*overlayer*/
+        .overlay {
+            display: none;
+            position: fixed;
+            /* full screen */
+            width: 100vw;
+            height: 100vh;
+            /* transparent black */
+            background: rgba(0, 0, 0, 0.7);
+            /* middle layer, i.e. appears below the sidebar */
+            z-index: 9998;
+            opacity: 0;
+            /* animate the transition */
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* display .overlay when it has the .active class */
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
 
 
 /*header*/
@@ -155,10 +162,8 @@
 
 /*main*/
     main {
-        font-family: 'Poppins', sans-serif;
         padding-bottom: 70px;
         padding-top: 120px;
-        background: #fefefe;
     }
 
     .simple-calendar {
@@ -213,7 +218,7 @@
 
 /*responsive*/
 @media (max-width: 768px) {
-    /*grobal*/
+    /*body*/
         h1, h2, h3, h4, h5, h6, p{
             font-size: 100%;
         }

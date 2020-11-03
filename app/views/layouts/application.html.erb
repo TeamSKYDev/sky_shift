@@ -14,8 +14,8 @@
       <div class="overlay"></div>
 
       <header>
-        <nav class="navbar fixed-top navbar-expand-lg" id = "title-bar">
-          <button type="button" id="sidebarCollapse" class="btn btn-info">
+        <nav id = "title-bar" class="navbar fixed-top navbar-expand-lg">
+          <button id="sidebarCollapse" type="button" class="btn btn-info">
               <i class="fas fa-align-left"></i>
           </button>
 
@@ -56,6 +56,7 @@
                 </li>
               <% end %>
           </ul>
+
           <%= link_to new_store_path, remote: true do %>
             <div class="new_store" style="text-align:center;">
               <i class="fas fa-plus"></i>
@@ -71,6 +72,7 @@
           <% if flash[:notice] %>
             <%= flash[:notice] %>
           <% end %>
+
           <%= yield %>
         </div>
       </main>
