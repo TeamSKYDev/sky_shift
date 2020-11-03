@@ -22,16 +22,25 @@
 @import "simple_calendar";
 
 
+
 main {
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 70px;
     margin-top: 70px;
-    background: #fefefe;
+    margin-bottom: 70px; 
 }
 
-.nav-item {
+.nav.fixed-bottom{
     background-color: white;
 }
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    // background: #fefefe;
+}
+
+// .nav-item {
+//     background-color: white;
+// }
 
 #sidebar p {
     font-family: 'Poppins', sans-serif;
@@ -125,14 +134,14 @@ main {
 
 .overlay {
     display: none;
-    position: fixed;
+    position: absolute;
     /* full screen */
     width: 100vw;
     height: 100vh;
     /* transparent black */
     background: rgba(0, 0, 0, 0.7);
     /* middle layer, i.e. appears below the sidebar */
-    z-index: 998;
+    z-index: 9998;
     opacity: 0;
     /* animate the transition */
     transition: all 0.5s ease-in-out;
