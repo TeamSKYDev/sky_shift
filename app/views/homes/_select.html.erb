@@ -15,8 +15,9 @@
 		        		<tr>
 		        			<%# render 'private_schedules/private_schedule', private_schedule: event %>
 				        	<td><%= private_schedule.start_time.strftime("%H:%M") %></td>
+				        	<td>～</td>
 				        	<td><%= private_schedule.end_time.strftime("%H:%M") %></td>
-				        	<td><%= render 'private_schedules/private_schedule', private_schedule: private_schedule %></td>
+				        	<td><%= link_to private_schedule.title, edit_private_schedule_path(private_schedule), id: private_schedule.id, remote: true %></td>
 				        	<td><%= private_schedule.content.truncate(10) %></td>
 				        </tr>
 			        <% end %>
@@ -24,6 +25,7 @@
 		        	<% submitted_shifts.each do |submitted_shift| %>
 		        		<tr>
 		        			<td><%= submitted_shift.start_time.strftime("%H:%M") %></td>
+		        			<td>～</td>
 		        			<td><%= submitted_shift.end_time.strftime("%H:%M") %></td>
 		        			<% if submitted_shift.status %>
 		        				<td><%= submitted_shift.store.name %></td>
@@ -38,6 +40,7 @@
 		        	<% decided_shifts.each do |decided_shift| %>
 		        		<tr>
 		        			<td><%= decided_shift.start_time.strftime("%H:%M") %></td>
+		        			<td>～</td>
 		        			<td><%= decided_shift.end_time.strftime("%H:%M") %></td>
 		        			<td><%= decided_shift.store.name %></td>
 		        			<td>確定</td>

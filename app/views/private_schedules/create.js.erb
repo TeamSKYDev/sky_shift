@@ -1,5 +1,5 @@
 <% if @status == 'success' %>
-$("#private-schedule-<%= @private_schedule.start_date %>").append("<%= j(render("private_schedule", private_schedule: @private_schedule)) %>");
+$("#schedule-<%= @private_schedule.start_date %>").append("<%= j(render("private_schedule", private_schedule: @private_schedule)) %>");
 <%  elsif @status == 'fail' %>
 alert('error!');
 <% end %>
