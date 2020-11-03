@@ -16,8 +16,11 @@ class User < ApplicationRecord
   has_many :messages
 
   has_many :submitted_shifts, dependent: :destroy
+  has_many :decided_shifts, dependent: :destroy
   
   has_many :private_schedules
+
+  has_many :user_tasks, dependent: :destroy
 
   validates :last_name, presence: true
   validates :first_name, presence: true

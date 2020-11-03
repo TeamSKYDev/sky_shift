@@ -1,2 +1,29 @@
-<h1>this is room <%= @room.name %></h1>
-<p>by <%= @room.default_name(current_user) %></p>
+<div class="row">
+    <div class="col-8">
+        To <%= @room.default_name(current_user) %>
+    </div>
+    <div class="col-4 text-right">
+        <%= link_to "脱退", room_path(@room), class: "btn btn-danger", method: :delete%>
+    </div>
+</div>
+
+<div class="message-box" id="<%= current_user.id %>">
+    <div class="card messages" id="messages" data-room_id="<%= @room.id %>">
+        <div class="card-body">
+            <%= render @messages %>
+        </div>
+    </div>
+    <form>
+        <div class="input-group">
+            <input type="text" id="chat-input" data-behavior="room_speaker" class="form-control">
+        </div>
+    </form>
+</div>
+
+<script>
+
+$('.messages').animate({
+    scrollTop: $('.messages')[0].scrollHeight
+});
+
+</script>

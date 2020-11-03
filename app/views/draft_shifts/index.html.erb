@@ -1,0 +1,14 @@
+<h3><%= @store.name %>　シフト管理</h3>
+
+<%= month_calendar(events: @draft_shifts) do |date, draft_shifts| %>
+
+	<%= link_to date.day, daily_draft_shifts_path(start_date: date) %>
+
+	<% if draft_shifts.present? %>
+		<p>未確定あり</p>
+	<% end %>
+
+<% end %>
+
+<%= link_to "シフト登録へ戻る", home_path(start_date: params[:start_date]) %>
+<%= link_to "一括でシフト確定", create_all_decided_shifts_path(start_date: params[:start_date]), method: :post,  data: { confirm: 'シフトを一括確定してよろしいですか？' }, class: "btn btn-primary" %>

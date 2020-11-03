@@ -26,6 +26,9 @@
 body {
     font-family: 'Poppins', sans-serif;
     // background: #fafafa;
+}
+
+main {
     padding-bottom: 70px;
     padding-top: 70px;
 }
@@ -120,14 +123,6 @@ body {
     #sidebar.active {
         margin-left: 0;
     }
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
 }
 
 .overlay {

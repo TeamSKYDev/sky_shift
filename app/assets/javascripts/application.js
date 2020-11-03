@@ -36,9 +36,33 @@ document.addEventListener("turbolinks:load", function () {
         $('#sidebar').addClass('active');
         // fade in the overlay
         $('.overlay').addClass('active');
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
 });
 
+<<<<<<< HEAD
 
+=======
+$(document).on('turbolinks:load', function() {
+    $(function () {
+        $(".change_display_buttun").on('click', function () {
+            $('.second_display').fadeIn(700);
+            $('.first_display').css('display', 'none');
+        });
+    });
+});
+
+$(document).on('turbolinks:load', function() {
+    $(function () {
+        $(".return_display_buttun").on('click', function () {
+            $('.second_display').css('display', 'none');
+            $('.first_display').fadeIn(700);
+        });
+    });
+});
+
+$(document).on('turbolinks:load', function() {
+    if(location.pathname != "/") {
+        $('.nav-item a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+    } 
+});
+>>>>>>> 40511056f9ebfdbc173cb163de21a2065989a79f
