@@ -16,16 +16,17 @@
     <% if devise_mapping.rememberable? %>
       <br>
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label :remember_me %><br>
+      <label><%= link_to "パスワードをお忘れですか?", new_password_path(resource_name) %></label>
     <% end %>
   </div>
-
 
 
   <div class="actions">
     <%= f.submit "ログイン", class: "btn btn-light" %>
   </div>
 <% end %>
+
 
 <br><br>
 
