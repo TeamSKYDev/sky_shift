@@ -12,12 +12,16 @@
 	<%= link_to date.day, select_schedule_path(date: date, events: events), remote: true %>
 
 	<%# attribute: :dateで勝手にやってくれる %>
-    <div id="private-schedule-<%= date %>">
+    <div id="schedule-<%= date %>">
         <% events.each do |event| %>
         	<% if event.shedule_status == true %>
-                <%= event.title %><br>
+                <div class= "event" id= <%= event.private_id %>>
+                    <%= event.title %>
+                </div>
             <% else %>
-            	<%= event.title %><br>
+                <div class= "event">
+            	   <%= event.title %>
+                </div>
             <% end %>
 
         <% end %>

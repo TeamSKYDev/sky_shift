@@ -17,6 +17,7 @@ class RoomsController < ApplicationController
 
     def show
         @room = current_user.rooms.find(params[:id])
+        @title = "トークルーム"
         @messages = @room.messages
         @message = Message.new
     end
@@ -39,6 +40,7 @@ class RoomsController < ApplicationController
     end
 
     def select_store
+        @title = "トークルーム"
         @stores = current_user.stores
     end
 
