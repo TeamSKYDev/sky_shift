@@ -6,20 +6,8 @@
   </div>
 
   <div class = "field">
-    <div class = "row">
-      <div class = "col"></div>
-       <div class = "col">
-        <label>名前</label>
-      </div>
-      <div class = "col"></div>
-    </div>
-    <div class = "row">
-      <div class = "col-4"></div>
-      <div class = "col-2">
-        <%= f.text_field :last_name, autofocus: true %><%= f.text_field :first_name %>
-      </div>
-      <div class = "col-4"></div>
-    </div>
+      <label>名前</label><br>
+      <%= f.text_field :last_name, autofocus: true, placeholder: "姓" %><%= f.text_field :first_name, placeholder: "名" %>
   </div>
 
 
