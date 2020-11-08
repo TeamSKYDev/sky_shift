@@ -112,17 +112,18 @@
       </footer>
 
     <%else%>
-      <header></header>
-      <main>
-        <!-- フラッシュメッセージの表示 -->
-        <div class="container">
-          <% if flash[:notice] %>
-            <%= flash[:notice] %>
-          <% end %>
-          <%= yield %>
-        </div>
-      </main>
-      <footer></footer>
+      <div class = "top">
+        <main>
+          <div class = "topic">
+            <div class="container">
+              <% if flash[:notice] %>
+                <%= flash[:notice] %>
+              <% end %>
+              <%= yield %>
+            </div>
+          </div>
+        </main>
+      </div>
 
     <%end%>
 
