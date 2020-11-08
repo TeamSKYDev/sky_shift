@@ -11,6 +11,7 @@ class HomesController < ApplicationController
 		  t.text   :content
 		  t.datetime  :start_time, null: false
 		  t.datetime  :end_time
+		  t.integer :private_id
 		  t.boolean :shedule_status, null: false, default: false
 
 		  t.timestamps null: false
@@ -46,6 +47,7 @@ class HomesController < ApplicationController
 				@event = Event.new
 				@event.title = private_schedule.title
 				@event.content = private_schedule.content
+				@event.private_id = private_schedule.id
 				@event.start_time = private_schedule.start_time
 				@event.end_time = private_schedule.end_time
 				@event.shedule_status = true

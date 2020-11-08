@@ -8,64 +8,64 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <div class="overlay"></div>
-  <% if user_signed_in? %>
-
-    <div class="wrapper">
-      <!-- Sidebar -->
 
 
-    <!-- Page Content -->
+  <body>
+    <% if user_signed_in? %>
+      <div class="overlay"></div>
 
+      <header>
+        <nav id = "title-bar" class="navbar fixed-top navbar-expand-lg">
+          <button id="sidebarCollapse" type="button" class="btn btn-info">
+              <i class="fas fa-align-left"></i>
+          </button>
 
-      <nav class="navbar fixed-top navbar-expand-lg">
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fas fa-align-left"></i>
-        </button>
-        <div class="container-fluid">
-          <div class = "container">
-            <div class = "row">
-              <div class = "col-2">
+          <div class="container-fluid">
+            <div class = "container">
+              <div class = "row">
+                <div class = "col-2">
+                </div>
+                <div class = "col-8">
+                  <h1 class = "title"><%= @title %></h1>
+                </div>
+                <div class = "col-2"></div>
               </div>
-              <div class = "col-8">
-                <h1 class = "title"><%= @title %></h1>
-              </div>
-              <div class = "col-2"></div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <nav id="sidebar">
+        <nav id="sidebar">
 
-          <div id="dismiss">
-              <i class="fas fa-arrow-left"></i>
-          </div>
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
 
-          <div class="sidebar-header">
-              <h3><%= link_to "SKY SCHEDULER", home_path %></h3>
-          </div>
+            <div class="sidebar-header">
+                <h3><%= link_to "SKY SCHEDULE", home_path %></h3>
+            </div>
 
-          <ul class="list-unstyled components">
-            <li><%= link_to "登録情報", user_path(current_user.id) %></li>
-            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-            <li><%= link_to "新規店舗連携申請", new_staff_path %></li>
+            <ul class="list-unstyled components">
+              <li><%= link_to "登録情報", user_path(current_user.id) %></li>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+              <li><%= link_to "新規店舗連携申請", new_staff_path %></li>
+            </ul>
+
+          <ul class="list-unstyled components" id="stores">
+              <% @stores.each do |store| %>
+                <li>
+                    <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch %>
+                </li>
+              <% end %>
           </ul>
 
-        <ul class="list-unstyled components" id="stores">
-            <% @stores.each do |store| %>
-              <li>
-                  <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch %>
-              </li>
-            <% end %>
-        </ul>
-        <%= link_to new_store_path, remote: true do %>
-          <div class="new_store" style="text-align:center;">
-            <i class="fas fa-plus"></i>
-          </div>
-        <% end %>
-        <div id="store-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-      </nav>
+          <%= link_to new_store_path, remote: true do %>
+            <div class="new_store" style="text-align:center;">
+              <i class="fas fa-plus"></i>
+            </div>
+          <% end %>
+          <div id="store-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+        </nav>
+      </header>
 
       <main>
         <div class="container">
@@ -73,54 +73,58 @@
           <% if flash[:notice] %>
             <%= flash[:notice] %>
           <% end %>
+
           <%= yield %>
         </div>
       </main>
-      
-      <ul class="nav fixed-bottom nav-pills nav-justified">
-        <li class="nav-item">
-          <%= link_to(change_selected_store_path, method: :patch, class: "nav-link", id: "calendar-link") do %>
-            <i class="fas fa-calendar"></i>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <% if current_user.selected_store.present? %>
-            <%= link_to(rooms_path, class: "nav-link", id: "message-link") do %>
-              <i class="fas fa-envelope"></i>
-            <% end %>
-          <% else %>
-            <%= link_to(select_store_rooms_path, class: "nav-link", id: "message-link") do %>
-              <i class="fas fa-envelope"></i>
-            <% end %>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to(user_tasks_path, class: "nav-link", id: "task-link") do %>
-            <i class="fas fa-file"></i>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>
-        </li>
-      </ul>
-    </div>
 
-  <%else%>
-    <div class = "top">
-      <main>
-          <!-- フラッシュメッセージの表示 -->
-          <div class = "topic">
-            <div class="container">
-              <% if flash[:notice] %>
-                <%= flash[:notice] %>
+
+      <footer>
+        <ul class="nav fixed-bottom nav-pills nav-justified">
+          <li class="nav-item">
+            <%= link_to(change_selected_store_path, method: :patch, class: "nav-link", id: "calendar-link") do %>
+              <i class="fas fa-calendar"></i>
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <% if current_user.selected_store.present? %>
+              <%= link_to(rooms_path, class: "nav-link", id: "message-link") do %>
+                <i class="fas fa-envelope"></i>
               <% end %>
-              <%= yield %>
-            </div>
-          </div>
+            <% else %>
+              <%= link_to(select_store_rooms_path, class: "nav-link", id: "message-link") do %>
+                <i class="fas fa-envelope"></i>
+              <% end %>
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to(user_tasks_path, class: "nav-link", id: "task-link") do %>
+              <i class="fas fa-file"></i>
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>
+          </li>
+        </ul>
+      </footer>
+
+    <%else%>
+      <header></header>
+      <main>
+        <!-- フラッシュメッセージの表示 -->
+        <div class="container">
+          <% if flash[:notice] %>
+            <%= flash[:notice] %>
+          <% end %>
+          <%= yield %>
+        </div>
       </main>
-    </div>
+      <footer></footer>
 
+    <%end%>
 
-  <%end%>
-
+  </body>
 </html>
