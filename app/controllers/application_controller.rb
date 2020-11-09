@@ -35,6 +35,27 @@ class ApplicationController < ActionController::Base
 		renderer.render(*args)
 	end
 
+	def set_temporary_table
+		#ActiveRecord::Base.connection.drop_table('events')
+		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
+		  # t.integer :user_id    , null: true
+		  t.string :title, null: false
+		  t.text   :content
+		  t.datetime  :start_time, null: false
+		  t.datetime  :end_time
+		  t.integer :private_id
+		  t.boolean :shedule_status, null: false, default: false
+
+		  t.timestamps null: false
+		end
+
+		klass = Class.new(ActiveRecord::Base) do |c|
+		  c.table_name = 'events'
+		end
+		Object.const_set('Event', klass)
+	end
+
+
 	private
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :telephone_number])

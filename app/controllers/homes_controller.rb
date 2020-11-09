@@ -1,27 +1,14 @@
 class HomesController < ApplicationController
+	before_action :set_temporary_table, only: [:home]
 
 	def top
+		if user_signed_in?
+			redirect_to home_path
+		end
 	end
 
+
 	def home
-		#ActiveRecord::Base.connection.drop_table('events')
-		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
-		  # t.integer :user_id    , null: true
-		  t.string :title, null: false
-		  t.text   :content
-		  t.datetime  :start_time, null: false
-		  t.datetime  :end_time
-		  t.integer :private_id
-		  t.boolean :shedule_status, null: false, default: false
-
-		  t.timestamps null: false
-		end
-
-		klass = Class.new(ActiveRecord::Base) do |c|
-		  c.table_name = 'events'
-		end
-		Object.const_set('Event', klass)
-
 		if params[:start_date].present?
 			@date = params[:start_date]
 		else
@@ -30,7 +17,7 @@ class HomesController < ApplicationController
 
 
 		if current_user.selected_store.blank?
-			@title = "プライベート"
+			@title = "private"
 			@private_schedules = PrivateSchedule.all
 			@submitted_shifts = current_user.submitted_shifts.where(start_time: @date.in_time_zone.all_month)
 			@decided_shifts = current_user.decided_shifts.where(start_time: @date.in_time_zone.all_month)
@@ -40,6 +27,7 @@ class HomesController < ApplicationController
 
 			@submitted_shifts = current_user.submitted_shifts.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
 			@decided_shifts = current_user.decided_shifts.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
+
 		end
 
 		if @private_schedules.present?

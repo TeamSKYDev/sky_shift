@@ -3,7 +3,7 @@ class SubmittedShiftsController < ApplicationController
 		@submitted_shift = SubmittedShift.new
 		@submitted_shift.start_time = params[:start_date]
 		@submitted_shift.end_time = params[:start_date]
-		if params[:store][:store_id].present?
+		if params[:store].present?
 			@store =  Store.find(params[:store][:store_id])
 		else
 			@store = Store.find(current_user.selected_store)
@@ -55,9 +55,6 @@ class SubmittedShiftsController < ApplicationController
 		@store = Store.find(current_user.selected_store)
 		@period = params[:start_date].in_time_zone.all_month
 		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: current_user.selected_store, status: false, start_time: @period).order(:start_time)
-		if @submitted_shifts.blank?
-			redirect_to home_path
-		end
 	end
 
 	def submit
