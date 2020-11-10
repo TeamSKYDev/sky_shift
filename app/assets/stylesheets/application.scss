@@ -277,6 +277,19 @@ main {
      }
 }
 
+.task {
+     width: 100%;
+     height: 600px;
+     overflow: auto;
+     border-bottom: 1px solid #dee2e6;
+
+     td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+     }
+}
+
 
 /*footer*/
 .nav.fixed-bottom{
@@ -359,5 +372,8 @@ main {
 
     .announcement {
         height: 230px;
+    }
+    .task {
+        height: 500px;
     }
 }

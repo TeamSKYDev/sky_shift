@@ -13,7 +13,7 @@ class TasksController < ApplicationController
 			redirect_to home_path
 		end
 
-		@tasks = Task.where(store_id: @store.id)
+		@tasks = Task.where(store_id: @store.id).order(created_at: :desc)
 	end
 
 	def create
@@ -42,6 +42,10 @@ class TasksController < ApplicationController
 	end
 
 	def show
+		@task = Task.find(params[:id])
+	end
+
+	def show_admin
 		@task = Task.find(params[:id])
 	end
 

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   post "shifts/create_all" => "decided_shifts#create_all", as: "create_all_decided_shifts"
   resources :decided_shifts, only: [:index, :create, :edit, :update, :destroy]
 
+  get "task/:id/show_admin" => "tasks#show_admin", as: "admin_task"
   resources :tasks
 
   get "user_tasks/past" => "user_tasks#past_index", as: "past_user_tasks"

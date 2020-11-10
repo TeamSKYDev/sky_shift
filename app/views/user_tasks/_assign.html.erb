@@ -25,7 +25,7 @@
             <%= user.last_name %><br>
             <label>最終更新日：</label><%= task.updated_at.strftime("%Y/%m/%d %H:%M") %>
 
-            <p>割り当てる人を選択する</p>
+            <h5>割り当てる人を選択する</h5>
             <%= f.collection_check_boxes :assign_task_ids, users, :id, :last_name, {include_hidden: false} do |b| %>
                 <%= b.label { b.check_box + b.text } %>
             <% end %>
@@ -34,7 +34,7 @@
 
         </div>
         <div class="modal-footer actions">
-            <%= f.submit "タスクを割り当てる" %>
+            <%= f.submit "タスクを割り当てる", class: "btn btn-outline-primary" %>
         </div>
     <% end %>
   </div>
