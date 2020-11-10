@@ -9,13 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
+
   <body>
     <% if user_signed_in? %>
       <div class="overlay"></div>
 
       <header>
         <nav id = "title-bar" class="navbar fixed-top navbar-expand-lg">
-          <button id="sidebarCollapse" type="button" class="btn btn-info">
+          <button id="sidebarCollapse" type="button" class="btn btn-primary">
               <i class="fas fa-align-left"></i>
           </button>
 
@@ -111,17 +112,18 @@
       </footer>
 
     <%else%>
-
-      <main>
-        <!-- フラッシュメッセージの表示 -->
-        <div class="container">
-          <% if flash[:notice] %>
-            <%= flash[:notice] %>
-          <% end %>
-          <%= yield %>
-        </div>
-      </main>
-
+      <div class = "top">
+        <main>
+          <div class = "topic">
+            <div class="container">
+              <% if flash[:notice] %>
+                <%= flash[:notice] %>
+              <% end %>
+              <%= yield %>
+            </div>
+          </div>
+        </main>
+      </div>
 
     <%end%>
 

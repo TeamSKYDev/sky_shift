@@ -10,15 +10,21 @@
 
         <div class="modal-body">
 			<label>提出先　：　</label><%= store.name %><br>
-			<% shifts.each do |shift| %>
-				<%= link_to edit_submitted_shift_path(shift), remote: true do %>
-					<%= shift.start_time.strftime("%m/%d-%H:%M") + "　~　" + shift.end_time.strftime("%m/%d-%H:%M") %><br>
+			<% if shifts.present? %>
+				<% shifts.each do |shift| %>
+					<%= link_to edit_submitted_shift_path(shift), remote: true do %>
+						<%= shift.start_time.strftime("%m/%d-%H:%M") + "　~　" + shift.end_time.strftime("%m/%d-%H:%M") %><br>
+					<% end %>
 				<% end %>
+			<% else %>
+				<p>提出するシフトが登録されていません</p>
 			<% end %>
 		</div>
 
 		<div class="modal-footer actions">
-			<%= link_to "シフトを提出する", submit_shift_path(start_date: params[:start_date]), method: :patch, data: { confirm: '提出すると削除できなくなります。提出してよろしいですか？' }, class: "btn btn-success" %>
+			<% if shifts.present? %>
+				<%= link_to "シフトを提出する", submit_shift_path(start_date: params[:start_date]), method: :patch, data: { confirm: '提出すると削除できなくなります。提出してよろしいですか？' }, class: "btn btn-success" %>
+			<% end %>
 		</div>
 
     </div>

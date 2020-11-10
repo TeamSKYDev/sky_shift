@@ -1,15 +1,9 @@
-<% if @store.present? %>
-	<%= link_to "店舗詳細へ", store_path(@store.id) %>
-<% end %>
-
-<% if Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store, is_admin: true) %>
-	<%= link_to "シフト管理", draft_shifts_path(start_date: @date), class: "btn btn-info" %>
-<% end %>
-
-
 <%= month_calendar(attribute: :start_time, events: @events) do |date, events| %>
-
-	<%= link_to date.day, select_schedule_path(date: date, events: events), remote: true %>
+    <% if current_user.selected_store.present? %>
+        <%= link_to date.day, new_submitted_shift_path(start_date: date), remote: true %>
+    <% else %>
+	   <%= link_to date.day, select_schedule_path(date: date, events: events), remote: true %>
+    <% end %>
 
 	<%# attribute: :dateで勝手にやってくれる %>
     <div id="schedule-<%= date %>">
@@ -27,6 +21,29 @@
         <% end %>
     </div>
 <% end %>
+
+<div class = "row">
+    <div class = "col">
+        <% if current_user.selected_store.present? %>
+            <%= link_to "シフトを提出する", confirm_submit_shift_path(start_date: @date), class: "btn btn-success", remote: true %>
+            <div id = "confirm_submitted_shift_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+        <% end %>
+    </div>
+    <div class = "col text-right">
+        <% if Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store, is_admin: true) %>
+            <%= link_to "シフト管理", draft_shifts_path(start_date: @date), class: "btn btn-info" %>
+        <% end %>
+    </div>
+    <div class = "col text-right">
+        <% if @store.present? %>
+            <%= link_to "店舗詳細へ", store_path(@store.id), class: "btn btn-outline-secondary" %>
+        <% end %>
+    </div>
+</div>
+
+
+
+
 
 <div id="shift-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
