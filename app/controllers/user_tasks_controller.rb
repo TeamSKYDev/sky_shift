@@ -12,7 +12,7 @@ class UserTasksController < ApplicationController
 		# @stores = Store.where(id: [store_ids])
 		task_ids = Task.where(store_id: [store_ids], is_announced: false).pluck(:id)
 		@user_tasks = UserTask.where(user_id: current_user.id, task_id: [task_ids], is_completed: false)
-		@public_tasks = Task.where(store_id: [store_ids], is_announced: true)
+		@public_tasks = Task.where(store_id: [store_ids], is_announced: true).order(created_at: :desc)
 	end
 
 	def past_index

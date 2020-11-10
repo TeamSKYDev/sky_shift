@@ -173,7 +173,7 @@ body{
 /*main*/
 main {
     padding-bottom: 50px;
-    padding-top: 70px;
+    padding-top: 90px;
 }
 
 .top {
@@ -251,6 +251,32 @@ main {
 
 }
 
+.private-task {
+     width: 100%;
+     height: 300px;
+     overflow: auto;
+     border-bottom: 1px solid #dee2e6;
+
+     td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+     }
+}
+
+.announcement {
+     width: 100%;
+     height: 300px;
+     overflow: auto;
+     border-bottom: 1px solid #dee2e6;
+
+     td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+     }
+}
+
 
 /*footer*/
 .nav.fixed-bottom{
@@ -264,7 +290,7 @@ main {
 
     /*body*/
     h1, h2, h3, h4, h5, h6, p{
-        font-size: 100%;
+        font-size: 130%;
     }
 
     .btn {
@@ -300,7 +326,7 @@ main {
     /*main*/
     main {
         font-size: 70%;
-        padding-top: 50px;
+        padding-top: 60px;
     }
 
     .top {
@@ -310,13 +336,6 @@ main {
             height: 700px;
         }
     }
-
-    main {
-        font-size: 70%;
-        padding-top: 70px;
-
-    }
-
 
     .simple-calendar {
         width: 100%;
@@ -336,5 +355,9 @@ main {
           .current-month {}
 
           .has-events {}
+    }
+
+    .announcement {
+        height: 230px;
     }
 }

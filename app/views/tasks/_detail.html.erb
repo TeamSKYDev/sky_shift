@@ -27,7 +27,7 @@
     <div class="modal-footer actions">
         <% user_task = task.user_tasks.find_by(user_id: current_user.id, is_completed: :false) %>
         <% if user_task.present? %>
-            <%= link_to "済", user_task_path(user_task.id), method: :patch, class: "btn btn-success" %>
+            <%= link_to "済", user_task_path(user_task.id), method: :patch, class: "btn btn-outline-success" %>
         <% end %>
     </div>
   </div>
