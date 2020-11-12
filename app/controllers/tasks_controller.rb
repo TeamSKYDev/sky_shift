@@ -7,7 +7,7 @@ class TasksController < ApplicationController
 
 	def index
 		@store = Store.find(current_user.selected_store)
-		@title = @store.name + "タスク管理"
+		@title = @store.name + " タスク管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
 		if @staff.is_admin == false
 			redirect_to home_path
@@ -47,6 +47,9 @@ class TasksController < ApplicationController
 
 	def show_admin
 		@task = Task.find(params[:id])
+		@user_task = UserTask.new
+		staff_ids = Staff.where(store_id: @task.store.id, is_permitted_status: true).pluck(:user_id)
+		@users = User.where(id: [staff_ids])
 	end
 
 	def edit

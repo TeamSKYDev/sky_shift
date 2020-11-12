@@ -10,20 +10,29 @@
         </button>
     </div>
     <div class="modal-body">
-        <lavel>タイトル：</lavel><%= task.title %><br>
-        <lavel>内容：</lavel><%= task.content %><br>
-        <label>公開範囲：</label>
-        <% if task.is_announced == true %>
-            公開
-        <% else %>
-            非公開
-        <% end %>
-        <br>
-        <label>作成者：</label>
-        <% user = User.find(task.creator_id) %>
-        <%= user.last_name %><br>
-        <label>最終更新日：</label><%= task.updated_at.strftime("%y/%m/%d %H:%M") %>
+        <table class="table table-borderless">
+            <tr>
+                <td>タイトル</td>
+                <td><%= task.title %></td>
+            </tr>
+            <tr>
+                <td>内容</td>
+                <td><%= task.content %></td>
+            </tr>
+            <tr>
+                <td>作成者</td>
+                <td>
+                    <% user = User.find(task.creator_id) %>
+                    <%= user.last_name %>
+                </td>
+            </tr>
+            <tr>
+                <td>最終更新日</td>
+                <td><%= task.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+            </tr>
+        </table>
     </div>
+
     <div class="modal-footer actions">
         <% user_task = task.user_tasks.find_by(user_id: current_user.id, is_completed: :false) %>
         <% if user_task.present? %>

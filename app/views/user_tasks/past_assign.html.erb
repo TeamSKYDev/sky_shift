@@ -1,35 +1,39 @@
 <h3>割り当てタスク一覧</h3>
 
+<div class = "task">
+	<table class = "table" style="table-layout:fixed;">
+		<tr>
+			<th>名</th>
+			<th>タイトル</th>
+			<th>割当日</th>
+			<th>完了度</th>
+			<th>完了日</th>
+		</tr>
+		<% @user_tasks.each do |user_task| %>
+			<tr>
+				<td style = "width: 20%"><%= user_task.user.last_name %></td>
+				<td style = "width: 20%"><%= link_to user_task.task.title, admin_task_path(user_task.task.id), remote: true %></td>
+				<td style = "width: 20%"><%= user_task.created_at.strftime("%m/%d") %></td>
+				<td style = "width: 15%">
+					<% if user_task.is_completed == true %>
+						<label>完</label>
+					<% else %>
+						<label style = "color: red;">未</label>
+					<% end %>
+				</td>
+				<td style = "width: 20%">
+					<% if user_task.is_completed == true %>
+						<%= user_task.created_at.strftime("%m/%d")%>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+
+<br>
 <%= link_to "戻る", tasks_path %>
 
-<table class = "table">
-	<tr>
-		<th>スタッフ名</th>
-		<th>タイトル</th>
-		<th>内容</th>
-		<th>割り当て日</th>
-		<th>完了度</th>
-		<th>完了日時</th>
-	</tr>
-	<% @user_tasks.each do |user_task| %>
-		<tr>
-			<td><%= user_task.user.last_name %></td>
-			<td><%= link_to user_task.task.title, task_path(user_task.task.id), remote: true %></td>
-			<td><%= user_task.task.content %></td>
-			<td><%= user_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-			<td>
-				<% if user_task.is_completed == true %>
-					<label>完了</label>
-				<% else %>
-					<label>未対応</label>
-				<% end %>
-			</td>
-			<td>
-				<% if user_task.is_completed == true %>
-					<%= user_task.created_at.strftime("%Y/%m/%d %H:%M")%>
-				<% end %>
-			</td>
-		</tr>
-	<% end %>
-</table>
 <div id = "task_show_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<div id = "task_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
