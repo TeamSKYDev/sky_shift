@@ -56,14 +56,18 @@ class UserTasksController < ApplicationController
 		else
 			flash[:notice] = "✓を入れてください"
 		end
-		redirect_to tasks_path
+		redirect_to request.referer
+	end
+
+	def show
+		@user_task = UserTask.find(params[:id])
 	end
 
 
 	def update
 		@user_task = UserTask.find(params[:id])
 		@user_task.update(is_completed: true)
-		redirect_to user_tasks_path
+		redirect_to request.referer
 	end
 
 	def destroy

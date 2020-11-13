@@ -29,7 +29,7 @@
 					<% store = Store.find(user_task.task.store.id) %>
 					<%= store.name %>
 				</td>
-				<td style = "width: 30%"><%= link_to user_task.task.title, task_path(user_task.task.id), remote: true %></td>
+				<td style = "width: 30%"><%= link_to user_task.task.title, user_task_path(user_task.id), remote: true %></td>
 				<td style = "width: 30%"><%= user_task.task.content %></td>
 				<td style = "width: 15%"><%= user_task.created_at.strftime("%m/%d") %></td>
 			</tr>

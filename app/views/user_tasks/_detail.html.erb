@@ -1,0 +1,54 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+        <h5 class="modal-title">
+            タスク詳細
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-borderless">
+            <tr>
+                <td>タイトル</td>
+                <td><%= user_task.task.title %></td>
+            </tr>
+            <tr>
+                <td>内容</td>
+                <td><%= user_task.task.content %></td>
+            </tr>
+            <tr>
+                <td>作成者</td>
+                <td>
+                    <% user = User.find(user_task.task.creator_id) %>
+                    <%= user.last_name %>
+                </td>
+            </tr>
+            <tr>
+                <td>割り当て日</td>
+                <td><%= user_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+            </tr>
+            <tr>
+                <td>完了度</td>
+
+                <% if user_task.is_completed == true %>
+                    <td><%= user_task.updated_at.strftime("%Y/%m/%d %H:%M") %>完了</td>
+                <% else %>
+                    <td>未対応</td>
+                <% end %>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="modal-footer actions">
+        <% if user_task.user == current_user %>
+            <% if user_task.is_completed == false %>
+                <%= link_to "済", user_task_path(user_task.id), method: :patch, class: "btn btn-outline-success" %>
+            <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>

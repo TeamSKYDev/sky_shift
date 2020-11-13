@@ -12,7 +12,7 @@
 		<% @user_tasks.each do |user_task| %>
 			<tr>
 				<td style = "width: 20%"><%= user_task.user.last_name %></td>
-				<td style = "width: 20%"><%= link_to user_task.task.title, admin_task_path(user_task.task.id), remote: true %></td>
+				<td style = "width: 20%"><%= link_to user_task.task.title, user_task_path(user_task.id), remote: true %></td>
 				<td style = "width: 20%"><%= user_task.created_at.strftime("%m/%d") %></td>
 				<td style = "width: 15%">
 					<% if user_task.is_completed == true %>
