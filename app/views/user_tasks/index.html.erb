@@ -1,52 +1,41 @@
+<h2>周知事項</h2>
 
-<h4>個人タスク</h4>
-<%= link_to "過去の完了タスク一覧", past_user_tasks_path %>
-<table class = "table">
-	<tr>
-		<th>発行日時</th>
-		<th>タイトル</th>
-		<th>内容</th>
-		<th>From</th>
-		<th>店舗名</th>
-	</tr>
-	<% @user_tasks.each do |user_task| %>
-		<tr>
-			<td><%= user_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-			<td><%= link_to user_task.task.title, task_path(user_task.task.id), remote: true %></td>
-			<td><%= user_task.task.content %></td>
-			<td>
-				<% user = User.find(user_task.task.creator_id) %>
-				<%= user.last_name %>
-			</td>
-			<td>
-				<% store = Store.find(user_task.task.store.id) %>
-				<%= store.name %>
-			</td>
-		</tr>
-	<% end %>
-</table>
+<div class = "announcement">
+	<table class = "table table-reflow" style="table-layout:fixed;">
+		<% @public_tasks.each do |public_task| %>
+			<tr>
+				<td style = "width: 25%"><%= public_task.store.name %></td>
+				<td style = "width: 30%"><%= link_to public_task.title, task_path(public_task.id), remote: true %></td>
+				<td style = "width: 30%"><%= public_task.content %></td>
+				<td style = "width: 15%"><%= public_task.created_at.strftime("%m/%d") %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+<div class = "row" style = "margin-top: 30px;">
+	<div class = "col-5">
+		<h2>個人タスク</h2>
+	</div>
+	<div class = "col-7 text-right">
+		<%= link_to "過去の完了タスク一覧", past_user_tasks_path, class: "btn btn-outline-primary" %>
+	</div>
+</div>
 
-<h4>周知事項</h4>
-<table class = "table">
-	<tr>
-		<th>発行日時</th>
-		<th>タイトル</th>
-		<th>内容</th>
-		<th>From</th>
-		<th>店舗名</th>
-	</tr>
-	<% @public_tasks.each do |public_task| %>
-		<tr>
-			<td><%= public_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-			<td><%= link_to public_task.title, task_path(public_task.id), remote: true %></td>
-			<td><%= public_task.content %></td>
-			<td>
-				<% user = User.find(public_task.creator_id) %>
-				<%= user.last_name %>
-			</td>
-			<td><%= public_task.store.name %></td>
-		</tr>
-	<% end %>
-</table>
+<div class = "private-task">
+	<table class = "table" style="table-layout:fixed;">
+		<% @user_tasks.each do |user_task| %>
+			<tr>
+				<td style = "width: 25%">
+					<% store = Store.find(user_task.task.store.id) %>
+					<%= store.name %>
+				</td>
+				<td style = "width: 30%"><%= link_to user_task.task.title, user_task_path(user_task.id), remote: true %></td>
+				<td style = "width: 30%"><%= user_task.task.content %></td>
+				<td style = "width: 15%"><%= user_task.created_at.strftime("%m/%d") %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+
 
 <div id = "task_show_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

@@ -1,5 +1,5 @@
 <% if @status == 'success' %>
-$("#add_task").append("<%= j(render("add_task", task: @task, user: current_user)) %>");
+$("#add_task").after("<%= j(render("add_task", task: @task, user: current_user)) %>");
 <% elsif @status == 'fail' %>
 alert('error!');
 <% end %>

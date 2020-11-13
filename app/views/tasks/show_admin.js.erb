@@ -1,0 +1,2 @@
+$("#task_show_modal").html("<%= escape_javascript(render("detail_admin", task: @task, user_task: @user_task, users: @users)) %>")
+$("#task_show_modal").modal("show")

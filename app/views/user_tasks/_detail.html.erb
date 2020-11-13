@@ -13,30 +13,41 @@
         <table class="table table-borderless">
             <tr>
                 <td>タイトル</td>
-                <td><%= task.title %></td>
+                <td><%= user_task.task.title %></td>
             </tr>
             <tr>
                 <td>内容</td>
-                <td><%= task.content %></td>
+                <td><%= user_task.task.content %></td>
             </tr>
             <tr>
                 <td>作成者</td>
                 <td>
-                    <% user = User.find(task.creator_id) %>
+                    <% user = User.find(user_task.task.creator_id) %>
                     <%= user.last_name %>
                 </td>
             </tr>
             <tr>
-                <td>最終更新日</td>
-                <td><%= task.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+                <td>割り当て日</td>
+                <td><%= user_task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
             </tr>
+            <tr>
+                <td>完了度</td>
+
+                <% if user_task.is_completed == true %>
+                    <td><%= user_task.updated_at.strftime("%Y/%m/%d %H:%M") %>完了</td>
+                <% else %>
+                    <td>未対応</td>
+                <% end %>
+            </tr>
+
         </table>
     </div>
 
     <div class="modal-footer actions">
-        <% user_task = task.user_tasks.find_by(user_id: current_user.id, is_completed: :false) %>
-        <% if user_task.present? %>
-            <%= link_to "済", user_task_path(user_task.id), method: :patch, class: "btn btn-outline-success" %>
+        <% if user_task.user == current_user %>
+            <% if user_task.is_completed == false %>
+                <%= link_to "済", user_task_path(user_task.id), method: :patch, class: "btn btn-outline-success" %>
+            <% end %>
         <% end %>
     </div>
   </div>
