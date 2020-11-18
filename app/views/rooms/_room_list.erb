@@ -17,6 +17,7 @@
 
     <ul class="list-group">
         <% rooms.each do |room| %>
+            <% last_message = room.last_message %>
             <%= link_to room_path(room), class: "list-group-item d-flex justify-content-between" do %>
                 <div class="room-content">
                     <div class="room-name">
@@ -25,27 +26,26 @@
                         <% else %>
                             <%= room.default_name(current_user) %>
                         <% end %>
+                        (<%= room.users.size %>)
                     </div>
                     <div class="text-muted">
-                        <% if room.last_message.present? %>
-                            <font size="1"><%= room.last_message.content.truncate(24, separator: '.') %></font>
+                        <% if last_message.present? %>
+                            <font size="1"><%= last_message.content.truncate(24, separator: '.') %></font>
                         <% end %>
                     </div>
                 </div>
                 
                 <div class="text-muted last-time">
-                    <% if room.last_message.present? %>
-                        <% if room.last_message.created_at_is_today %>
-                            <font size="1"><%= room.last_message.created_time %></font>
+                    <% if last_message.present? %>
+                        <% if last_message.created_at_is_today %>
+                            <font size="1"><%= last_message.created_time %></font>
                         <% else %>
-                            <font size="1"><%= room.last_message.created_date %></font>
+                            <font size="1"><%= last_message.created_date %></font>
                         <%end%>
                     <%else%>
-                        <font size="1"><%= room.last_date %></font>
+                        <font size="1"><%= Time.at(room.updated_at.to_i).to_date %></font>
                     <% end %>
                 </div>
-                
-                <!--　<span class="badge badge-primary badge-pill"><%= room.store.name %></span> -->
             <% end %>
             
         <% end %>

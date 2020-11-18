@@ -22,6 +22,12 @@ class MessagesController < ApplicationController
         # @rooms = current_user.rooms.where(store_id: current_user.selected_store)
     end
 
+    def render_message
+        # binding.pry
+        message = Message.new(params.require(:message).permit(:creator_id, :room_id, :content, :created_at, :updated_at))
+        render partial: 'message', locals: {message: message}
+    end
+
     private
     def message_params
         params.require(:message).permit(:creator_id, :room_id, :content).merge({ creator_id: current_user.id, room_id: params[:room_id] })

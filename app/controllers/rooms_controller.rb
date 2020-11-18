@@ -18,13 +18,12 @@ class RoomsController < ApplicationController
     def show
         @room = current_user.rooms.find(params[:id])
         @title = "トークルーム"
-        @messages = @room.messages
+        @messages = @room.messages.includes(:user)
         @message = Message.new
     end
 
     def create
         @room = current_user.rooms.build(room_params)
-        # @room.store_id = Store.find(current_user.selected_store).id
         
         respond_to do |format|
             if current_user.save
@@ -45,9 +44,8 @@ class RoomsController < ApplicationController
     end
 
     def index
-
         @title = "トークルーム"
-        @rooms = current_user.rooms.where(store_id: current_user.selected_store)
+        @rooms = current_user.rooms.where(store_id: current_user.selected_store).includes(:store, :users, :messages)
         @store = Store.find(current_user.selected_store)
 
     end
