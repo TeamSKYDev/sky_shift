@@ -1,15 +1,27 @@
-
-<div class="content-<%= message.id %>">
-
+<% if message.user == current_user %>
+<div class="mycomment">
+    <p>
+        <%= message.content %>
+    </p>
+    <div class="text-muted">
+        <font size="1"><%= message.created_time %></font>
+    </div>
 </div>
-
-<script>
-  var message_user = <%= message.user.id %>;
-  var current_user = $(".message-box").attr("id");
-  if(message_user == current_user){
-      $(".content-<%= message.id %>").html("<%= j(render("messages/my_message", message: message)) %>");
-  }else{
-      $(".content-<%= message.id %>").html("<%= j(render("messages/other_message", message: message)) %>");
-  }
-</script>
-
+<% else %>
+<div class="balloon6">
+    <div class="text-muted">
+        <font size="1"><%= message.user.full_name %></font>
+    </div>
+    <div class="faceicon">
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="chatting">
+      <div class="says">
+        <p><%= message.content %></p>
+      </div>
+    </div>
+    <div class="text-muted">
+        <font size="1"><%= message.created_time %></font>
+    </div>
+</div>
+<% end %>

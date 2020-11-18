@@ -20,13 +20,17 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update]
 
   resources :rooms, only: [:new, :index, :create, :show, :destroy] do
-    resources :messages, only: [:create, :index]
+    resources :messages, only: [:create, :index] do
+      collection do
+        get 'render_message'
+      end
+    end
     collection do
       get 'get_users'
       get 'select_store'
     end
   end
-
+  get 'messages/render_message' => 'messages#render_message'
 
   resources :private_schedules
 
