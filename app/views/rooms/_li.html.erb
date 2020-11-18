@@ -1,8 +1,30 @@
-<li class="list-group-item d-flex justify-content-between align-items-center">
-    <% if room.name.present? %>
-        <%= link_to room.name, room_messages_path(room) %>
-    <% else %>
-        <%= link_to room.default_name(current_user), room_messages_path(room) %>
+<% last_message = room.last_message %>
+    <%= link_to room_path(room), class: "list-group-item d-flex justify-content-between" do %>
+        <div class="room-content">
+            <div class="room-name">
+                <% if room.name.present? %>
+                    <%= room.name %>
+                <% else %>
+                    <%= room.default_name(current_user) %>
+                <% end %>
+                (<%= room.users.size %>)
+            </div>
+            <div class="text-muted">
+                <% if last_message.present? %>
+                    <font size="1"><%= last_message.content.truncate(24, separator: '.') %></font>
+                <% end %>
+            </div>
+        </div>
+        
+        <div class="text-muted last-time">
+            <% if last_message.present? %>
+                <% if last_message.created_at_is_today %>
+                    <font size="1"><%= last_message.created_time %></font>
+                <% else %>
+                    <font size="1"><%= last_message.created_date %></font>
+                <%end%>
+            <%else%>
+                <font size="1"><%= Time.at(room.updated_at.to_i).to_date %></font>
+            <% end %>
+        </div>
     <% end %>
-        <span class="badge badge-primary badge-pill"><%= link_to room.store.name, store_path(room.store), :style=>"color:white;" %></span>
-</li>
