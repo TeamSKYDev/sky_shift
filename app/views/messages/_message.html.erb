@@ -10,7 +10,7 @@
 <% else %>
 <div class="balloon6">
     <div class="text-muted">
-        <font size="1"><%= User.find(message.creator_id).full_name %></font>
+        <font size="1"><%= message.user.full_name %></font>
     </div>
     <div class="faceicon">
       <i class="fas fa-user"></i>
