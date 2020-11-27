@@ -1,6 +1,6 @@
 <tr>
 	<td><%= link_to label.name, label_path(label), remote: true %></td>
 	<td><%= label.work_type_i18n %></td>
-	<td></td>
+	<td><%= label.content %></td>
 	<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-outline-danger" %></td>
 </tr>
