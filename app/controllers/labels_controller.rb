@@ -1,45 +1,65 @@
 class LabelsController < ApplicationController
 	before_action :check_selected_store
 
+	def new
+		@label = Label.new
+		@store = Store.find(current_user.selected_store)
+	end
+
 	def index
-		@title = "ラベル管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store)
 		if @staff.is_admin != true
 			redirect_to home_path
 		end
-		@label = Label.new
-		@all_labels_position = Label.where(store_id: @staff.store_id, work_type: "position")
-		@all_labels_ability = Label.where(store_id: @staff.store_id, work_type: "ability")
-		@all_labels_rank = Label.where(store_id: @staff.store_id, work_type: "rank")
-		@all_labels_other = Label.where(store_id: @staff.store_id, work_type: "other")
 		@store = Store.find_by(id: current_user.selected_store)
+		@title = @store.name + "　ラベル管理"
+		@labels = Label.where(store_id: @store.id).order(created_at: :desc)
 	end
 
 	def create
 		@label = Label.new(label_params)
-		@label.store_id = current_user.selected_store
-		if @label.save
-			flash[:notice] = "create new label"
-			redirect_to labels_path
-		else
-			flash[:notice] = "cannot create"
-			@labels = Label.where(store_id: current_user.selected_store)
-			@store = Store.find_by(id: current_user.selected_store)
-			render "index"
+		respond_to do |format|
+			if @label.save
+			    # format.html { redirect_to staffs_path, notice: 'User was successfully created.' }
+			    # format.json { render :edit, status: :created, location: @staff }
+			    format.js { 
+			        @status = "success" 
+			        # redirect_to carender_path
+			    }
+			else
+			    # format.html { render :new }
+			    # format.json { render json: @staff.errors, status: :unprocessable_entity }
+			    format.js { @status = "fail" }
+			end
 		end
 	end
 
 	def edit
-		@title = "ラベル管理"
 		@label = Label.find(params[:id])
-		@staff = Staff.find_by(user_id: current_user.id)
-		if @staff.is_admin != true
-			redirect_to home_path
-		end
+		@store = Store.find(current_user.selected_store)
+		staff_ids = Staff.where(store_id: @label.store_id, is_permitted_status: true, is_unsubscribe: false).pluck(:user_id)
+		@users = User.where(id: [staff_ids])
+	end
+
+	def show
+		@label = Label.find(params[:id])
+		@staffs = @label.staffs.where(is_permitted_status: true, is_unsubscribe: false)
 	end
 
 	def update
 		@label = Label.find(params[:id])
+
+		assigned_staffs_id = @label.staffs.where(store_id: @label.store_id).pluck(:id)
+		StaffLabel.where(label_id: @label.id, staff_id: [assigned_staffs_id]).destroy_all
+
+		if params[:label][:select_staff_ids].present?
+			params[:label][:select_staff_ids].each do |select_staff_id|
+				staff_label = StaffLabel.new
+				staff_label.label_id = @label.id
+				staff_label.staff_id = select_staff_id
+				staff_label.save!
+			end
+		end
 		if @label.update(label_params)
 			flash[:notice] = "update label"
 			redirect_to labels_path
@@ -59,7 +79,7 @@ class LabelsController < ApplicationController
 
 	private
 	def label_params
-		params.require(:label).permit(:name, :work_type)
+		params.require(:label).permit(:name, :work_type, :store_id, :content)
 	end
 end
 

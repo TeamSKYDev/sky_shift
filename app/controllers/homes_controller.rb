@@ -18,7 +18,7 @@ class HomesController < ApplicationController
 
 		if current_user.selected_store.blank?
 			@title = "private"
-			@private_schedules = PrivateSchedule.all
+			@private_schedules = current_user.private_schedules
 			@submitted_shifts = current_user.submitted_shifts.where(start_time: @date.in_time_zone.all_month)
 			@decided_shifts = current_user.decided_shifts.where(start_time: @date.in_time_zone.all_month)
 		else

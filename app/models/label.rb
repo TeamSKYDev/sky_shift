@@ -8,4 +8,10 @@ class Label < ApplicationRecord
 
 	validates :name, presence: true
 
+	attr_writer :select_staff_ids
+
+	def select_staff_ids
+		@select_staff_ids
+	end
+
 end

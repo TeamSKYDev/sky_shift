@@ -66,3 +66,11 @@ ja:
         first_name: 名
         email: メールアドレス
         password: パスワード
+
+  enums:
+    label:
+      work_type:
+        position: ポジション
+        ability: 能力
+        rank: ランク
+        other: その他

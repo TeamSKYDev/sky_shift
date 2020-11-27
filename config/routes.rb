@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   patch "staffs/permit" => "staffs/permit", as: "staff_permit"
   resources :staffs, only: [:new, :index, :create, :show, :update]
 
-  resources :labels, except: [:new, :show]
+  resources :labels
 
   get "submitted_shifts/confirm" => "submitted_shifts#confirm", as: "confirm_submit_shift"
   patch "submitted_shifts/submit" => "submitted_shifts#submit", as: "submit_shift"
