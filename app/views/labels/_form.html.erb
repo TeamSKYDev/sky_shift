@@ -23,18 +23,47 @@
             </div>
             <div class="modal-body">
                 <div class="form-group field">
-                    <h5>店舗名:  <%= store.name %></h5>
-                    <label>ラベル名: </label>
-                    <%= f.text_field :name %><br>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>店舗名</label>
+                        </div>
+                        <div class = "col">
+                            <%= store.name %>
+                        </div>
+                    </div>
 
-                    <label>タイプ: </label>
-                    <%= f.select :work_type, Label.work_types.keys.map {|k| [I18n.t("enums.label.work_type.#{k}"), k] } %><br>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>ラベル名</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_field :name %>
+                        </div>
+                    </div>
 
-                    <label>詳細</label><br>
-                    <%= f.text_area :content %><br>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>タイプ</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.select :work_type, Label.work_types.keys.map {|k| [I18n.t("enums.label.work_type.#{k}"), k] } %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>詳細</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_area :content %>
+                        </div>
+                    </div>
 
                     <%= f.hidden_field :store_id, :value => store.id %>
-
 
                 </div>
             </div>
@@ -54,28 +83,66 @@
             </div>
             <div class="modal-body">
                 <div class="form-group field">
-                    <h5>店舗名:  <%= store.name %></h5>
-                    <label>ラベル名: </label>
-                    <%= f.text_field :name %><br>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>店舗名</label>
+                        </div>
+                        <div class = "col">
+                            <%= store.name %>
+                        </div>
+                    </div>
 
-                    <label>タイプ: </label>
-                    <%= f.select :work_type, Label.work_types.keys.map {|k| [I18n.t("enums.label.work_type.#{k}"), k] } %><br>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>ラベル名</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_field :name %>
+                        </div>
+                    </div>
 
-                    <label>詳細</label><br>
-                    <%= f.text_area :content %><br>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>タイプ</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.select :work_type, Label.work_types.keys.map {|k| [I18n.t("enums.label.work_type.#{k}"), k] } %>
+                        </div>
+                    </div>
 
-                    <label>ラベルの付与</label>
-                    <%= f.collection_check_boxes :select_staff_ids, users, :id, :last_name, {include_hidden: false} do |b| %>
-                        <% if StaffLabel.find_by(staff_id: b.value, label_id: label.id).present? %>
-                            <%= b.label { b.check_box(checked: true) + b.text } %>
-                        <% else %>
-                            <%= b.label { b.check_box + b.text } %>
-                        <% end %>
-                    <% end %>
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>詳細</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_area :content %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>付与者</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.collection_check_boxes :select_staff_ids, users, :id, :last_name, {include_hidden: false} do |b| %>
+                                <% if StaffLabel.find_by(staff_id: b.value, label_id: label.id).present? %>
+                                    <%= b.label { b.check_box(checked: true) + b.text } %>
+                                <% else %>
+                                    <%= b.label { b.check_box + b.text } %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
 
                     <%= f.hidden_field :store_id, :value => store.id %>
                 </div>
             </div>
+
             <div class="modal-footer actions">
                 <%= f.submit "変更を保存", class: "btn btn-primary"%>
                 <%= link_to "削除", label_path(label),method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-danger" %>
