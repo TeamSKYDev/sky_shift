@@ -14,4 +14,12 @@ class Label < ApplicationRecord
 		@select_staff_ids
 	end
 
+
+	def self.search(search, store_id)
+		if search
+			Label.where(store_id: store_id).where(['name LIKE ?', "%#{search}%"])
+		else
+			Label.where(store_id: store_id)
+		end
+	end
 end

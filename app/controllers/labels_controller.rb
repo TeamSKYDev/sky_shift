@@ -13,7 +13,8 @@ class LabelsController < ApplicationController
 		end
 		@store = Store.find_by(id: current_user.selected_store)
 		@title = @store.name + "　ラベル管理"
-		@labels = Label.where(store_id: @store.id).order(created_at: :desc)
+		@label = Label.new
+		@labels = Label.search(params[:search], @store.id).order(created_at: :desc)
 	end
 
 	def create
@@ -62,6 +63,8 @@ class LabelsController < ApplicationController
 		end
 		if @label.update(label_params)
 			flash[:notice] = "更新しました"
+		else
+			flash[:notice] = "error"
 		end
 
 		redirect_to labels_path
