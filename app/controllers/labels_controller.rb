@@ -61,12 +61,10 @@ class LabelsController < ApplicationController
 			end
 		end
 		if @label.update(label_params)
-			flash[:notice] = "update label"
-			redirect_to labels_path
-		else
-			flash[:notice] = "cannot update"
-			render "edit"
+			flash[:notice] = "更新しました"
 		end
+
+		redirect_to labels_path
 	end
 
 	def destroy
