@@ -26,7 +26,23 @@
                 <div class = "col-2">
                 </div>
                 <div class = "col-8">
-                  <h1 class = "title"><%= @title %></h1>
+                  <h1 class = "title dor">
+                    <%= @title %>
+                    <%= link_to(home_path) do %>
+                      <i class="far fa-caret-square-down"></i>
+                    <% end %>
+                  </h1>
+                  <div class="dropdown">
+                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <%= link_to "private", change_selected_store_path, method: :patch, class: "dropdown-item" %>
+                      <% @stores.each do |store| %>
+                        <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch, class: "dropdown-item" %>
+                      <% end %>
+                    </div>
+                  </div>
                 </div>
                 <div class = "col-2"></div>
               </div>

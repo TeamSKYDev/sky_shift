@@ -61,7 +61,8 @@ $(document).on('turbolinks:load', function() {
 $(document).on('turbolinks:load', function() {
     if(location.pathname != "/") {
         $('.nav-item a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-    } 
+    }
 });
+
 
 
