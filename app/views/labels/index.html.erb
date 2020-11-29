@@ -1,53 +1,42 @@
-<h3>ラベル一覧ページ</h3>
-<label>店舗名：　</label><%= @store.name %>
+<div class = "row">
+	<div class = "col-3">
+		<h4>一覧</h4>
+	</div>
+	<div class = "col-7 text-right">
+		<%= form_tag(labels_path, :method => "get") do %>
+			<%= text_field_tag :search, "", class: "serch-form", placeholder: "ラベルを検索" %>
+			<%= button_tag :type => "submit", class: "btn", :name => nil do %>
+				<i class="fas fa-search"></i>
+			<% end %>
+		<% end %>
+	</div>
+	<div class = "col-2 text-right">
+		<%= link_to new_label_path, class: "btn btn-outline-primary", remote: true do %>
+			<i class="fas fa-plus"></i>
+		<% end %>
+	</div>
+</div>
 
-<%= form_for(@label) do |f| %>
-	<%= f.text_field :name, placeholder: "新規ラベル名" %>
-	<%= f.select :work_type, Label.work_types.keys.to_a, {} %>
-	<%= f.submit "保存" %>
-<% end %>
-
-<h4>ラベル一覧</h4>
-<table class = "table">
-	<tr>
-		<th>ラベル名</th>
-		<th>タイプ</th>
-		<th></th>
-		<th></th>
-	</tr>
-	<% @all_labels_position.each do |label| %>
-		<tr>
-			<td><%= label.name %></td>
-			<td><%= label.work_type %></td>
-			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
-			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
+<div class = "task">
+	<table class = "table table-reflow" style="table-layout:fixed;">
+		<tr id = "add_label">
+			<th style = "width: 25%">ラベル名</th>
+			<th style = "width: 25%">タイプ</th>
+			<th style = "width: 25%">内容</th>
+			<th style = "width: 25%"></th>
 		</tr>
-	<% end %>
-	<% @all_labels_ability.each do |label| %>
-		<tr>
-			<td><%= label.name %></td>
-			<td><%= label.work_type %></td>
-			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
-			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
-		</tr>
-	<% end %>
-	<% @all_labels_rank.each do |label| %>
-		<tr>
-			<td><%= label.name %></td>
-			<td><%= label.work_type %></td>
-			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
-			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
-		</tr>
-	<% end %>
-	<% @all_labels_other.each do |label| %>
-		<tr>
-			<td><%= label.name %></td>
-			<td><%= label.work_type %></td>
-			<td><%= link_to "編集", edit_label_path(label), class: "btn btn-success" %></td>
-			<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
-		</tr>
-	<% end %>
-</table>
-
+		<% @labels.each do |label| %>
+			<tr>
+				<td><%= link_to label.name, label_path(label), remote: true %></td>
+				<td><%= label.work_type_i18n %></td>
+				<td><%= label.content %></td>
+				<td><%= link_to "削除", label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-outline-danger" %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+<br>
 <%= link_to "戻る", store_path(current_user.selected_store) %>
 
+<div id = "label_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id = "label_show_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

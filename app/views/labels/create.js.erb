@@ -1,0 +1,6 @@
+<% if @status == 'success' %>
+$("#add_label").after("<%= j(render("add_label", label: @label)) %>");
+<% elsif @status == 'fail' %>
+alert('error!');
+<% end %>
+$("#label_modal").modal("hide");

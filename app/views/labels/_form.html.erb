@@ -1,0 +1,154 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <% if label.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(label.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+                <% label.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <% if label.id.blank? %>
+        <%= form_for(label, remote: true) do |f| %>
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    新規ラベル追加
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group field">
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>店舗名</label>
+                        </div>
+                        <div class = "col">
+                            <%= store.name %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>ラベル名</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_field :name %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>タイプ</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.select :work_type, Label.work_types.keys.map {|k| [I18n.t("enums.label.work_type.#{k}"), k] } %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>内容</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_area :content %>
+                        </div>
+                    </div>
+
+                    <%= f.hidden_field :store_id, :value => store.id %>
+
+                </div>
+            </div>
+            <div class="modal-footer actions">
+                <%= f.submit "ラベルを登録", class: "btn btn-primary"%>
+            </div>
+        <% end %>
+    <% else %>
+        <%= form_for(label) do |f| %>
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    ラベルの編集
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group field">
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>店舗名</label>
+                        </div>
+                        <div class = "col">
+                            <%= store.name %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>ラベル名</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_field :name %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>タイプ</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.select :work_type, Label.work_types.keys.map {|k| [I18n.t("enums.label.work_type.#{k}"), k] } %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>詳細</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.text_area :content %>
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-1"></div>
+                        <div class = "col-3">
+                            <label>付与者</label>
+                        </div>
+                        <div class = "col">
+                            <%= f.collection_check_boxes :select_staff_ids, users, :id, :last_name, {include_hidden: false} do |b| %>
+                                <% if StaffLabel.find_by(staff_id: b.value, label_id: label.id).present? %>
+                                    <%= b.label { b.check_box(checked: true) + b.text } %>
+                                <% else %>
+                                    <%= b.label { b.check_box + b.text } %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
+
+                    <%= f.hidden_field :store_id, :value => store.id %>
+                </div>
+            </div>
+
+            <div class="modal-footer actions">
+                <%= f.submit "変更を保存", class: "btn btn-primary"%>
+                <%= link_to "削除", label_path(label),method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-danger" %>
+            </div>
+        <% end %>
+    <% end %>
+
+  </div>
+</div>

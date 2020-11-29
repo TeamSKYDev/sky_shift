@@ -1,0 +1,49 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+        <h5 class="modal-title">
+            ラベル詳細
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-borderless">
+            <tr>
+                <td style = "width: 30%;">ラベル名</td>
+                <td style = "width: 70%;"><%= label.name %></td>
+            </tr>
+            <tr>
+                <td>タイプ</td>
+                <td><%= label.work_type_i18n %></td>
+            </tr>
+            <tr>
+                <td>店舗</td>
+                <td><%= label.store.name %></td>
+            </tr>
+            <tr>
+                <td>内容</td>
+                <td><%= label.content %></td>
+            </tr>
+            <tr>
+                <td>作成日</td>
+                <td><%= label.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+            </tr>
+            <tr>
+                <td>付与者</td>
+                <td>
+                    <% staffs.each do |staff| %>
+                        <%= staff.user.last_name + "　" %>
+                    <% end %>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal-footer actions">
+        <%= link_to "編集", edit_label_path(label),class: "btn btn-primary", remote: true %>
+    </div>
+  </div>
+</div>

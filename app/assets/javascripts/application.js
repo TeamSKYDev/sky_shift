@@ -17,6 +17,7 @@
 //= require jquery.turbolinks
 //= require activestorage
 //= require turbolinks
+//= require toastr
 //= require_tree .
 
 document.addEventListener("turbolinks:load", function () {
@@ -62,3 +63,5 @@ $(document).on('turbolinks:load', function() {
         $('.nav-item a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
     } 
 });
+
+

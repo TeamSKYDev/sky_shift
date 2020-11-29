@@ -3,6 +3,7 @@ create_table :labels do |t|
 	t.integer :store_id, null: false
 	t.string :name
 	t.integer :work_type
+	t.text :content
 
 	t.timestamps null: false
 end

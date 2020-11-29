@@ -71,7 +71,9 @@
         <div class="container">
           <!-- フラッシュメッセージの表示 -->
             <% if flash[:notice] %>
-              <label class = "alert alert-primary" role="alert"><%= flash[:notice] %></label>
+              <script type="text/javascript">
+                  toastr.success("<%= flash[:notice] %>")
+              </script>
             <% end %>
 
           <%= yield %>
