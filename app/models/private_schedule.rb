@@ -10,9 +10,10 @@ class PrivateSchedule < ApplicationRecord
 
     private
     def end_time_is_after_start_time
-  
-    if end_time < start_time
-      errors.add(:end_time, "cannot be before the start date") 
-    end 
-  end
+        if end_time < start_time
+          errors.add(:end_time, "cannot be before the start date")
+        end
+    end
 end
+
+

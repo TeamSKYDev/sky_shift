@@ -36,9 +36,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def set_temporary_table
-		#ActiveRecord::Base.connection.drop_table('events')
 		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
-		  # t.integer :user_id    , null: true
 		  t.string :title, null: false
 		  t.text   :content
 		  t.datetime  :start_time, null: false

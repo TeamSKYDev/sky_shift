@@ -11,9 +11,9 @@ class DecidedShiftsController < ApplicationController
 			decided_shift.start_time = draft_shift.start_time
 			decided_shift.end_time = draft_shift.end_time
 			if decided_shift.save!
-				flash[:notice] = "create decided_shifts successfully"
+				flash[:notice] = "シフト決定"
 			else
-				flash[:notice] = "cannot create"
+				flash[:error] = "error"
 			end
 		end
 		draft_shifts.destroy_all
@@ -31,9 +31,9 @@ class DecidedShiftsController < ApplicationController
 			decided_shift.start_time = draft_shift.start_time
 			decided_shift.end_time = draft_shift.end_time
 			if decided_shift.save!
-				flash[:notice] = "create decided_shifts successfully"
+				flash[:notice] = "一括シフト決定を行いました"
 			else
-				flash[:notice] = "cannot create"
+				flash[:error] = "error"
 			end
 		end
 		draft_shifts.destroy_all

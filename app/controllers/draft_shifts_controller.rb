@@ -1,5 +1,6 @@
 class DraftShiftsController < ApplicationController
 	before_action :check_selected_store
+	before_action :set_temporary_table, only: [:index]
 
 	def submitted
 		@date = params[:start_date]
@@ -8,6 +9,7 @@ class DraftShiftsController < ApplicationController
 	end
 
 	def index
+
 		@store = Store.find_by(id: current_user.selected_store)
 		@title = @store.name + "　シフト管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
@@ -52,9 +54,9 @@ class DraftShiftsController < ApplicationController
 	def create
 		@draft_shift = DraftShift.new(draft_shift_params)
 		if @draft_shift.save!
-			flash[:notice] = "create new draft"
+			flash[:notice] = "追加しました"
 		else
-			flash[:notice] = "cannot create draft"
+			flash[:error] = "error"
 		end
 		redirect_to request.referer
 	end
@@ -62,9 +64,9 @@ class DraftShiftsController < ApplicationController
 	def update
 		@draft_shift = DraftShift.find(params[:id])
 		if @draft_shift.update(draft_shift_params)
-			flash[:notice] = "update draft"
+			flash[:notice] = "更新しました"
 		else
-			flash[:notice] = "cannot create draft"
+			flash[:error] = "error"
 		end
 		redirect_to request.referer
 	end
@@ -72,7 +74,7 @@ class DraftShiftsController < ApplicationController
 	def destroy
 		@draft_shift = DraftShift.find(params[:id])
 		@draft_shift.destroy
-		flash[:notice] = "destroy draft"
+		flash[:notice] = "削除しました"
 		redirect_to request.referer
 	end
 
