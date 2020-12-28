@@ -1,11 +1,16 @@
-<%= month_calendar(events: @draft_shifts) do |date, draft_shifts| %>
+<%= month_calendar(events: @events) do |date, events| %>
 
 	<%= link_to date.day, daily_draft_shifts_path(start_date: date) %>
 
-	<% if draft_shifts.present? %>
-		<p>未確定あり</p>
-	<% end %>
-	
+	<div id="schedule-<%= date %>">
+		<% if events.present? %>
+	    	<% if events.select {|a| a[:shedule_status] == false}.present? %>
+	        	<lavbel style = "color: red;">未確定</lavbel>
+	        <% elsif events.select {|a| a[:shedule_status] == true}.present? %>
+	        	 <lavbel>確定</lavbel>
+	        <% end %>
+	    <% end %>
+    </div>
 
 <% end %>
 

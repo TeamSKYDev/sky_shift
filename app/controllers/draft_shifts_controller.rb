@@ -9,7 +9,6 @@ class DraftShiftsController < ApplicationController
 	end
 
 	def index
-
 		@store = Store.find_by(id: current_user.selected_store)
 		@title = @store.name + "　シフト管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
@@ -23,10 +22,35 @@ class DraftShiftsController < ApplicationController
 		end
 
 		@draft_shifts = DraftShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
+		@decided_shifts = current_user.decided_shifts.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
+
+		if @draft_shifts.present?
+			@draft_shifts.each do |draft_shift|
+				@event = Event.new
+				@event.start_time = draft_shift.start_time
+				@event.end_time = draft_shift.end_time
+				@event.shedule_status = false
+				@event.save!
+			end
+		end
+
+
+		if @decided_shifts.present?
+			@decided_shifts.each do |decided_shift|
+				@event = Event.new
+				@event.start_time = decided_shift.start_time
+				@event.end_time = decided_shift.end_time
+				@event.shedule_status = true
+				@event.save!
+			end
+		end
+
+		@events = Event.all
 	end
 
 	def daily
 		@store = Store.find_by(id: current_user.selected_store)
+		@title = @store.name + "　シフト管理"
 		@staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
 
 		if @staff.is_admin == false
@@ -34,7 +58,7 @@ class DraftShiftsController < ApplicationController
 		end
 
 		if params[:start_date].present?
-			@date = params[:start_date]
+			@date = params[:start_date].to_date
 		else
 			@date = Date.current.beginning_of_month
 		end

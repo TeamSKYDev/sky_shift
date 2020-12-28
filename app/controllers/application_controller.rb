@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
 	def set_temporary_table
 		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
-		  t.string :title, null: false
+		  t.string :title
 		  t.text   :content
 		  t.datetime  :start_time, null: false
 		  t.datetime  :end_time

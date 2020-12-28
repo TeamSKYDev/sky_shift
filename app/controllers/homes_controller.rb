@@ -15,7 +15,6 @@ class HomesController < ApplicationController
 			@date = Date.current.beginning_of_month
 		end
 
-
 		if current_user.selected_store.blank?
 			@title = "private"
 			@private_schedules = current_user.private_schedules

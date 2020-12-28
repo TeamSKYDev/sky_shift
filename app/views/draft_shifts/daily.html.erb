@@ -1,11 +1,11 @@
-<h3><%= @date %>のシフト</h3>
+<h3><%= @date.strftime("%m月%d日") %>のシフト</h3>
 <%= link_to "前日", daily_draft_shifts_path(start_date: @date.to_date.yesterday) %>
 <%= link_to "翌日", daily_draft_shifts_path(start_date: @date.to_date.tomorrow) %>
 <br>
 <%= link_to "カレンダーへ", draft_shifts_path(start_date: params[:start_date]) %>
 <br><br>
 
-<%= link_to "提出済みシフト", show_submitted_shifts_path(start_date: @date.to_date), remote: true %>
+<%= link_to "提出済みシフト", show_submitted_shifts_path(start_date: @date.to_date), remote: true, class: "btn btn-outline-dark" %>
 <div id="show-submitted-shift-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 <br>
@@ -22,9 +22,8 @@
 <div class = "draft_index">
 	<div class = "row">
 			<div class = "col-2">氏名</div>
-			<div class = "col">開始時間</div>
-			<div class = "col">終了時間</div>
-			<div class = "col-2"></div>
+			<div class = "col-4">開始時間</div>
+			<div class = "col-4">終了時間</div>
 			<div class = "col-2"></div>
 	</div>
 	<% @draft_shifts.each do |draft_shift| %>
@@ -37,10 +36,10 @@
 						<%= link_to draft_shift.user.last_name, staff_path(Staff.find_by(user_id: draft_shift.user_id, store_id: draft_shift.store_id)) %>
 					<% end %>
 				</div>
-				<div class="col"><%= f.time_select :start_time %></div>
-				<div class="col"><%= f.time_select :end_time %></div>
-				<div class="col-2"><%= f.submit "更新", class: "btn btn-info" %></div>
-				<div class="col-2"><%= link_to "削除", draft_shift_path(draft_shift), method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger"%></div>
+				<div class="col-4"><%= f.time_select :start_time %></div>
+				<div class="col-4"><%= f.time_select :end_time %></div>
+				<div class="col-2"><%= f.submit "更新", class: "btn btn-success" %></div>
+	<!-- 			<div class="col-1"><%#= link_to "削除", draft_shift_path(draft_shift), method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger"%></div> -->
 			</div>
 		<% end %>
 		<br>
@@ -51,10 +50,10 @@
 		
 		<div class = "row">
 			<div class = "col-2"><%= f.collection_select :user_id, @users, :id, :last_name %></div>
-			<div class = "col"><%= f.time_select :start_time %></div>
-			<div class = "col"><%= f.time_select :end_time %></div>
-			<div class = "col-2"><%= f.submit "追加", class: "btn btn-success" %></div>
-			<div class = "col-2"></div>
+			<div class = "col-4"><%= f.time_select :start_time %></div>
+			<div class = "col-4"><%= f.time_select :end_time %></div>
+			<div class = "col-2"><%= f.submit "追加", class: "btn btn-outline-info" %></div>
+
 		</div>
 	<% end %>
 </div>
