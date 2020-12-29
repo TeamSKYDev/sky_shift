@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "home/select_schedule" => "homes#select_schedule", as: "select_schedule"
   get "home/submittion_destination" => "homes#submittion_destination", as: "submittion_destination"
   patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
+
+  get "store/:id/unrelated_staff" => "stores#unrelated_staff", as: "unrelated_staff"
   resources :stores, except: [:index]
 
 
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
   patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
   patch "staffs/unsubscribe" => "staffs/unsubscribe", as: "staff_unsubscribe"
   patch "staffs/permit" => "staffs/permit", as: "staff_permit"
-  resources :staffs, only: [:new, :index, :create, :show, :update]
+  resources :staffs, only: [:new, :index, :create, :show, :update, :destroy]
 
   resources :labels
 

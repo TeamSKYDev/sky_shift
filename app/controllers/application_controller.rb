@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
 	def get_stores
 		if current_user.present?
-		 	store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true).pluck(:store_id)
+		 	store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true, is_unsubscribe: false).pluck(:store_id)
 		 	@stores = Store.where(id: [store_ids])
 
 		end

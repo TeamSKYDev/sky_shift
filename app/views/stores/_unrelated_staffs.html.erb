@@ -1,0 +1,34 @@
+
+<div class="modal-dialog">
+  <div class="modal-content">
+  	<div class="modal-header">
+		<h3><%= store.name %>　連携申請</h3>
+	</div>
+
+	<div class="modal-body">
+		<% if unrelated_staffs.present? %>
+			<table class = "table table-reflow">
+				<tr>
+					<th>名前</th>
+					<th>申請日</th>
+					<th></th>
+					<th></th>
+				</tr>
+
+				<% unrelated_staffs.each do |unrelated_staff| %>
+					<tr>
+						<td><%= unrelated_staff.user.last_name  + unrelated_staff.user.first_name %></td>
+						<td><%= unrelated_staff.updated_at.strftime("%m/%d") %></td>
+						<td><%= link_to "承認", staff_permit_path(params: {id: unrelated_staff.id}), method: :patch, class: "btn btn-info" %></td>
+						<td><%= link_to "削除", staff_path(unrelated_staff), method: :delete, class: "btn btn-danger" %></td>
+					</tr>
+				<% end %>
+			</table>
+		<% else %>
+			<p>申請なし</p>
+		<% end %>
+	</div>
+  </div>
+</div>
+
+
