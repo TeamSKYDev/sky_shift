@@ -5,6 +5,7 @@ create_table :submitted_shifts do |t|
   t.datetime :end_time, null:false
 
   t.boolean :status, null: false, default: false
+  t.boolean :decided_status, null: false, default: false
 
   t.timestamps
 end

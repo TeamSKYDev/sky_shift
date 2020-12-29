@@ -5,17 +5,18 @@
 <%= link_to "カレンダーへ", draft_shifts_path(start_date: params[:start_date]) %>
 <br><br>
 
-<%= link_to "提出済みシフト", show_submitted_shifts_path(start_date: @date.to_date), remote: true, class: "btn btn-outline-dark" %>
+
 <div id="show-submitted-shift-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
-<br>
-
-<div class = "row" style = "margin-top: 50px;">
+<div class = "row">
 	<div class = "col">
 		<h5>シフト下書き</h5>
 	</div>
-	<div class = "col">
+	<div class = "col text-right">
 		<%= link_to "シフトの確定", decided_shifts_path(start_date: @date), method: :post, data: { confirm: 'シフトを確定しますか？' }, class: "btn btn-primary" %>
+	</div>
+	<div class = "col">
+		<%= link_to "提出済みシフト", show_submitted_shifts_path(start_date: @date.to_date), remote: true, class: "btn btn-outline-dark" %>
 	</div>
 </div>
 <br>

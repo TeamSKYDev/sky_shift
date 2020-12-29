@@ -4,6 +4,7 @@ class DecidedShiftsController < ApplicationController
 	def create
 		@date = params[:start_date]
 		draft_shifts = DraftShift.where(store_id: current_user.selected_store, start_time: @date.in_time_zone.all_day)
+		submitted_shifts = SubmittedShift.where(store_id: current_user.selected_store, start_time: @date.in_time_zone.all_day)
 		draft_shifts.each do |draft_shift|
 			decided_shift = DecidedShift.new
 			decided_shift.user_id = draft_shift.user_id
@@ -12,6 +13,8 @@ class DecidedShiftsController < ApplicationController
 			decided_shift.end_time = draft_shift.end_time
 			if decided_shift.save!
 				flash[:notice] = "シフト決定"
+				submitted_shift = submitted_shifts.find_by(user_id: draft_shift.user_id)
+				submitted_shift.update(decided_status: true)
 			else
 				flash[:error] = "error"
 			end
@@ -24,6 +27,7 @@ class DecidedShiftsController < ApplicationController
 	def create_all
 		period = params[:start_date].in_time_zone.all_month
 		draft_shifts = DraftShift.where(store_id: current_user.selected_store, start_time: period)
+		submitted_shifts = SubmittedShift.where(store_id: current_user.selected_store, start_time: period)
 		draft_shifts.each do |draft_shift|
 			decided_shift = DecidedShift.new
 			decided_shift.user_id = draft_shift.user_id
@@ -32,6 +36,8 @@ class DecidedShiftsController < ApplicationController
 			decided_shift.end_time = draft_shift.end_time
 			if decided_shift.save!
 				flash[:notice] = "一括シフト決定を行いました"
+				submitted_shift = submitted_shifts.find_by(user_id: draft_shift.user_id, start_time: draft_shift.start_time.in_time_zone.all_day)
+				submitted_shift.update(decided_status: true)
 			else
 				flash[:error] = "error"
 			end

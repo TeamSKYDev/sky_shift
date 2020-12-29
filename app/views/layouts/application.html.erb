@@ -25,10 +25,20 @@
               <div class = "row">
                 <div class = "col-2">
                 </div>
-                <div class = "col-8">
-                  <h1 class = "title dor">
-                    <%= @title %>
-                  </h1>
+                <div class = "col-8 text-center">
+                  <div class="btn-group">
+                    <b style = "font-size: 1.5rem;"><%= @title + "　" %></b>
+                    <% if request.fullpath == "/home" %>
+                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split store_select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <% @stores.each do |store| %>
+                          <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch, class: "dropdown-item" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
 <!--                   <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </a>
