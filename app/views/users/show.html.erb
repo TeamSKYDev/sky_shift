@@ -1,34 +1,70 @@
-<h3>ユーザー詳細ページ</h3>
-
 <%= render "devise/shared/error_messages", resource: @user %>
 
 <%= form_for(@user) do |f| %>
-	<lavel>姓</lavel>
-	<%= f.text_field :last_name %>
+	<div class = "row">
+		<div class = "col-1">
+			<lavel>姓</lavel>
+		</div>
+		<div class = "col-3">
+			<%= f.text_field :last_name %>
+		</div>
+		<div class = "col-1">
+			<lavel>名</lavel>
+		</div>
+		<div class = "col-3">
+			<%= f.text_field :first_name %>
+		</div>
+		<div class = "col"></div>
+	</div>
 
-	<lavel>名</lavel>
-	<%= f.text_field :first_name %><br>
 
-	<lavel>セイ</lavel>
-	<%= f.text_field :kana_last_name %>
+	<div class = "row">
+		<div class = "col-1">
+			<lavel>セイ</lavel>
+		</div>
+		<div class = "col-3">
+			<%= f.text_field :kana_last_name %>
+		</div>
+		<div class = "col-1">
+			<lavel>ナ</lavel>
+		</div>
+		<div class = "col-3">
+			<%= f.text_field :kana_first_name %>
+		</div>
+		<div class = "col"></div>
+	</div>
 
-	<lavel>カナ</lavel>
-	<%= f.text_field :kana_first_name %><br>
+	<div class = "row">
+		<div class = "col-1">
+			<label>性別</label>
+		</div>
+		<div class = "col-3">
+			<%= f.radio_button :sex, :men %><lavel>男</lavel>
+			<%= f.radio_button :sex, :women %><lavel>女</lavel>
+			<%= f.radio_button :sex, :other %><lavel>その他</lavel>
+		</div>
+		<div class = "col"></div>
+	</div>
 
-	<label>性別</label>
-	<%= f.radio_button :sex, :men %><lavel>男</lavel>
-	<%= f.radio_button :sex, :women %><lavel>女</lavel>
-	<%= f.radio_button :sex, :other %><lavel>その他</lavel><br>
-
-	<label>電話番号</label>
-	<%= f.text_field :telephone_number %><br>
+	<div class = "row">
+		<div class = "col-1">
+			<label>電話番号</label>
+		</div>
+		<div class = "col-3">
+			<%= f.text_field :telephone_number %>
+		</div>
+		<div class = "col"></div>
+	</div>
 
 	<!-- <label>プロフィール画像</label> -->
 	<%# f.attachment_field :profile_image %><br>
 
-	<%= f.submit "保存する", class: "btn btn-success" %>
-
-
+	<div class = "row">
+		<div class = "col">
+			<%= f.submit "保存する", class: "btn btn-success" %>
+		</div>
+		<div class = "col">
+			<%= link_to "退会する", unsubscribe_path, method: :patch, data: { confirm: '本当に退会しますか？' }, class: "btn btn-outline-danger" %>
+		</div>
+	</div>
 <% end %>
-<br>
-<%= link_to "退会する", unsubscribe_path, method: :patch, data: { confirm: '本当に退会しますか？' }, class: "btn btn-info" %>

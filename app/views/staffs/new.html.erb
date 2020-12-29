@@ -7,12 +7,14 @@
 	<% end %>
 <% end %>
 
-
-
-<% if @store.present? %>
-	<label>店舗名：　</label><%= @store.name %>
-	<%= form_for(@store, url: staffs_path, method: :post) do |f| %>
-		<%= f.hidden_field :uuid %>
-		<%= f.submit "申請を送る" %>
+<% if params[:search].present? %>
+	<% if @store.present? %>
+		<label>店舗名：　</label><%= @store.name %>
+		<%= form_for(@store, url: staffs_path, method: :post) do |f| %>
+			<%= f.hidden_field :uuid %>
+			<%= f.submit "申請を送る" %>
+		<% end %>
+	<% else %>
+		<%= "店舗がありません" %>
 	<% end %>
 <% end %>

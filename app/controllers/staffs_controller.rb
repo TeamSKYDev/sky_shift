@@ -22,9 +22,9 @@ class StaffsController < ApplicationController
 
 		if related_staff.present?
 			if related_staff.is_permitted_status == true
-				flash[:notice] = "already permit"
+				flash[:notice] = "既に許可されています"
 			else
-				flash[:notice] = "already send. wait for staff authentication."
+				flash[:notice] = "申請中です。店舗管理者にお問い合わせください"
 			end
 			redirect_to new_staff_path
 		else
@@ -32,10 +32,10 @@ class StaffsController < ApplicationController
 			staff.user_id = current_user.id
 			staff.store_id = store.id
 			if staff.save
-				flash[:notice] = "send staff authentication"
+				flash[:notice] = "申請しました"
 				redirect_to home_path
 			else
-				flash[:notice] = "false"
+				flash[:error] = "error"
 				redirect_to new_staff_path
 			end
 		end

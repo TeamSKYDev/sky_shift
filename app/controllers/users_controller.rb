@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 		if @user.id != current_user.id
 			redirect_to home_path
 		end
+		@title = "登録情報"
 	end
 
 	def update
