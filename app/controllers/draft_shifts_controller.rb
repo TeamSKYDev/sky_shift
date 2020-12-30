@@ -22,7 +22,7 @@ class DraftShiftsController < ApplicationController
 		end
 
 		@draft_shifts = DraftShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
-		@decided_shifts = current_user.decided_shifts.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
+		@decided_shifts = DecidedShift.where(store_id: @store.id, start_time: @date.in_time_zone.all_month)
 
 		if @draft_shifts.present?
 			@draft_shifts.each do |draft_shift|

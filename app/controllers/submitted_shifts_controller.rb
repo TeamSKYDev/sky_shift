@@ -11,6 +11,7 @@ class SubmittedShiftsController < ApplicationController
 			@store = Store.find(current_user.selected_store)
 		end
 		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_day).order(:start_time)
+		@decided_shifts = DecidedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_day).order(:start_time)
 	end
 
 	def create

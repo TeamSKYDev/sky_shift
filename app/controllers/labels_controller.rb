@@ -74,7 +74,7 @@ class LabelsController < ApplicationController
 		@label = Label.find(params[:id])
 		label_name = @label.name
 		@label.destroy
-		flash[:notice] = "destroy label [#{label_name}]"
+		flash[:notice] = "[#{label_name}]を削除しました"
 		redirect_to labels_path
 	end
 

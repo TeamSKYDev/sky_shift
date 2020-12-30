@@ -110,6 +110,14 @@
                         <% end %>
                     </tr>
                 <% end %>
+                <% decided_shifts.each do |shift| %>
+                    <tr class = "text-danger">
+                        <td><%= shift.start_time.strftime("%H:%M") %></td>
+                        <td>~</td>
+                        <td><%= shift.end_time.strftime("%H:%M") %></td>
+                        <td>確定</td>
+                    </tr>
+                <% end %>
             </table>
         <% end %>
     </div>

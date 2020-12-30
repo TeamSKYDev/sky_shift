@@ -4,11 +4,9 @@
 	<% end %>
 
 	<div class = "row">
-		<div class = "col-3">
-			店舗名
-		</div>
 		<div class = "col">
-			<%= @store.name %> <%= link_to "", edit_store_path(@store), remote: true, class: "fas fa-edit text-secondary", style: "font-size: 1.0rem;"%>
+			<p>店舗名：　
+			<%= @store.name %> <%= link_to "", edit_store_path(@store), remote: true, class: "fas fa-edit text-secondary", style: "font-size: 1.0rem;"%></p>
 		</div>
 
 	</div>

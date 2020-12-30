@@ -55,8 +55,8 @@
 
         	<% if stores.count == 0 %>
         	<% elsif stores.count == 1 %>
-        		<% store = stores.first %>
-        		<%= link_to "シフトを作成する", new_submitted_shift_path(start_date: date, store_id: store.id), remote: true %>
+        		<% store = stores.first! %>
+        		<%= link_to "シフトを作成する", new_submitted_shift_path(start_date: date, store: {:store_id => store.id}), remote: true %>
         	<% else %>
         		<%= link_to "シフトを作成する", submittion_destination_path(start_date: date), remote: true %>
         	<% end %>

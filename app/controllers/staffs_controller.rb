@@ -2,7 +2,7 @@ class StaffsController < ApplicationController
 	before_action :check_selected_store, except: [:new, :create]
 
 	def new
-		@title = "店舗連携申請"
+		@title = "新規連携申請"
 		@staff = Staff.new
 		@store = Store.search(params[:search])
 	end

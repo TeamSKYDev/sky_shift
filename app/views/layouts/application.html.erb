@@ -28,7 +28,7 @@
                 <div class = "col-8 text-center">
                   <div class="btn-group">
                     <h1 class = "title"><%= @title %>
-                      <% if request.fullpath == "/home" %>
+                      <% if request.fullpath.match("/home").present? %>
                         <%= "　" %>
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split store_select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <span class="sr-only">Toggle Dropdown</span>
@@ -57,18 +57,17 @@
             </div>
 
             <div class="sidebar-header">
-                <h3><%= link_to "SKY SCHEDULE", home_path %></h3>
+                <h3><%= link_to "  SKY Shift", home_path, class: "fab fa-cloudsmith" %></h3>
             </div>
 
             <ul class="list-unstyled components">
-              <li><%= link_to "登録情報", user_path(current_user.id) %></li>
-              <li><%= link_to "新規店舗連携申請", new_staff_path %></li>
-              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-              
+              <li><%= link_to "  登録情報", user_path(current_user.id), class: "fas fa-user" %></li>
+              <li><%= link_to "  新規連携申請", new_staff_path, class: "fas fa-paper-plane" %></li>
+              <li><%= link_to "  ログアウト", destroy_user_session_path, method: :delete, class: "fas fa-sign-out-alt" %></li>
             </ul>
 
           <ul class="list-unstyled components" id="stores">
-              <li><%= link_to "private", change_selected_store_path, method: :patch %></li>
+              <li><%= link_to " private", change_selected_store_path, method: :patch, class: "fas fa-home" %></li>
               <% @stores.each do |store| %>
                 <li>
                     <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch %>

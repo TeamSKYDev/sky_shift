@@ -13,7 +13,7 @@
 		<h5>シフト下書き</h5>
 	</div>
 	<div class = "col text-right">
-		<%= link_to "シフトの確定", decided_shifts_path(start_date: @date), method: :post, data: { confirm: 'シフトを確定しますか？' }, class: "btn btn-primary" %>
+		<%= link_to "シフトの確定", decided_shifts_path(start_date: @date), method: :post, data: { confirm: 'シフトを確定しますか？' }, class: "btn btn-success" %>
 	</div>
 	<div class = "col">
 		<%= link_to "提出済みシフト", show_submitted_shifts_path(start_date: @date.to_date), remote: true, class: "btn btn-outline-dark" %>

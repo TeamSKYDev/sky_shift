@@ -1,6 +1,6 @@
 <% if @access_staff.is_admin == true %>
 	<%= form_for(@staff) do |f| %>
-		<div class = "row">
+		<div class = "row mt-1">
 			<div class = "col-3">
 				<label>店舗名</label>
 			</div>
@@ -10,7 +10,7 @@
 			<div class = "col"></div>
 		</div>
 
-		<div class = "row">
+		<div class = "row mt-1">
 			<div class = "col-3">
 				<label>名前</label>
 			</div>
@@ -20,7 +20,7 @@
 			<div class = "col"></div>
 		</div>
 
-		<div class = "row">
+		<div class = "row mt-1">
 			<div class = "col-3">
 				<lavel>電話番号</lavel>
 			</div>
@@ -31,7 +31,7 @@
 		</div>
 
 
-		<div class = "row">
+		<div class = "row mt-1">
 			<div class = "col-3">
 				<label>時給</label>
 			</div>
@@ -41,7 +41,7 @@
 			<div class = "col"></div>
 		</div>
 
-		<div class = "row">
+		<div class = "row mt-1">
 			<div class = "col-3">
 				<label>交通費</label>
 			</div>
@@ -58,7 +58,7 @@
 			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
 
 		<% else %>
-			<div class = "row">
+			<div class = "row mt-1">
 				<div class = "col-3">
 					<label>管理者権限</label>
 				</div>
@@ -73,7 +73,7 @@
 				<div class = "col"></div>
 			</div>
 
-			<div class = "row">
+			<div class = "row mt-1">
 				<div class = "col-3">
 					<label>タスク</label>
 				</div>
@@ -83,7 +83,7 @@
 				<div class = "col"></div>
 			</div>
 
-			<div class = "row">
+			<div class = "row mt-1">
 				<div class = "col-3">
 					<label>ラベル</label>
 				</div>
@@ -91,7 +91,7 @@
 					<div class = "first_display">
 						<% if @label_position.present? %>
 							<% @label_position.each do |label| %>
-								<span class="badge badge-info" style = "font-size: 1rem; margin-bottom: 10px;">
+								<span class="badge badge-info mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %><br>
@@ -99,7 +99,7 @@
 
 						<% if @label_ability.present? %>
 						    <% @label_ability.each do |label| %>
-								<span class="badge badge-info" style = "font-size: 1rem; margin-bottom: 10px;">
+								<span class="badge badge-info mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %><br>
@@ -107,7 +107,7 @@
 
 						<% if @label_rank.present? %>
 						    <% @label_rank.each do |label| %>
-								<span class="badge badge-info" style = "font-size: 1rem; margin-bottom: 10px;">
+								<span class="badge badge-info mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %><br>
@@ -115,20 +115,20 @@
 
 					    <% if @label_other.present? %>
 						    <% @label_other.each do |label| %>
-								<span class="badge badge-info" style = "font-size: 1rem; margin-bottom: 10px;">
+								<span class="badge badge-info mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %>
 					    <% end %>
 					</div>
-					<button class = "change_display_buttun first_display" type="button">編集</button>
+					<button class = "change_display_buttun first_display btn btn-outline-secondary" type="button">編集</button>
 				</div>
 			</div>
 
 
 
-		    <div class = "second_display" style = "display: none;">
-		    	<span class="badge badge-success">ポジション</span><br>
+		    <div class = "second_display mt-1" style = "display: none;">
+		    	<span class="badge badge-success mb-1">ポジション</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_position, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
 	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
@@ -137,7 +137,7 @@
 	    			<% end %>
 	    		<% end %><br>
 
-	    		<span class="badge badge-success">能力</span><br>
+	    		<span class="badge badge-success mb-1">能力</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_ability, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
 	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
@@ -146,7 +146,7 @@
 	    			<% end %>
 	    		<% end %><br>
 
-	    		<span class="badge badge-success">ランク</span><br>
+	    		<span class="badge badge-success mb-1">ランク</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_rank, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
 	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
@@ -155,7 +155,7 @@
 	    			<% end %>
 	    		<% end %><br>
 
-	    		<span class="badge badge-success">その他</span><br>
+	    		<span class="badge badge-success mb-1">その他</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_other, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
 	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
@@ -167,8 +167,8 @@
 		    <br>
 
 
-			<%= f.submit "保存する", class: "btn btn-info" %>
-			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
+			<%= f.submit "保存する", class: "btn btn-primary" %>
+			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-outline-danger" %>
 		<% end %>
 		<br><br>
 		<%= link_to "スタッフ一覧へ", staffs_path %>

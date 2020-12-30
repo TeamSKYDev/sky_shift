@@ -18,7 +18,7 @@
 
 <div class = "row">
 	<div class = "col">
-		<%= link_to "一括でシフト確定", create_all_decided_shifts_path(start_date: params[:start_date]), method: :post,  data: { confirm: 'シフトを一括確定してよろしいですか？' }, class: "btn btn-primary" %>
+		<%= link_to "一括でシフト確定", create_all_decided_shifts_path(start_date: params[:start_date]), method: :post,  data: { confirm: 'シフトを一括確定してよろしいですか？' }, class: "btn btn-success" %>
 	</div>
 	<div class = "col text-right">
 		<%= link_to "シフト登録へ戻る", home_path(start_date: params[:start_date]) %>

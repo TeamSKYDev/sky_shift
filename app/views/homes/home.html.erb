@@ -32,13 +32,10 @@
     <div class = "col text-right">
         <% if Staff.find_by(user_id: current_user.id, store_id: current_user.selected_store, is_admin: true) %>
             <%= link_to "シフト管理", draft_shifts_path(start_date: @date), class: "btn btn-info" %>
-        <% end %>
-    </div>
-    <div class = "col text-right">
-        <% if @store.present? %>
             <%= link_to "店舗設定", store_path(@store.id), class: "btn btn-outline-secondary" %>
         <% end %>
     </div>
+
 </div>
 
 

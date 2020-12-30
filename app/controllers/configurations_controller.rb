@@ -3,7 +3,7 @@ class ConfigurationsController < ApplicationController
 	def index
 		@title = "設定"
 
-		admin_store_ids = Staff.where(user_id: current_user.id).pluck(:store_id)
+		admin_store_ids = Staff.where(user_id: current_user.id, is_admin: true).pluck(:store_id)
 		@admin_stores = Store.where(id: [admin_store_ids])
 	end
 
