@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
 
   get "store/:id/unrelated_staff" => "stores#unrelated_staff", as: "unrelated_staff"
+  get "store/:id/uuid" => "stores#uuid", as: "uuid"
   resources :stores, except: [:index]
 
 
@@ -61,4 +62,7 @@ Rails.application.routes.draw do
   get "user_tasks/past_assign" => "user_tasks#past_assign", as: "past_assign_user_tasks"
   get "user_tasks/staff_assign" => "user_tasks#staff_assign", as: "staff_assign_task"
   resources :user_tasks, only: [:new, :index, :create, :show, :update, :destroy]
+
+  get "config_store" => "configurations#config_store", as: "config_store"
+  resources :configurations, only: [:index]
 end

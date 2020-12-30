@@ -4,11 +4,13 @@
 
 	<div id="schedule-<%= date %>">
 		<% if events.present? %>
-	    	<% if events.select {|a| a[:shedule_status] == false}.present? %>
-	        	<lavbel style = "color: red;">未確定</lavbel>
-	        <% elsif events.select {|a| a[:shedule_status] == true}.present? %>
-	        	 <lavbel>確定</lavbel>
-	        <% end %>
+			<div class= "event">
+		    	<% if events.select {|a| a[:shedule_status] == false}.present? %>
+		        	<lavbel style = "color: red;">未確定</lavbel>
+		        <% elsif events.select {|a| a[:shedule_status] == true}.present? %>
+		        	 <lavbel>確定</lavbel>
+		        <% end %>
+		    </div>
 	    <% end %>
     </div>
 

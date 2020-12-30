@@ -18,6 +18,7 @@
 //= require activestorage
 //= require turbolinks
 //= require toastr
+//= require clipboard
 //= require_tree .
 
 document.addEventListener("turbolinks:load", function () {
@@ -62,6 +63,11 @@ $(document).on('turbolinks:load', function() {
     if(location.pathname != "/") {
         $('.nav-item a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
     }
+});
+
+$(document).ready(function(){
+  var clipboard = new Clipboard('.clipboard-btn');
+  console.log(clipboard);
 });
 
 

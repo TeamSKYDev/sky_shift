@@ -27,8 +27,9 @@
                 </div>
                 <div class = "col-8 text-center">
                   <div class="btn-group">
-                    <b style = "font-size: 1.5rem;"><%= @title + "　" %></b>
+                    <b style = "font-size: 1.5rem;"><%= @title %></b>
                     <% if request.fullpath == "/home" %>
+                      <%= "　" %>
                       <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split store_select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
@@ -40,17 +41,6 @@
                         <% end %>
                       </div>
                     <% end %>
-                  </div>
-<!--                   <div class="dropdown">
-                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <%#= link_to "private", change_selected_store_path, method: :patch, class: "dropdown-item" %>
-                      <%# @stores.each do |store| %>
-                        <%#= link_to store.name, change_selected_store_path(id: store.id), method: :patch, class: "dropdown-item" %>
-                      <% #end %>
-                    </div> -->
                   </div>
                 </div>
                 <div class = "col-2"></div>
@@ -71,8 +61,9 @@
 
             <ul class="list-unstyled components">
               <li><%= link_to "登録情報", user_path(current_user.id) %></li>
-              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
               <li><%= link_to "新規店舗連携申請", new_staff_path %></li>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+              
             </ul>
 
           <ul class="list-unstyled components" id="stores">
@@ -139,7 +130,9 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>
+            <%= link_to(configurations_path, class: "nav-link", id: "task-link") do %>
+              <i class="fas fa-cogs"></i>
+            <% end %>
           </li>
         </ul>
       </footer>

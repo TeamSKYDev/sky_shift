@@ -10,10 +10,10 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 		if @user.update(user_params)
-			flash[:notice] = "update user information successfully"
+			flash[:notice] = "更新しました"
 			redirect_to home_path
 		else
-			flash[:notice] = "update false"
+			flash[:error] = "error"
 			render "show"
 		end
 
@@ -22,10 +22,10 @@ class UsersController < ApplicationController
 	def select_store
 		@user = User.find(params[:id])
 		if @user.update(selected_store: params[:user][:selected_store])
-			flash[:notice] = "update user information successfully"
+			flash[:notice] = "更新しました"
 			redirect_to home_path
 		else
-			flash[:notice] = "update false"
+			flash[:error] = "error"
 			redirect_to home_path
 		end
 	end
@@ -34,10 +34,10 @@ class UsersController < ApplicationController
 		my_data = User.find(current_user.id)
 	    if my_data.update(is_unsubscribe: true)
 	        reset_session
-	        flash[:notice] = "unsubscribe succesfully"
+	        flash[:notice] = "退会処理を行いました"
 	        redirect_to root_path
 	    else
-	      flash[:notice] = "cannot unsubscribe"
+	      flash[:error] = "error"
 	      redirect_to home_path
 	    end
 	end

@@ -1,7 +1,7 @@
 <%= render "devise/shared/error_messages", resource: @user %>
 
 <%= form_for(@user) do |f| %>
-	<div class = "row">
+	<div class = "row mt-2">
 		<div class = "col-1">
 			<lavel>姓</lavel>
 		</div>
@@ -18,7 +18,7 @@
 	</div>
 
 
-	<div class = "row">
+	<div class = "row mt-2">
 		<div class = "col-1">
 			<lavel>セイ</lavel>
 		</div>
@@ -34,7 +34,7 @@
 		<div class = "col"></div>
 	</div>
 
-	<div class = "row">
+	<div class = "row mt-2">
 		<div class = "col-1">
 			<label>性別</label>
 		</div>
@@ -46,7 +46,7 @@
 		<div class = "col"></div>
 	</div>
 
-	<div class = "row">
+	<div class = "row mt-2">
 		<div class = "col-1">
 			<label>電話番号</label>
 		</div>
@@ -54,6 +54,22 @@
 			<%= f.text_field :telephone_number %>
 		</div>
 		<div class = "col"></div>
+	</div>
+
+	<div class = "row mt-2">
+		<div class = "col-1">
+			<label>所属</label>
+		</div>
+		<div class = "col">
+			<% @stores.each do |store| %>
+				<%= store.name %>
+				<% if store.staffs.find_by(user_id: @user, is_admin: true).present? %>
+					<%= "　　(管理者)" %>
+				<% end %>
+				<br>
+			<% end %>
+		</div>
+
 	</div>
 
 	<!-- <label>プロフィール画像</label> -->

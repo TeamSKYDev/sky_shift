@@ -81,3 +81,5 @@ gem 'rails-i18n', '~> 5.1'
 gem 'enum_help'
 
 gem 'toastr-rails'
+
+gem 'clipboard-rails'

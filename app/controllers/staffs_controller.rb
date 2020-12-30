@@ -85,9 +85,9 @@ class StaffsController < ApplicationController
 		end
 
 		if staff.update(staff_params)
-			flash[:notice] = "update successfully"
+			flash[:notice] = "更新しました"
 		else
-			flash[:notice] = "connot update"
+			flash[:error] = "error"
 		end
 		redirect_to staff_path(staff.id)
 	end

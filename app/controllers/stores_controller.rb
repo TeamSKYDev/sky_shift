@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-    before_action :check_selected_store, except: [:new, :create, :show]
+    before_action :check_selected_store, except: [:new, :create]
 
 
     def new
@@ -87,6 +87,10 @@ class StoresController < ApplicationController
     def unrelated_staff
         @store = Store.find(params[:id])
         @unrelated_staffs = Staff.where(is_permitted_status: false, store_id: @store.id)
+    end
+
+    def uuid
+        @store = Store.find(params[:id])
     end
 
     private
