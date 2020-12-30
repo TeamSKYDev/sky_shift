@@ -27,20 +27,21 @@
                 </div>
                 <div class = "col-8 text-center">
                   <div class="btn-group">
-                    <b style = "font-size: 1.5rem;"><%= @title %></b>
-                    <% if request.fullpath == "/home" %>
-                      <%= "　" %>
-                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split store_select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <div class="dropdown-menu">
-                        <%= link_to "private", change_selected_store_path, method: :patch, class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <% @stores.each do |store| %>
-                          <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch, class: "dropdown-item" %>
-                        <% end %>
-                      </div>
-                    <% end %>
+                    <h1 class = "title"><%= @title %>
+                      <% if request.fullpath == "/home" %>
+                        <%= "　" %>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split store_select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                          <%= link_to "private", change_selected_store_path, method: :patch, class: "dropdown-item" %>
+                          <div class="dropdown-divider"></div>
+                          <% @stores.each do |store| %>
+                            <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch, class: "dropdown-item" %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </h1>
                   </div>
                 </div>
                 <div class = "col-2"></div>
