@@ -44,7 +44,7 @@ $(document).on('turbolinks:load', function() {
     $(function () {
         $(".change_display_buttun").on('click', function () {
             $('.second_display').fadeIn(700);
-            $('.first_display').css('display', 'none');
+            $('.first_display').fadeOut(700);
         });
     });
 });
@@ -52,7 +52,7 @@ $(document).on('turbolinks:load', function() {
 $(document).on('turbolinks:load', function() {
     $(function () {
         $(".return_display_buttun").on('click', function () {
-            $('.second_display').css('display', 'none');
+            $('.second_display').fadeOut(700);
             $('.first_display').fadeIn(700);
         });
     });
