@@ -8,7 +8,6 @@ create_table "staffs", force: :cascade do |t|
 	t.boolean :is_unsubscribe, null: false, default: false
 	t.boolean :is_permitted_status, null: false, default: false
 
-	t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
-  	t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+	t.timestamps
 end
 
