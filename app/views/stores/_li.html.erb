@@ -1,5 +1,5 @@
 <li>
-    <%= link_to store_path(store) do %>
+    <%= link_to change_selected_store_path(id: store.id), method: :patch do %>
         <%= store.name %>
     <%end%>
 </li>

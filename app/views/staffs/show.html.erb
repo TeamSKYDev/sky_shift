@@ -1,10 +1,55 @@
 <% if @access_staff.is_admin == true %>
 	<%= form_for(@staff) do |f| %>
-		<label>店舗名</label><%= @staff.store.name %><br>
-		<label>名前</label><%= @staff.user.last_name + @staff.user.first_name %><br>
-		<lavel>電話番号</lavel><%= @staff.user.telephone_number %><br>
-		<label>時給</label><%= f.text_field :hourly_pay %>円<br>
-		<label>交通費</label><%= f.text_field :transportation_expenses %>円<br>
+		<div class = "row mt-1">
+			<div class = "col-3">
+				<label>店舗名</label>
+			</div>
+			<div class = "col-3">
+				<%= @staff.store.name %>
+			</div>
+			<div class = "col"></div>
+		</div>
+
+		<div class = "row mt-1">
+			<div class = "col-3">
+				<label>名前</label>
+			</div>
+			<div class = "col-3">
+				<%= @staff.user.last_name + "　" + @staff.user.first_name %>
+			</div>
+			<div class = "col"></div>
+		</div>
+
+		<div class = "row mt-1">
+			<div class = "col-3">
+				<lavel>電話番号</lavel>
+			</div>
+			<div class = "col-3">
+				<%= @staff.user.telephone_number %>
+			</div>
+			<div class = "col"></div>
+		</div>
+
+
+		<div class = "row mt-1">
+			<div class = "col-3">
+				<label>時給</label>
+			</div>
+			<div class = "col-7">
+				<%= f.text_field :hourly_pay %>円
+			</div>
+			<div class = "col"></div>
+		</div>
+
+		<div class = "row mt-1">
+			<div class = "col-3">
+				<label>交通費</label>
+			</div>
+			<div class = "col-7">
+				<%= f.text_field :transportation_expenses %>円
+			</div>
+			<div class = "col"></div>
+		</div>
 
 
 		<% if @staff.is_permitted_status != true %>
@@ -13,94 +58,124 @@
 			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
 
 		<% else %>
-			<% if @staff.user.id == @staff.store.creator_id %>
-				<p>店舗作成者</p>
-			<% else %>
-				<label>管理者権限</label>
-				<%= f.radio_button :is_admin, true %><lavel>あり</lavel>
-				<%= f.radio_button :is_admin, false %><label>なし</label><br>
-			<% end %>
-
-			<%= link_to "タスクを割り当てる", staff_assign_task_path(id: @staff.id), remote: true %>
-			<br>
-
-			<br>
-			<label>ラベル</label>
-			<button class = "change_display_buttun first_display" type="button">編集</button>
-			<div class = "first_display">
-				<% @label_position.each do |label| %>
-					<span style = "color: white; background-color: green; margin: 10px;">
-						<%= label.name %>
-					</span>
-			    <% end %><br>
-
-			    <% @label_ability.each do |label| %>
-					<span style = "color: white; background-color: red; margin: 10px;">
-						<%= label.name %>
-					</span>
-			    <% end %><br>
-
-			    <% @label_rank.each do |label| %>
-					<span style = "color: white; background-color: skyblue; margin: 10px;">
-						<%= label.name %>
-					</span>
-			    <% end %><br>
-
-			    <% @label_other.each do |label| %>
-					<span style = "color: white; background-color: gray; margin: 10px;">
-						<%= label.name %>
-					</span>
-			    <% end %>
+			<div class = "row mt-1">
+				<div class = "col-3">
+					<label>管理者権限</label>
+				</div>
+				<div class = "col-7">
+					<% if @staff.user.id == @staff.store.creator_id %>
+						<p>店舗作成者</p>
+					<% else %>
+						<%= f.radio_button :is_admin, true %><lavel>あり</lavel>
+						<%= f.radio_button :is_admin, false %><label>なし</label>
+					<% end %>
+				</div>
+				<div class = "col"></div>
 			</div>
-		    <div class = "second_display" style = "display: none;">
-		    	<label style = "color: green;">position</label><br>
+
+			<div class = "row mt-1">
+				<div class = "col-3">
+					<label>タスク</label>
+				</div>
+				<div class = "col-7">
+					<%= link_to "割り当て", staff_assign_task_path(id: @staff.id), remote: true %>
+				</div>
+				<div class = "col"></div>
+			</div>
+
+			<div class = "row mt-1">
+				<div class = "col-3">
+					<label>ラベル</label>
+				</div>
+				<div class = "col">
+					<div class = "first_display">
+						<% if @label_position.present? %>
+							<% @label_position.each do |label| %>
+								<span class="badge badge-info mb-1 staff-label">
+									<%= label.name %>
+								</span>
+						    <% end %><br>
+						<% end %>
+
+						<% if @label_ability.present? %>
+						    <% @label_ability.each do |label| %>
+								<span class="badge badge-info mb-1 staff-label">
+									<%= label.name %>
+								</span>
+						    <% end %><br>
+						<% end %>
+
+						<% if @label_rank.present? %>
+						    <% @label_rank.each do |label| %>
+								<span class="badge badge-info mb-1 staff-label">
+									<%= label.name %>
+								</span>
+						    <% end %><br>
+						<% end %>
+
+					    <% if @label_other.present? %>
+						    <% @label_other.each do |label| %>
+								<span class="badge badge-info mb-1 staff-label">
+									<%= label.name %>
+								</span>
+						    <% end %>
+					    <% end %>
+					</div>
+					<button class = "change_display_buttun first_display btn btn-outline-secondary" type="button">編集</button>
+				</div>
+			</div>
+
+
+
+		    <div class = "second_display mt-1" style = "display: none;">
+		    	<span class="badge badge-success mb-1">ポジション</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_position, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
-	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
 	    			<% else %>
-	    				<%= b.label { b.check_box + b.text } %>
+	    				<%= b.label { b.check_box + b.text + "　"} %>
 	    			<% end %>
 	    		<% end %><br>
 
-	    		<label style = "color: red;">ability</label><br>
+	    		<span class="badge badge-success mb-1">能力</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_ability, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
-	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
 	    			<% else %>
-	    				<%= b.label { b.check_box + b.text } %>
+	    				<%= b.label { b.check_box + b.text + "　"} %>
 	    			<% end %>
 	    		<% end %><br>
 
-	    		<label style = "color: skyblue;">rank</label><br>
+	    		<span class="badge badge-success mb-1">ランク</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_rank, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
-	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
 	    			<% else %>
-	    				<%= b.label { b.check_box + b.text } %>
+	    				<%= b.label { b.check_box + b.text + "　"} %>
 	    			<% end %>
 	    		<% end %><br>
 
-	    		 <label style = "color: gray;">other</label><br>
+	    		<span class="badge badge-success mb-1">その他</span><br>
 	    		<%= f.collection_check_boxes :select_label_ids, @all_labels_other, :id, :name, {include_hidden: false} do |b| %>
 	    			<% if StaffLabel.find_by(staff_id: @staff.id, label_id: b.value).present? %>
-	    				<%= b.label { b.check_box(checked: true) + b.text } %>
+	    				<%= b.label { b.check_box(checked: true) + b.text + "　"} %>
 	    			<% else %>
-	    				<%= b.label { b.check_box + b.text } %>
+	    				<%= b.label { b.check_box + b.text + "　"} %>
 	    			<% end %>
 	    		<% end %><br>
 		    </div>
 		    <br>
 
 
-			<%= f.submit "保存する", class: "btn btn-info" %>
-			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-danger" %>
+			<%= f.submit "保存する", class: "btn btn-primary" %>
+			<%= link_to "退会させる", staff_unsubscribe_path(params: {id: @staff.id}), method: :patch, data: { confirm: '本当に退会させますか？' }, class: "btn btn-outline-danger" %>
 		<% end %>
 		<br><br>
-		<%= link_to "戻る", :back %>
+		<%= link_to "スタッフ一覧へ", staffs_path %>
 	<% end %>
 	<div id = "staff_assign_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <% else %>
-	<p>あなたはただのスタッフ</p>
+	<p>編集権限がありません。</p>
 	<label>店舗名</label><%= @staff.store.name %><br>
 	<label>名前</label><%= @staff.user.last_name + @staff.user.first_name %><br>
 	<lavel>電話番号</lavel><%= @staff.user.telephone_number %><br>

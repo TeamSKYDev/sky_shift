@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get "home/select_schedule" => "homes#select_schedule", as: "select_schedule"
   get "home/submittion_destination" => "homes#submittion_destination", as: "submittion_destination"
   patch "home/change_store" => "homes#change_selected_store", as: "change_selected_store"
+
+  get "store/:id/unrelated_staff" => "stores#unrelated_staff", as: "unrelated_staff"
+  get "store/:id/uuid" => "stores#uuid", as: "uuid"
   resources :stores, except: [:index]
 
 
@@ -37,7 +40,7 @@ Rails.application.routes.draw do
   patch "staffs/authentication" => "staffs/authentication_admin", as: "authentication"
   patch "staffs/unsubscribe" => "staffs/unsubscribe", as: "staff_unsubscribe"
   patch "staffs/permit" => "staffs/permit", as: "staff_permit"
-  resources :staffs, only: [:new, :index, :create, :show, :update]
+  resources :staffs, only: [:new, :index, :create, :show, :update, :destroy]
 
   resources :labels
 
@@ -59,4 +62,7 @@ Rails.application.routes.draw do
   get "user_tasks/past_assign" => "user_tasks#past_assign", as: "past_assign_user_tasks"
   get "user_tasks/staff_assign" => "user_tasks#staff_assign", as: "staff_assign_task"
   resources :user_tasks, only: [:new, :index, :create, :show, :update, :destroy]
+
+  get "config_store" => "configurations#config_store", as: "config_store"
+  resources :configurations, only: [:index]
 end

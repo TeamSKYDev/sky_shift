@@ -2,7 +2,7 @@ class StaffsController < ApplicationController
 	before_action :check_selected_store, except: [:new, :create]
 
 	def new
-		@title = "店舗連携申請"
+		@title = "新規連携申請"
 		@staff = Staff.new
 		@store = Store.search(params[:search])
 	end
@@ -13,7 +13,7 @@ class StaffsController < ApplicationController
 		if staff.is_admin == false
 			redirect_to home_path
 		end
-		@staffs = Staff.where(store_id: current_user.selected_store, is_unsubscribe: false)
+		@staffs = Staff.where(store_id: current_user.selected_store, is_unsubscribe: false, is_permitted_status: true)
 	end
 
 	def create
@@ -22,9 +22,14 @@ class StaffsController < ApplicationController
 
 		if related_staff.present?
 			if related_staff.is_permitted_status == true
-				flash[:notice] = "already permit"
+				if related_staff.is_unsubscribe == false
+					flash[:notice] = "既に許可されています"
+				else
+					related_staff.update(is_permitted_status: false)
+					flash[:notice] = "申請しました"
+				end
 			else
-				flash[:notice] = "already send. wait for staff authentication."
+				flash[:notice] = "申請中です。店舗管理者にお問い合わせください"
 			end
 			redirect_to new_staff_path
 		else
@@ -32,10 +37,10 @@ class StaffsController < ApplicationController
 			staff.user_id = current_user.id
 			staff.store_id = store.id
 			if staff.save
-				flash[:notice] = "send staff authentication"
+				flash[:notice] = "申請しました"
 				redirect_to home_path
 			else
-				flash[:notice] = "false"
+				flash[:error] = "error"
 				redirect_to new_staff_path
 			end
 		end
@@ -80,20 +85,29 @@ class StaffsController < ApplicationController
 		end
 
 		if staff.update(staff_params)
-			flash[:notice] = "update successfully"
+			flash[:notice] = "更新しました"
 		else
-			flash[:notice] = "connot update"
+			flash[:error] = "error"
 		end
 		redirect_to staff_path(staff.id)
+	end
+
+	def destroy
+		staff = Staff.find(params[:id])
+		store = staff.store
+		staff.destroy
+		flash[:notice] = "申請を削除しました"
+		redirect_to store_path(store)
 	end
 
 	def permit
 		staff = Staff.find(params[:id])
 		# 連携状態にしてる
-		staff.update(is_permitted_status: true)
+		staff.update(is_permitted_status: true, is_unsubscribe: false)
+
 		# 連携状態になったら管理者とのトークルームを作る。
 		staffs = Staff.where(store_id: staff.store_id, is_admin: true)
-		
+
 		staffs.each do |s|
 			room = staff.user.rooms.build(store_id: staff.store_id, user_ids: ["",s.user.id,staff.user.id])
 			room.save
@@ -114,7 +128,7 @@ class StaffsController < ApplicationController
 
 	def unsubscribe
 		staff = Staff.find(params[:id])
-		staff.update(is_unsubscribe: true)
+		staff.update(is_unsubscribe: true, is_admin: false)
 		redirect_to staffs_path
 	end
 

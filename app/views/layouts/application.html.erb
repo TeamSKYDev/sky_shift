@@ -25,8 +25,24 @@
               <div class = "row">
                 <div class = "col-2">
                 </div>
-                <div class = "col-8">
-                  <h1 class = "title"><%= @title %></h1>
+                <div class = "col-8 text-center">
+                  <div class="btn-group">
+                    <h1 class = "title"><%= @title %>
+                      <% if request.fullpath.match("/home").present? %>
+                        <%= "　" %>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split store_select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                          <%= link_to "private", change_selected_store_path, method: :patch, class: "dropdown-item" %>
+                          <div class="dropdown-divider"></div>
+                          <% @stores.each do |store| %>
+                            <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch, class: "dropdown-item" %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </h1>
+                  </div>
                 </div>
                 <div class = "col-2"></div>
               </div>
@@ -41,16 +57,17 @@
             </div>
 
             <div class="sidebar-header">
-                <h3><%= link_to "SKY SCHEDULE", home_path %></h3>
+                <h3><%= link_to "  SKY Shift", home_path, class: "fab fa-cloudsmith" %></h3>
             </div>
 
             <ul class="list-unstyled components">
-              <li><%= link_to "登録情報", user_path(current_user.id) %></li>
-              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-              <li><%= link_to "新規店舗連携申請", new_staff_path %></li>
+              <li><%= link_to "  登録情報", user_path(current_user.id), class: "fas fa-user" %></li>
+              <li><%= link_to "  新規連携申請", new_staff_path, class: "fas fa-paper-plane" %></li>
+              <li><%= link_to "  ログアウト", destroy_user_session_path, method: :delete, class: "fas fa-sign-out-alt" %></li>
             </ul>
 
           <ul class="list-unstyled components" id="stores">
+              <li><%= link_to " private", change_selected_store_path, method: :patch, class: "fas fa-home" %></li>
               <% @stores.each do |store| %>
                 <li>
                     <%= link_to store.name, change_selected_store_path(id: store.id), method: :patch %>
@@ -73,6 +90,11 @@
             <% if flash[:notice] %>
               <script type="text/javascript">
                   toastr.success("<%= flash[:notice] %>")
+              </script>
+            <% end %>
+            <% if flash[:error] %>
+              <script type="text/javascript">
+                  toastr.error("<%= flash[:error] %>")
               </script>
             <% end %>
 
@@ -108,7 +130,9 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href=""><i class="fas fa-cogs"></i></a>
+            <%= link_to(configurations_path, class: "nav-link", id: "task-link") do %>
+              <i class="fas fa-cogs"></i>
+            <% end %>
           </li>
         </ul>
       </footer>

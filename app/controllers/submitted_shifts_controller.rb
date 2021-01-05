@@ -1,14 +1,17 @@
 class SubmittedShiftsController < ApplicationController
 	def new
 		@submitted_shift = SubmittedShift.new
-		@submitted_shift.start_time = params[:start_date]
-		@submitted_shift.end_time = params[:start_date]
+		date = Date.parse(params[:start_date])
+		@submitted_shift.start_time = (date + Time.parse("09:00").seconds_since_midnight.seconds).to_datetime
+        @submitted_shift.end_time = (date + Time.parse("10:00").seconds_since_midnight.seconds).to_datetime
+
 		if params[:store].present?
 			@store =  Store.find(params[:store][:store_id])
 		else
 			@store = Store.find(current_user.selected_store)
 		end
 		@submitted_shifts = SubmittedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_day).order(:start_time)
+		@decided_shifts = DecidedShift.where(user_id: current_user.id, store_id: @store.id, start_time: params[:start_date].in_time_zone.all_day).order(:start_time)
 	end
 
 	def create
@@ -41,7 +44,10 @@ class SubmittedShiftsController < ApplicationController
 	def update
 		@submitted_shift = SubmittedShift.find(params[:id])
 		@submitted_shift.user_id = current_user.id
-		@submitted_shift.update(submitted_shift_params)
+		if @submitted_shift.update(submitted_shift_params)
+		else
+			flash[:error] = "error"
+		end
 		redirect_to home_path
 	end
 
@@ -72,6 +78,7 @@ class SubmittedShiftsController < ApplicationController
 			end
 
 		end
+		flash[:notice] = "提出しました"
 		redirect_to request.referer
 	end
 
