@@ -85,3 +85,7 @@ gem 'toastr-rails'
 gem 'clipboard-rails'
 
 gem "dotenv-rails"
+
+group :production do
+  gem 'listen'
+end
