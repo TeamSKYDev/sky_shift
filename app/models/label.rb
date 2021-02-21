@@ -15,11 +15,11 @@ class Label < ApplicationRecord
 	end
 
 
-	def self.search(search, store_id)
+	def self.search(label_name, store_id)
 		if search
-			Label.where(store_id: store_id).where(['name LIKE ?', "%#{search}%"])
+			Label.where(store_id: store_id).where(['name LIKE ?', "%#{label_name}%"])
 		else
-			Label.where(store_id: store_id)
+			Label.where(store_id: store_id).all
 		end
 	end
 end
