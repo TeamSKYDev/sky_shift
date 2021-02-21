@@ -36,6 +36,7 @@ class PrivateSchedulesController < ApplicationController
         @private_schedule = current_user.private_schedules.build(private_shcedule_params)
 
         respond_to do |format|
+
             if current_user.save
                 # format.html { redirect_to staffs_path, notice: 'User was successfully created.' }
                 # format.json { render :edit, status: :created, location: @staff }
