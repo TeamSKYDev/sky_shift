@@ -16,7 +16,7 @@ class Label < ApplicationRecord
 
 
 	def self.search(label_name, store_id)
-		if search
+		if label_name.present?
 			Label.where(store_id: store_id).where(['name LIKE ?', "%#{label_name}%"])
 		else
 			Label.where(store_id: store_id).all
