@@ -12,7 +12,11 @@
         </div>
         <% end %>
         <div class="modal-header">
-            <h5 class="modal-title">新規プライベートスケジュール登録</h5>
+            <% if private_schedule.id.blank? %>
+                <h5 class="modal-title">新規プライベートスケジュール登録</h5>
+            <% else %>
+                <h5 class="modal-title">プライベートスケジュール編集</h5>
+            <% end %>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
