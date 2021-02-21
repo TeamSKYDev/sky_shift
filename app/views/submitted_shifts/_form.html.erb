@@ -94,16 +94,31 @@
     <div class = "schedule">
         <% if submitted_shifts.present? %>
             <p><%= shift.start_time.strftime("%m月%d日") %>登録シフト</p>
-            <% submitted_shifts.each do |shift| %>
-                <% if shift.status == true %>
-                    <%= shift.start_time.strftime("%H:%M") + "~" + shift.end_time.strftime("%H:%M") %>
-                    <label>　提出済み</label><br>
-                <% else %>
-                    <%= link_to edit_submitted_shift_path(shift), remote: true do %>
-                        <%= shift.start_time.strftime("%H:%M") + "~" + shift.end_time.strftime("%H:%M") %><label>　未提出</label><br>
-                    <% end %>
+            <table class = "table table-borderless">
+                <% submitted_shifts.each do |shift| %>
+                    <tr>
+                        <% if shift.status == true %>
+                            <td><%= shift.start_time.strftime("%H:%M") %></td>
+                            <td>~</td>
+                            <td><%= shift.end_time.strftime("%H:%M") %></td>
+                            <td>提出済み</td>
+                        <% else %>
+                            <td><%= shift.start_time.strftime("%H:%M") %>
+                            <td>~</td>
+                            <td><%= shift.end_time.strftime("%H:%M") %></td>
+                            <td><%= link_to "未提出", edit_submitted_shift_path(shift), remote: true %></td>
+                        <% end %>
+                    </tr>
                 <% end %>
-            <% end %>
+                <% decided_shifts.each do |shift| %>
+                    <tr class = "text-danger">
+                        <td><%= shift.start_time.strftime("%H:%M") %></td>
+                        <td>~</td>
+                        <td><%= shift.end_time.strftime("%H:%M") %></td>
+                        <td>確定</td>
+                    </tr>
+                <% end %>
+            </table>
         <% end %>
     </div>
 

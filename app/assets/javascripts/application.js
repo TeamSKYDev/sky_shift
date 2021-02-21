@@ -18,6 +18,7 @@
 //= require activestorage
 //= require turbolinks
 //= require toastr
+//= require clipboard
 //= require_tree .
 
 document.addEventListener("turbolinks:load", function () {
@@ -44,7 +45,7 @@ $(document).on('turbolinks:load', function() {
     $(function () {
         $(".change_display_buttun").on('click', function () {
             $('.second_display').fadeIn(700);
-            $('.first_display').css('display', 'none');
+            $('.first_display').fadeOut(700);
         });
     });
 });
@@ -52,7 +53,7 @@ $(document).on('turbolinks:load', function() {
 $(document).on('turbolinks:load', function() {
     $(function () {
         $(".return_display_buttun").on('click', function () {
-            $('.second_display').css('display', 'none');
+            $('.second_display').fadeOut(700);
             $('.first_display').fadeIn(700);
         });
     });
@@ -61,7 +62,13 @@ $(document).on('turbolinks:load', function() {
 $(document).on('turbolinks:load', function() {
     if(location.pathname != "/") {
         $('.nav-item a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-    } 
+    }
 });
+
+$(document).ready(function(){
+  var clipboard = new Clipboard('.clipboard-btn');
+  console.log(clipboard);
+});
+
 
 

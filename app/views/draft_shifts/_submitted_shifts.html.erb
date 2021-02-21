@@ -19,12 +19,14 @@
 							<th>開始時間</th>
 							<th>~</th>
 							<th>終了時間</th>
+							<th>提出日</th>
 						</tr>
 					</thead>
 					<tbody>
 						<% if submitted_shifts.blank? %>
 							<tr>
 								<td>提出なし</td>
+								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -38,6 +40,7 @@
 									<td><%= submitted_shift.start_time.strftime("%H:%M") %></td>
 									<td>~</td>
 									<td><%= submitted_shift.end_time.strftime("%H:%M") %></td>
+									<td><%= submitted_shift.updated_at.strftime("%m/%d") %></td>
 								</tr>
 							<% end %>
 						<% end %>

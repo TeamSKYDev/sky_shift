@@ -1,0 +1,25 @@
+<div class = "row">
+	<div class = "col-5">
+		<div class = "personal-config">
+			<h2>個人設定</h2>
+			<div class="btn-group-vertical w-100" role="group" aria-label="Basic example">
+			  <%= link_to "  登録情報", user_path(current_user.id), class: "btn btn-outline-secondary fas fa-user" %>
+			  <%= link_to " 新規連携申請", new_staff_path, class: "btn btn-outline-secondary fas fa-paper-plane" %>
+			  <%= link_to "  ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary fas fa-sign-out-alt" %>
+			</div>
+		</div>
+		<br>
+
+		<% if @admin_stores.present? %>
+			<div class = "store-config mt-xl-5">
+				<h2>店舗設定</h2>
+				<div class="btn-group-vertical w-100" role="group" aria-label="Basic example">
+					<% @admin_stores.each do |store| %>
+						<%= link_to store.name, config_store_path(id: store.id), class: "btn btn-outline-secondary font-weight-bold" %>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div class = "col"></div>
+</div>

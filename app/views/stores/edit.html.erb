@@ -1,6 +1,0 @@
-<h3>店舗編集ページ</h3>
-<%= form_for(@store) do |f| %>
-	<label>店舗名</label><%= f.text_field :name %>
-	<%= f.submit "保存する", class: "btn btn-info" %>
-<% end %>
-	<%= link_to "店舗を削除する", store_path(@store), method: :delete, "data-confirm" => "復元することができなくなります。削除してよろしいですか？", class: "btn btn-danger" %>

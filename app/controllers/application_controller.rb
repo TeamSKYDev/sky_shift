@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
 	def get_stores
 		if current_user.present?
-		 	store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true).pluck(:store_id)
+		 	store_ids = Staff.where(user_id: current_user.id, is_permitted_status: true, is_unsubscribe: false).pluck(:store_id)
 		 	@stores = Store.where(id: [store_ids])
 
 		end
@@ -36,10 +36,8 @@ class ApplicationController < ActionController::Base
 	end
 
 	def set_temporary_table
-		#ActiveRecord::Base.connection.drop_table('events')
 		ActiveRecord::Base.connection.create_table('events', temporary: true, force: true) do |t|
-		  # t.integer :user_id    , null: true
-		  t.string :title, null: false
+		  t.string :title
 		  t.text   :content
 		  t.datetime  :start_time, null: false
 		  t.datetime  :end_time

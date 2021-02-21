@@ -1,4 +1,5 @@
-create_table :staffs do |t|
+create_table "staffs", force: :cascade do |t|
+
 	t.integer :user_id, null: false
 	t.integer :store_id, null: false
 	t.boolean :is_admin, null: false, default: false
@@ -7,7 +8,6 @@ create_table :staffs do |t|
 	t.boolean :is_unsubscribe, null: false, default: false
 	t.boolean :is_permitted_status, null: false, default: false
 
-
-
+	t.timestamps
 end
 

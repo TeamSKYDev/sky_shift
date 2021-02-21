@@ -290,6 +290,9 @@ main {
         white-space: nowrap;
      }
 }
+.staff-label {
+    font-size: 1rem;
+}
 
 
 /*footer*/
@@ -317,8 +320,12 @@ main {
         height: 40px;
     }
     .title {
-        margin-top: 5px;
+        margin-top: 0;
         font-size: 100%;
+
+        button {
+            font-size: 50%;
+        }
     }
 
     #sidebarCollapse {
@@ -376,5 +383,8 @@ main {
     }
     .task {
         height: 500px;
+    }
+    .staff-label {
+        font-size: 0.8rem;
     }
 }

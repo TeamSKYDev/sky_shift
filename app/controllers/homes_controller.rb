@@ -15,7 +15,6 @@ class HomesController < ApplicationController
 			@date = Date.current.beginning_of_month
 		end
 
-
 		if current_user.selected_store.blank?
 			@title = "private"
 			@private_schedules = current_user.private_schedules
@@ -45,15 +44,17 @@ class HomesController < ApplicationController
 
 		if @submitted_shifts.present?
 			@submitted_shifts.each do |submitted_shift|
-				@event = Event.new
-				if submitted_shift.status == true
-					@event.title = "提" + submitted_shift.store.name
-				else
-					@event.title = "未"+ submitted_shift.store.name
+				if submitted_shift.decided_status == false
+					@event = Event.new
+					if submitted_shift.status == true
+						@event.title = "提" + submitted_shift.store.name
+					else
+						@event.title = "未"+ submitted_shift.store.name
+					end
+					@event.start_time = submitted_shift.start_time
+					@event.end_time = submitted_shift.end_time
+					@event.save!
 				end
-				@event.start_time = submitted_shift.start_time
-				@event.end_time = submitted_shift.end_time
-				@event.save!
 			end
 		end
 

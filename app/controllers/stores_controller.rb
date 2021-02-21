@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-    before_action :check_selected_store, except: [:new, :create, :show]
+    before_action :check_selected_store, except: [:new, :create]
 
 
     def new
@@ -47,13 +47,12 @@ class StoresController < ApplicationController
 
     def show
         @store = Store.find(params[:id])
-        @title = @store.name + "詳細"
+        @title = "店舗各種設定"
         @staff = Staff.find_by(user_id: current_user.id, store_id: @store.id)
         if @staff.blank? || @staff.is_permitted_status == false
             redirect_to home_path
         end
         @unrelated_staffs = Staff.where(is_permitted_status: false, store_id: @store.id)
-        
     end
 
     def edit
@@ -70,9 +69,9 @@ class StoresController < ApplicationController
     def update
         @store = Store.find(params[:id])
         if @store.update(store_params)
-            flash[:notice] = "store update successfully"
+            flash[:notice] = "更新しました"
         else
-            flash[:notice] = "cannot update"
+            flash[:error] = "error"
         end
         redirect_to store_path(@store)
     end
@@ -81,8 +80,17 @@ class StoresController < ApplicationController
         @store = Store.find(params[:id])
         store_name = @store.name
         @store.destroy
-        flash[:notice] = "dastroy #{store_name}"
+        flash[:notice] = "#{store_name}を削除しました"
         redirect_to home_path
+    end
+
+    def unrelated_staff
+        @store = Store.find(params[:id])
+        @unrelated_staffs = Staff.where(is_permitted_status: false, store_id: @store.id)
+    end
+
+    def uuid
+        @store = Store.find(params[:id])
     end
 
     private

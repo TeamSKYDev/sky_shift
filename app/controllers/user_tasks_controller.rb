@@ -48,13 +48,13 @@ class UserTasksController < ApplicationController
 				end
 
 				if UserTask.find_by(user_id: @user_task.user_id, task_id: @user_task.task_id, is_completed: false).present?
-					flash[:notice] = "重複がありました"
+					flash[:error] = "重複がありました"
 				else
 					@user_task.save
 				end
 			end
 		else
-			flash[:notice] = "✓を入れてください"
+			flash[:error] = "✓を入れてください"
 		end
 		redirect_to request.referer
 	end

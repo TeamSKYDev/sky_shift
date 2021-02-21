@@ -1,38 +1,38 @@
 
-
-<table class = "table">
-	<tr>
-		<th>名前</th>
-		<th>電話番号</th>
-		<th>連携状態</th>
-		<th>管理者権限</th>
-	</tr>
-	<% @staffs.each do |staff| %>
+<div class = "task">
+	<table class = "table" style="table-layout:fixed;">
 		<tr>
-			<td>
-				<%= link_to staff_path(staff.id) do %>
-					<%= staff.user.last_name + staff.user.first_name %>
-				<% end %>
-			</td>
-			<td><%= staff.user.telephone_number %></td>
-			<td>
-				<% if staff.is_permitted_status == true %>
-					連携済み
-				<% else %>
-					未連携
-				<% end %>
-			</td>
-			<td>
-				<% if staff.is_admin == true %>
-					管理者
-				<% else %>
-					なし
-				<% end %>
-			</td>
+			<th style = "width: 25%;">名前</th>
+			<th style = "width: 25%;">電話番号</th>
+			<th style = "width: 25%;">連携状態</th>
+			<th style = "width: 25%;">管理者権限</th>
 		</tr>
-	
-	<% end %>
-</table>
+		<% @staffs.each do |staff| %>
+			<tr>
+				<td>
+					<%= link_to staff_path(staff.id) do %>
+						<%= staff.user.last_name + staff.user.first_name %>
+					<% end %>
+				</td>
+				<td><%= staff.user.telephone_number %></td>
+				<td>
+					<% if staff.is_permitted_status == true %>
+						連携済み
+					<% else %>
+						未連携
+					<% end %>
+				</td>
+				<td>
+					<% if staff.is_admin == true %>
+						管理者
+					<% else %>
+						なし
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 
-<br><br>
-<%= link_to "戻る", store_path(current_user.selected_store) %>
+<br>
+<%= link_to "店舗設定へ", store_path(current_user.selected_store) %>
