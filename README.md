@@ -100,3 +100,9 @@ https://qiita.com/NaokiIshimura/items/c8db09daefff5c11dadf
 
 ## チートシート
 https://hackerthemes.com/bootstrap-cheatsheet/#!
+
+# herokuへのデプロイ
+```
+heroku run 'bundle exec ridgepole -c config/database.for.heroku.ridgepole.yml -E production -f db/Schemafile --apply'
+git push heroku develop:master
+```
