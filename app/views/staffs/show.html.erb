@@ -91,7 +91,7 @@
 					<div class = "first_display">
 						<% if @label_position.present? %>
 							<% @label_position.each do |label| %>
-								<span class="badge badge-info mb-1 staff-label">
+								<span class="badge badge-primary mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %><br>
@@ -107,7 +107,7 @@
 
 						<% if @label_rank.present? %>
 						    <% @label_rank.each do |label| %>
-								<span class="badge badge-info mb-1 staff-label">
+								<span class="badge badge-success mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %><br>
@@ -115,7 +115,7 @@
 
 					    <% if @label_other.present? %>
 						    <% @label_other.each do |label| %>
-								<span class="badge badge-info mb-1 staff-label">
+								<span class="badge badge-secondary mb-1 staff-label">
 									<%= label.name %>
 								</span>
 						    <% end %>
