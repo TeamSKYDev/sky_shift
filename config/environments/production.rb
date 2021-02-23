@@ -105,6 +105,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   ActionCable.server.config.disable_request_forgery_protection = true
-  onfig.action_cable.url = 'ws://http://skyshift.work//cable'
+  config.action_cable.url = 'ws://http://skyshift.work//cable'
   config.action_cable.allowed_request_origins = [ 'http://http://skyshift.work/' ] 
 end
