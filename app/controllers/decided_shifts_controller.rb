@@ -14,7 +14,9 @@ class DecidedShiftsController < ApplicationController
 			if decided_shift.save!
 				flash[:notice] = "シフト決定"
 				submitted_shift = submitted_shifts.find_by(user_id: draft_shift.user_id)
-				submitted_shift.update(decided_status: true)
+				if submitted_shift.present?
+					submitted_shift.update(decided_status: true)
+				end
 			else
 				flash[:error] = "error"
 			end

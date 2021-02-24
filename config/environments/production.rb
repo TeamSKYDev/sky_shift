@@ -65,7 +65,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = {host: 'http://18.180.225.163' }
+  config.action_mailer.default_url_options = {host: 'http://skyshift.work' }
   config.action_mailer.raise_delivery_errors = false #この一文も追記!!
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

@@ -11,7 +11,7 @@
 #
 default: &default
   adapter: mysql2
-  socket: /tmp/mysql.sock
+
 
 
 
